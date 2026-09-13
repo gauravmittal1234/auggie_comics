@@ -1,0 +1,37 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Character sheet</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Bangers&display=swap">
+<style>body{margin:0;background:#eee;font-family:sans-serif}.g{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;padding:8px}.c{background:#fff;border:2px solid #222}.c svg{display:block;width:100%;height:auto}.c p{margin:2px 6px;font-size:12px}</style></head>
+<body><div class="g" id="g"></div>
+<script src="../js/art-core.js"></script><script src="../js/art-bg.js"></script><script src="../js/art-chars.js"></script><script src="../js/art-props.js"></script><script src="../js/art-dogs.js"></script><script src="../js/art-animals2.js"></script><script src="../js/art-wild.js"></script><script src="../js/art-people.js"></script><script src="../js/comic.js"></script>
+<script>
+const K = window.AuggiComic, q = new URLSearchParams(location.search);
+const sets = {
+  auggie: ['stand','sit','lie','run','cheer','wave','point','think','blast','fly'].map((p,i)=>({bg:'park',chars:[{id:'auggie',pose:p,mood:['happy','happy','sleepy','laugh','laugh','happy','determined','surprised','angry','determined'][i],x:.5,cape:p==='fly'}],cap:{en:p,hi:'क'}})),
+  moods: ['happy','sad','surprised','angry','scared','determined','laugh','sleepy'].map(m=>({bg:'home',chars:[{id:'auggie',pose:'sit',mood:m,x:.5}],cap:{en:m,hi:'क'}})),
+  family: ['papa','mumma','mausi','nanu','dadi'].flatMap(id=>[{bg:'home',chars:[{id,pose:'stand',mood:'happy',x:.5}],cap:{en:id,hi:'क'}},{bg:'beach',chars:[{id,pose:'wave',mood:'laugh',x:.35},{id:'auggie',pose:'sit',mood:'happy',x:.72,flip:true}],cap:{en:id+' + auggie',hi:'क'}}]),
+  people: ['papa','mumma','mausi','nanu','dadi','gadbad','rohan','anaya','kabir','zoya','mira'].map(id=>({bg:'home',chars:[{id,pose:'stand',mood:'happy',x:.5}],cap:{en:id,hi:'क'}})),
+  pmoods: ['happy','laugh','sad','surprised','angry','scared','determined','sleepy'].map((m,i)=>({bg:'home',chars:[{id:['mumma','papa','nanu','dadi','mausi','papa','mumma','nanu'][i],pose:'stand',mood:m,x:.5,s:1.6}],cap:{en:m,hi:'क'}})),
+  pposes: ['stand','wave','run','fly','cheer','point','think','sit','blast'].map((p,i)=>({bg:'park',chars:[{id:['papa','mumma','mausi','nanu','dadi','papa','mumma','nanu','mausi'][i],pose:p,mood:'happy',x:.5}],cap:{en:p,hi:'क'}})),
+  dogs: ['moti','pinku','snowy','chiku'].flatMap(id=>[{bg:'city',chars:[{id,pose:'stand',mood:'happy',x:.5}],cap:{en:id,hi:'क'}},{bg:'park',chars:[{id,pose:'sit',mood:'surprised',x:.5}],cap:{en:id+' sit',hi:'क'}}]),
+  animals: ['camel','goat','duck','pigeon','squirrel','crab','tiger','deer','horse'].map(id=>({bg:'farm',chars:[{id,pose:'stand',mood:'happy',x:.5}],cap:{en:id,hi:'क'}})),
+  places: ['station','airport','wedding','cafe','vet'].map(bg=>({bg,chars:[{id:'auggie',pose:'stand',mood:'happy',x:.35},{id:'mumma',pose:'wave',mood:'happy',x:.75,flip:true}],cap:{en:bg,hi:'क'}})).concat(['bone','bowl','frisbee','suitcase','camera','laptop','plane','train','tent','campfire','sandcastle','rickshaw','hotair'].map((p,i,a)=>null).filter(Boolean)),
+  props: [['bone','bowl','frisbee','suitcase'],['camera','laptop','plane','train'],['tent','campfire','sandcastle','rickshaw'],['hotair','bone','bowl','camera']].map(ps=>({bg:'garden',chars:[],props:ps.map((id,i)=>({id,x:.14+i*.24})),cap:{en:ps.join(' '),hi:'क'}})),
+};
+document.fonts.load('600 20px "Baloo 2"').then(()=>{
+  // close-up mode: ?raw=papa,mumma&pose=stand&moods=happy,sad&vb=-60,-240,120,130
+  if (q.get('raw')) {
+    const A = window.AuggiArt, ids = q.get('raw').split(','), moods = (q.get('moods') || 'happy').split(','), poses = (q.get('pose') || 'stand').split(',');
+    const vb = (q.get('vb') || '-130,-250,260,260').split(',').join(' ');
+    const cells = [];
+    ids.forEach(id => poses.forEach(p => moods.forEach(m => { const ch = A.char(id, p, m, {}); cells.push(`<div class="c"><svg viewBox="${vb}" xmlns="http://www.w3.org/2000/svg" style="background:#F4EFE4">${A.defs()}<line x1="-400" y1="0" x2="400" y2="0" stroke="#bbb"/>${ch.svg}<circle cx="${ch.anchor[0]}" cy="${ch.anchor[1]}" r="2" fill="red"/></svg><p>${id} ${p} ${m}</p></div>`); })));
+    document.getElementById('g').innerHTML = cells.join('');
+    if (q.get('cols')) document.getElementById('g').style.gridTemplateColumns = `repeat(${q.get('cols')},1fr)`;
+    return;
+  }
+  let list = sets[q.get('s')||'auggie'];
+  if (q.get('only')) { const keep = q.get('only').split(',').map(Number); list = list.filter((_, i) => keep.includes(i)); }
+  if (q.get('cols')) document.getElementById('g').style.gridTemplateColumns = `repeat(${q.get('cols')},1fr)`;
+  document.getElementById('g').innerHTML = list.map((sc,i)=>`<div class="c">${K.scene(sc,400,300,{seed:i+3})}</div>`).join('');
+});
+</script></body></html>
