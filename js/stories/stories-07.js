@@ -297,7 +297,7 @@ window.AUGGIE_COMICS.push(
       { bg: "forest", chars: [ { id: "auggie", pose: "think", mood: "determined", x: 0.3 }, { id: "moti", pose: "sit", mood: "sad", x: 0.72, flip: true, s: 0.6 } ], props: [ { id: "bush", x: 0.85 } ],
         cap: { en: "Then Auggie's ears hear a tiny sound. Eee... eee...", hi: "तभी ऑगी के कानों में एक पतली-सी आवाज़ आई। कूँ... कूँ..." },
         say: [ { who: 1, en: "I'm Golu. I lost my Amma!", hi: "मैं गोलू हूँ। मेरी अम्मा खो गई!" },
-               { who: 0, en: "Don't cry, little one. My nose finds everything!", hi: "रो मत, छोटू। मेरी नाक सब ढूँढ लेती है!" } ] },
+               { who: 0, en: "Don't cry, little one. My nose finds everything!", hi: "रो मत, नन्हे। मेरी नाक सब ढूँढ लेती है!" } ] },
       { bg: "forest", chars: [ { id: "moti", pose: "sit", mood: "sad", x: 0.15, s: 0.6 }, { id: "auggie", pose: "stand", mood: "determined", x: 0.45 }, { id: "papa", pose: "stand", mood: "happy", x: 0.78, flip: true } ],
         say: [ { who: 1, en: "Papa, hold my leash tight. We're finding his Amma!", hi: "पापा, पट्टा कसकर पकड़ो। हम इसकी अम्मा ढूँढेंगे!" },
                { who: 2, en: "Team Sniff, go! I'll carry Golu.", hi: "टीम सूँघू, चलो! गोलू को मैं गोदी में ले लेता हूँ।" } ] },

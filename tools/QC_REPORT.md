@@ -73,3 +73,16 @@ Automated layout check across every page of every comic in both languages:
 54. Characters running together were turned to face each other (to "talk"), so one looked like it was running backwards. When everyone in a panel is running or leaping, they now run the same way (`tools/fix-runners.js`).
 55. Stargazing stories had to use the outer-space background, so a village night sky showed a ringed planet. New `nightsky` background (Milky Way, crescent moon, village rooftops) used for comics 136 and 138.
 56. Carrots are Auggie's running gag, but there was no carrot to draw, so they only existed in the words. New `carrot` prop (and it can float in space scenes).
+57. In three-character panels the middle character always stepped back, even a tiny pug between a Labrador and a person, so its face hid behind a bigger head. Only a similar-height middle character steps back now; a much smaller one stays in front and the row shrinks a little instead.
+58. In panels with a caption, bubbles could only start below the caption's bottom edge across the whole width, so they dropped onto the characters even when the sky beside the caption was empty. Bubbles can now use the top of the panel beside the caption.
+59. The crescent moon on the night sky was a dark disc cut out of a full moon, and it showed against the sky gradient. It is now a true crescent shape.
+60. In text-heavy Hindi panels, the room reserved for words pushed the back-row character down behind the front row (Papa hidden behind Auggie). Back-row characters now stay standing further back and get a little smaller instead.
+61. Comic 130: Auggie called a lost puppy "छोटू" in Hindi. That is a normal word for "little one", but in this series it is Mausi's pet name, so it read like he was talking to Mausi. Changed to "नन्हे". (Found by the new `tools/content-check.js`, which checks family pet names are used by the right person, name spellings, Mumma/Papa house style and mixed scripts.)
+62. Read-aloud kept talking after going back to the Library from a comic. Leaving a comic now stops it.
+63. Search was far too loose: typing "ma" matched every comic with Mumma in it (it searched inside internal character ids). Search now matches a character's real name in either language ("Pinku", "पिंकू", "Papa", "गौरव").
+64. Topic tile counts ignored the age filter (a tile could say 12 while 6 showed). Tiles now show what you would actually get, and topics with none are greyed out.
+65. Every re-filter of the library left the old covers registered with the lazy loader, a slow memory leak. Covers that leave the page are released.
+66. The site had no tab icon, so browsers showed a blank tab and asked for a missing `/favicon.ico` (a 404 on every visit). Added an Auggie paw icon, built into the page so there is no extra file to load.
+67. A Hindi PDF showed the English title in the PDF viewer's title bar. PDF title, summary and keywords now use the language the reader chose.
+68. The reader's page dots were 16px tap targets and the topic chips about 28px, too small for children's fingers (phones recommend 44px). Dots keep their look but get a 40px tap area; chips are taller.
+69. Sharing the site on WhatsApp or social media showed a bare link with no picture or description. Added a share preview: title, description and a 1200×630 image of Super Auggie over Chamakpur (`assets/og-image.png`).

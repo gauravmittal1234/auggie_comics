@@ -37,7 +37,8 @@
       doc.addImage(cv.toDataURL('image/jpeg', 0.92), 'JPEG', (210 - fitW) / 2, (297 - fitH) / 2, fitW, fitH, undefined, 'FAST');
       await new Promise(r => setTimeout(r, 0));
     }
-    doc.setProperties({ title: `Auggie Comics #${comic.id} — ${comic.title.en}`, subject: comic.blurb.en, author: 'Auggie Comics', creator: 'Auggie Comics' });
+    // title and summary in the language the reader chose (a Hindi PDF shows its Hindi title in the PDF viewer)
+    doc.setProperties({ title: `Auggie Comics #${comic.id} — ${comic.title[lang] || comic.title.en}`, subject: comic.blurb[lang] || comic.blurb.en, author: 'Auggie Comics', creator: 'Auggie Comics', keywords: lang === 'hi' ? 'ऑगी, कॉमिक्स, बच्चों की कहानियाँ' : 'Auggie, comics, children' });
     return doc.output('blob');
   }
 

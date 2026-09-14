@@ -225,7 +225,11 @@
       // crowd staging: the middle character steps back (a little smaller, standing further up the floor)
       // and stands in the gap between the other two, so every face stays visible
       const mid = order[Math.floor(order.length / 2)];
-      mid.depth = 1; mid.k *= 0.84;
+      const hOf = d => -d.ch.anchor[1] * d.k;
+      const tallest = Math.max(...order.filter(d => d !== mid).map(hOf));
+      // a much smaller middle character (a pug between a Labrador and a person) stays in front: stepping back
+      // would hide their face behind a bigger head. Then the row just shrinks a little to fit.
+      if (hOf(mid) >= tallest * 0.8) { mid.depth = 1; mid.k *= 0.84; }
     }
     const layers = [order.filter(d => !d.depth), order.filter(d => d.depth)];
     const need = Math.max(...layers.map(Lr => (Lr.length ? spanOf(Lr) : 0)));
@@ -279,7 +283,12 @@
         // lower the character (a comic crop: feet may leave the panel) — and if that is not enough, step back a little
         const crop = A.DOGS && A.DOGS[c.id] ? 0.28 : 0.42;
         const H0 = -ch.anchor[1];
-        if (isFloater || minHead + H0 * k <= h + H0 * k * crop) by += minHead - headY;
+        if (d.depth && !isFloater) {
+          // back-row characters keep standing further back (feet stay raised) and simply get a little smaller,
+          // instead of being pushed down behind the front row
+          const k2 = Math.max(k * 0.6, (by - minHead) / H0);
+          if (k2 < k) { k = k2; d.k = k2; d.l = cx + d.ext.l * k2; d.r = cx + d.ext.r * k2; }
+        } else if (isFloater || minHead + H0 * k <= h + H0 * k * crop) by += minHead - headY;
         else {
           const k2 = Math.max(k * 0.62, (h - minHead) / (H0 * (1 - crop)));
           if (k2 < k) { k = k2; d.k = k2; d.l = cx + d.ext.l * k2; d.r = cx + d.ext.r * k2; }

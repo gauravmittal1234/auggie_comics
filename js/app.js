@@ -124,11 +124,14 @@
   const coverCache = new Map();
   const coverSVG = c => { const key = c.id + S.lang; if (!coverCache.has(key)) coverCache.set(key, K.render(c, 0, S.lang).svg); return coverCache.get(key); };
   const io = 'IntersectionObserver' in window ? new IntersectionObserver(entries => {
-    entries.forEach(e => { if (e.isIntersecting) { const el = e.target; io.unobserve(el); const c = byId.get(+el.dataset.id); if (c) el.innerHTML = coverSVG(c); } });
+    entries.forEach(e => { if (e.isIntersecting) { const el = e.target; io.unobserve(el); watched.delete(el); const c = byId.get(+el.dataset.id); if (c) el.innerHTML = coverSVG(c); } });
   }, { rootMargin: '500px 0px' }) : null;
+  const watched = new Set();
   function lazyCovers(root) {
+    // forget covers from an older grid that are no longer on the page (otherwise every re-filter leaks them)
+    if (io) watched.forEach(el => { if (!el.isConnected) { io.unobserve(el); watched.delete(el); } });
     root.querySelectorAll('.cover[data-id]').forEach((el, i) => {
-      if (!io || i < 8) { const c = byId.get(+el.dataset.id); el.innerHTML = coverSVG(c); } else io.observe(el);
+      if (!io || i < 8) { const c = byId.get(+el.dataset.id); el.innerHTML = coverSVG(c); } else { io.observe(el); watched.add(el); }
     });
   }
 
@@ -161,11 +164,20 @@
   const countsAll = (() => { const m = {}; COMICS.forEach(c => { m[c.category] = (m[c.category] || 0) + 1; }); return m; })();
   const catList = () => Object.keys(CATS).filter(k => countsAll[k]);
 
+  // search by a character's name in either language ("pinku", "पिंकू", "papa", "गौरव"), not by fragments of ids
+  const NAME_INDEX = (() => {
+    const m = new Map();
+    HEROES.forEach(h => [h.id, ...h.name.flatMap(nm => nm.split('·').map(x => x.trim().toLowerCase()))].forEach(nm => { if (nm) m.set(nm, h.id); }));
+    return m;
+  })();
+  const charIdFor = q => { if (NAME_INDEX.has(q)) return NAME_INDEX.get(q); if (q.length >= 3) for (const [nm, id] of NAME_INDEX) if (nm.startsWith(q)) return id; return null; };
+
   function filtered() {
     const q = S.q.trim().toLowerCase();
+    const cid = q ? charIdFor(q) : null;
     return COMICS.filter(c => (S.age === 'all' || c.age === S.age) && (S.cat === 'all' || c.category === S.cat) && (!S.favOnly || S.favs.has(c.id)) &&
       (!q || [c.title.en, c.title.hi, c.blurb.en, c.blurb.hi, catName(c.category), String(c.id)].join(' ').toLowerCase().includes(q) ||
-        c.panels.some(p => (p.chars || []).some(ch => ch.id.includes(q)))));
+        (cid && c.panels.some(p => (p.chars || []).some(ch => ch.id === cid)))));
   }
   const activeFilterCount = () => (S.age !== 'all') + (S.cat !== 'all') + S.favOnly + (S.q.trim() ? 1 : 0);
 
@@ -191,13 +203,14 @@
     if (S.favOnly) act.push({ k: 'fav', label: t('favs') });
     if (S.q.trim()) act.push({ k: 'q', label: `“${S.q.trim()}”` });
     app.querySelector('.active').innerHTML = act.map(a => `<button class="achip" type="button" data-clear="${a.k}">${esc(a.label)}${ICON.x}</button>`).join('') + (act.length > 1 ? `<button class="achip all" type="button" data-clear="all">${esc(t('clear'))}</button>` : '');
-    app.querySelectorAll('.tile').forEach(el => el.setAttribute('aria-pressed', String(el.dataset.cat === S.cat)));
+    app.querySelectorAll('.tile').forEach(el => { const k = el.dataset.cat; el.setAttribute('aria-pressed', String(k === S.cat)); el.querySelector('.tn').textContent = counts[k] || 0; el.disabled = !counts[k]; });
     const grid = app.querySelector('.grid');
     grid.innerHTML = list.length ? list.map(card).join('') : `<li class="empty">${S.favOnly && !S.favs.size ? t('emptyFav') : t('empty')}</li>`;
     lazyCovers(grid);
   }
 
   function home() {
+    stopSpeech(); // leaving a comic stops the read-aloud
     applyChrome('home');
     document.title = 'Auggie Comics';
     const cats = catList();

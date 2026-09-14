@@ -313,3 +313,9 @@ html[lang="hi"] .frow .flabel { letter-spacing: 0; text-transform: none; font-si
   .shelf-tools { flex-basis: 100%; }
   .tiles { grid-template-columns: repeat(auto-fill, minmax(128px, 1fr)); gap: 10px; }
 }
+
+/* Touch targets big enough for small fingers (the visible dot stays small, the tap area is 40px) */
+.dot { position: relative; width: 18px; height: 18px; }
+.dot::after { content: ""; position: absolute; inset: -11px; }
+.chip { padding: 6px 14px; min-height: 36px; }
+.dots { gap: 23px; } /* 18px dot + 23px gap: the 40px tap areas never overlap */
