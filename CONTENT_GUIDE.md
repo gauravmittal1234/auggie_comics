@@ -45,6 +45,8 @@ Narration uses Papa, Mumma, Mausi, Nanu, Dadi. Do not invent surnames, addresses
 | `kichdu` | Kichdu / किचडू — a gloopy mud-monster made of litter; grows when people litter, shrinks when places are cleaned. |
 | `garaj` | Garaj / गरज — a grumpy but lonely storm cloud. |
 | `zibbo` | Zibbo / ज़िब्बो — a tiny green alien, ONLY for dream or space-dream stories ("That night Auggie dreamed…"). |
+| `missji` | Miss Ji / मिस जी — the kind, funny class teacher at Chamakpur Public School (bun, kurta, glasses). Strict about tidiness, secretly loves dogs. |
+| `bhootu` | Bhootu / भूतू — a tiny, shy, FRIENDLY little ghost who lives in the old bungalow at the end of the lane. Never scary: he just wants friends, loves hide-and-seek, is afraid of loud sneezes. Floats (any pose works). |
 | animals | `cat`, `parrot`, `monkey`, `cow`, `rabbit`, `turtle`, `fish`, `frog`, `owl`, `lion`, `penguin`, `dolphin`, `peacock`, `camel`, `goat`, `duck`, `pigeon`, `squirrel`, `crab`, `tiger`, `deer`, `horse` — all can talk. Give them fun names in the text (Mithu the parrot, Gauri the cow…). |
 
 ### Super Auggie
@@ -140,14 +142,20 @@ Rules:
 - `fx` + `action: true` for 1–3 big moments per comic. `fx` text max 10 characters, CAPS, ending "!" (WOOF!, SPLASH!, ZOOM!, SNIFF-SNIFF! is too long → SNIFF!). Hindi: भौं-भौं!, छपाक!, ज़ूम!, धड़ाम!, सूँ-सूँ!, वाह!, टन-टन!, फुर्र!, खर्र!
 - Auggie should be in most panels.
 
+### What the drawing engine does for you (staging)
+- Speakers turn to face each other automatically in standing, sitting, waving, cheering, thinking, pointing and barking poses. Use `flip` for everything else, and use `face: "left"` / `face: "right"` on a character to force a direction.
+- Panels with one or two characters get a closer camera shot (bigger faces). Three characters are staged in two rows: the middle one stands a little further back.
+- People who `sit` in `office`, `cafe`, `classroom`, `kitchen`, `lab`, `station`, `airport`, `wedding` or `vet` sit on a chair; anywhere else they sit cross-legged.
+- Words get room first: characters step down or back so the caption and bubbles fit above their heads, and bubbles are placed to avoid faces and read top-to-bottom. Keep lines short anyway — half-width panels are small.
+
 ### Allowed values (anything else fails validation)
 
-**category** — `home`, `habits`, `feelings`, `family`, `friends`, `dogs`, `animals`, `birds`, `festivals`, `travel`, `nature`, `superhero`, `mystery`, `sports`, `science`, `planet`, `space`, `india`
+**category** — `home`, `habits`, `feelings`, `family`, `friends`, `dogs`, `animals`, `birds`, `festivals`, `travel`, `nature`, `superhero`, `mystery`, `sports`, `science`, `planet`, `space`, `india`, `school`, `holiday`, `forest`, `office`, `ghost`
 
-**bg** — `city`, `citynight`, `park`, `garden`, `forest`, `jungle`, `beach`, `ocean`, `underwater`, `space`, `moon`, `mountains`, `snow`, `desert`, `village`, `farm`, `school`, `home`, `kitchen`, `bedroom`, `lab`, `sky`, `rain`, `volcano`, `cave`, `market`, `festival`, `river`, `playground`, `action`, `station`, `airport`, `wedding`, `cafe`, `vet`
-(`river` also works as a lake; `lab` = Professor Gadbad's workshop; `station` = railway platform with a train; `wedding` = grand lit-up wedding hall; `vet` = animal clinic; `action` = pure comic colour burst for big hero moments.)
+**bg** — `city`, `citynight`, `park`, `garden`, `forest`, `jungle`, `beach`, `ocean`, `underwater`, `space`, `moon`, `mountains`, `snow`, `desert`, `village`, `farm`, `school`, `home`, `kitchen`, `bedroom`, `lab`, `sky`, `rain`, `volcano`, `cave`, `market`, `festival`, `river`, `playground`, `action`, `station`, `airport`, `wedding`, `cafe`, `vet`, `office`, `classroom`, `haunted`, `nightsky`
+(`nightsky` = a real starry night sky seen from Earth, with village rooftops — use it for stargazing, not `space`; `office` = Papa's open-plan office with desks and screens; `classroom` = Miss Ji's classroom with a blackboard; `haunted` = the old bungalow at night, moon and cobwebs, more funny than scary; `river` also works as a lake; `lab` = Professor Gadbad's workshop; `station` = railway platform with a train; `wedding` = grand lit-up wedding hall; `vet` = animal clinic; `action` = pure comic colour burst for big hero moments.)
 
-**chars** — `auggie`, `papa`, `mumma`, `mausi`, `nanu`, `dadi`, `rohan`, `anaya`, `kabir`, `zoya`, `moti`, `pinku`, `snowy`, `chiku`, `bholu`, `gadbad`, `kichdu`, `garaj`, `zibbo`, `cat`, `parrot`, `monkey`, `cow`, `rabbit`, `turtle`, `fish`, `frog`, `owl`, `lion`, `penguin`, `dolphin`, `peacock`, `camel`, `goat`, `duck`, `pigeon`, `squirrel`, `crab`, `tiger`, `deer`, `horse`
+**chars** — `auggie`, `papa`, `mumma`, `mausi`, `nanu`, `dadi`, `rohan`, `anaya`, `kabir`, `zoya`, `moti`, `pinku`, `snowy`, `chiku`, `bholu`, `gadbad`, `kichdu`, `garaj`, `zibbo`, `cat`, `parrot`, `monkey`, `cow`, `rabbit`, `turtle`, `fish`, `frog`, `owl`, `lion`, `penguin`, `dolphin`, `peacock`, `camel`, `goat`, `duck`, `pigeon`, `squirrel`, `crab`, `tiger`, `deer`, `horse`, `missji`, `bhootu`
 
 **pose** — `stand`, `wave`, `run`, `fly`, `cheer`, `point`, `think`, `sit`, `blast`, `lie`
 - For dogs: `wave` = gives a paw, `point` = sniffing forward, `think` = head tilt, `cheer` = happy jump, `blast` = big bark, `fly` = Super Auggie leap (cape), `lie` = lying down (with `sleepy` = asleep).
@@ -155,8 +163,8 @@ Rules:
 
 **mood** — `happy`, `sad`, `surprised`, `angry`, `scared`, `determined`, `laugh`, `sleepy`
 
-**props** — `tree`, `palm`, `bush`, `flower`, `rock`, `house`, `ball`, `kite`, `balloon`, `rocket`, `ufo`, `star`, `planet`, `cake`, `gift`, `book`, `trophy`, `umbrella`, `mango`, `apple`, `banana`, `icecream`, `bicycle`, `car`, `bus`, `boat`, `diya`, `toothbrush`, `dustbin`, `sapling`, `map`, `chest`, `telescope`, `gear`, `clock`, `drum`, `rainbow`, `sun`, `cloud`, `puddle`, `bottle`, `crown`, `bulb`, `shell`, `crystal`, `magnet`, `machine`, `bone`, `bowl`, `frisbee`, `suitcase`, `camera`, `laptop`, `plane`, `train`, `tent`, `campfire`, `sandcastle`, `rickshaw`, `hotair`
-(`bowl` = dog bowl; `machine` = one of Gadbad's gadgets; `hotair` = hot-air balloon; `rickshaw` = auto-rickshaw; `plane` floats in the sky.)
+**props** — `tree`, `palm`, `bush`, `flower`, `rock`, `house`, `ball`, `kite`, `balloon`, `rocket`, `ufo`, `star`, `planet`, `cake`, `gift`, `book`, `trophy`, `umbrella`, `mango`, `apple`, `banana`, `icecream`, `bicycle`, `car`, `bus`, `boat`, `diya`, `toothbrush`, `dustbin`, `sapling`, `map`, `chest`, `telescope`, `gear`, `clock`, `drum`, `rainbow`, `sun`, `cloud`, `puddle`, `bottle`, `crown`, `bulb`, `shell`, `crystal`, `magnet`, `machine`, `bone`, `bowl`, `frisbee`, `suitcase`, `camera`, `laptop`, `plane`, `train`, `tent`, `campfire`, `sandcastle`, `rickshaw`, `hotair`, `carrot`
+(`carrot` = Auggie's favourite snack — give it a `y` to make it float, e.g. in space; `bowl` = dog bowl; `machine` = one of Gadbad's gadgets; `hotair` = hot-air balloon; `rickshaw` = auto-rickshaw; `plane` floats in the sky.)
 
 ---
 

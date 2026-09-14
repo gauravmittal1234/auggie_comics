@@ -8,58 +8,58 @@ window.AUGGIE_COMICS.push(
     id: 45,
     age: "4-6",
     category: "travel",
-    title: { en: "Wind in My Ears!", hi: "कानों में हवा!" },
-    blurb: { en: "Auggie takes his very first car ride and finds the best feeling in the world.", hi: "ऑगी पहली बार कार में घूमने जाता है और उसे दुनिया का सबसे मज़ेदार एहसास मिलता है।" },
-    moral: { en: "New things can feel scary, but trying them can be wonderful.", hi: "नई चीज़ें पहले डरावनी लगती हैं, पर कोशिश करो तो बहुत मज़ा आता है।" },
+    title: { en: "Auggie and the Big Shiny Car", hi: "ऑगी और चमचमाती बड़ी गाड़ी" },
+    blurb: { en: "The car is SO big and SO shiny… is Auggie brave enough to hop in?", hi: "गाड़ी इत्ती बड़ी, इत्ती चमकीली… क्या ऑगी अंदर बैठने की हिम्मत करेगा?" },
+    moral: { en: "Being brave means trying, with someone you love right beside you.", hi: "बहादुरी का मतलब है — अपनों के साथ बैठो और एक बार कोशिश करो।" },
     cover: {
       bg: "city",
-      chars: [ { id: "auggie", pose: "cheer", mood: "laugh", x: 0.3 }, { id: "papa", pose: "wave", mood: "happy", x: 0.75, flip: true } ],
+      chars: [ { id: "auggie", pose: "cheer", mood: "laugh", x: 0.3 }, { id: "papa", pose: "wave", mood: "laugh", x: 0.75, flip: true } ],
       props: [ { id: "car", x: 0.52 } ],
       fx: { en: "VROOM!", hi: "व्रूम!" }
     },
     panels: [
       {
         bg: "home",
-        chars: [ { id: "auggie", pose: "think", mood: "surprised", x: 0.3 }, { id: "papa", pose: "point", mood: "happy", x: 0.72, flip: true } ],
-        cap: { en: "Papa jingles the car keys. Jingle-jingle!", hi: "पापा ने कार की चाबी खनकाई। छन-छन!" },
-        say: [ { who: 1, en: "Auggie, want to go for a ride?", hi: "ऑगी, घूमने चलोगे?" } ]
+        chars: [ { id: "auggie", pose: "think", mood: "surprised", x: 0.3 }, { id: "papa", pose: "point", mood: "laugh", x: 0.72, flip: true } ],
+        cap: { en: "Jingle-jingle! Papa shakes the car keys.", hi: "छन-छन-छन! पापा ने गाड़ी की चाबी खनकाई।" },
+        say: [ { who: 1, en: "Car ride, Auggie! I'm a wheel-y good driver!", hi: "चलो ऑगी, घूमने! पापा ड्राइवर, तुम सवारी — पोंपों!" } ]
       },
       {
         bg: "city",
-        chars: [ { id: "auggie", pose: "stand", mood: "scared", x: 0.28 }, { id: "mumma", pose: "stand", mood: "happy", x: 0.75, flip: true } ],
+        chars: [ { id: "auggie", pose: "lie", mood: "scared", x: 0.28 }, { id: "mumma", pose: "stand", mood: "laugh", x: 0.75, flip: true } ],
         props: [ { id: "car", x: 0.52 } ],
-        cap: { en: "The car is big and shiny. Auggie's legs go wobbly.", hi: "कार बड़ी और चमकीली है। ऑगी के पैर काँपने लगे।" },
-        say: [ { who: 1, en: "Don't worry, Auggie. I'm right here with you.", hi: "डरो मत ऑगी, मैं तुम्हारे पास ही हूँ।" } ]
+        cap: { en: "The car is SO big. Auggie's legs go wobble-wobble.", hi: "गाड़ी तो बहुत बड़ी है! ऑगी की टाँगें थर-थर काँपने लगीं।" },
+        say: [ { who: 0, en: "Um… I'll just nap here instead. Forever.", hi: "उम्म… मैं तो यहीं सो जाता हूँ। हमेशा के लिए।", kind: "whisper" }, { who: 1, en: "Ha-ha! Nice try, my sleepy lion!", hi: "हा-हा! बहाना अच्छा है, मेरे शेर!" } ]
       },
       {
         bg: "city",
-        chars: [ { id: "auggie", pose: "sit", mood: "happy", x: 0.3 }, { id: "mumma", pose: "sit", mood: "laugh", x: 0.72, flip: true } ],
+        chars: [ { id: "auggie", pose: "sit", mood: "determined", x: 0.3 }, { id: "mumma", pose: "sit", mood: "happy", x: 0.72, flip: true } ],
         props: [ { id: "car", x: 0.5 } ],
-        cap: { en: "Mumma clips his harness to the seat belt.", hi: "मम्मा ने उसका हार्नेस सीट बेल्ट से जोड़ दिया।" },
-        say: [ { who: 0, en: "Safe and snug!", hi: "एकदम सुरक्षित!" } ],
+        cap: { en: "Mumma sits right beside him and clicks on his harness.", hi: "मम्मा उसके पास बैठ गईं और हार्नेस की क्लिक लगा दी।" },
+        say: [ { who: 1, en: "Click! Now the car is hugging you tight.", hi: "क्लिक! लो, अब गाड़ी ने तुम्हें कसके झप्पी दे दी।" }, { who: 0, en: "A car hug? Okay… I'll be brave!", hi: "गाड़ी की झप्पी? ठीक है… मैं बहादुर बनूँगा!" } ],
         fx: { en: "CLICK!", hi: "क्लिक!" },
         action: true
       },
       {
         bg: "city",
         chars: [ { id: "auggie", pose: "cheer", mood: "laugh", x: 0.3 }, { id: "papa", pose: "sit", mood: "laugh", x: 0.72, flip: true } ],
-        cap: { en: "Papa opens the window just a little bit.", hi: "पापा ने खिड़की थोड़ी-सी खोल दी।" },
-        say: [ { who: 0, en: "My ears are flying!", hi: "मेरे कान उड़ रहे हैं!", kind: "shout" } ],
+        cap: { en: "Papa opens the window just a crack.", hi: "पापा ने खिड़की ज़रा-सी खोली।" },
+        say: [ { who: 0, en: "Papa! My ears are FLYING!", hi: "पापा! मेरे कान उड़ रहे हैं! फर्र-फर्र!", kind: "shout" } ],
         fx: { en: "WHOOSH!", hi: "सर्र्र!" },
         action: true
       },
       {
         bg: "farm",
-        chars: [ { id: "auggie", pose: "point", mood: "happy", x: 0.3 }, { id: "cow", pose: "stand", mood: "happy", x: 0.75, flip: true } ],
-        cap: { en: "Trees, cows and fields zoom past the window.", hi: "पेड़, गायें और खेत खिड़की के बाहर तेज़ी से छूटते गए।" },
-        say: [ { who: 1, en: "Moo! Hello, happy doggy in the car!", hi: "बाँ! नमस्ते, कार वाले खुश कुत्ते!" } ]
+        chars: [ { id: "auggie", pose: "point", mood: "laugh", x: 0.3 }, { id: "cow", pose: "stand", mood: "laugh", x: 0.75, flip: true } ],
+        cap: { en: "Trees, fields and cows go zooming past.", hi: "पेड़ भागे, खेत भागे, गायें भी पीछे छूट गईं!" },
+        say: [ { who: 1, en: "Moo! Is that a dog or a flag?", hi: "बाँ! ये कुत्ता है या उड़ता हुआ झंडा?" } ]
       },
       {
         bg: "park",
-        chars: [ { id: "auggie", pose: "stand", mood: "laugh", x: 0.3 }, { id: "mumma", pose: "wave", mood: "happy", x: 0.75, flip: true } ],
+        chars: [ { id: "auggie", pose: "stand", mood: "laugh", x: 0.3 }, { id: "mumma", pose: "wave", mood: "laugh", x: 0.75, flip: true } ],
         props: [ { id: "bowl", x: 0.5 } ],
-        cap: { en: "At the park, Auggie hops out too. Dogs never wait alone in cars.", hi: "पार्क पहुँचकर ऑगी भी उतर गया। कुत्तों को कभी कार में अकेला नहीं छोड़ते।" },
-        say: [ { who: 0, en: "Car rides are the BEST!", hi: "कार की सैर सबसे मज़ेदार है!" } ]
+        cap: { en: "At the park, Auggie hops out too. No dog waits alone in a car!", hi: "पार्क आ गया! ऑगी भी साथ उतरा — कुत्ते को कभी कार में अकेला नहीं छोड़ते।" },
+        say: [ { who: 0, en: "Wobbly legs? Gone! Can we drive home the long way?", hi: "टाँगों की थर-थर? ग़ायब! घर लंबे रास्ते से चलें ना?" }, { who: 1, en: "HA-HA-HA! My brave little co-pilot!", hi: "हा-हा-हा! मेरा बहादुर शेर!" } ]
       }
     ]
   },
@@ -69,12 +69,12 @@ window.AUGGIE_COMICS.push(
     id: 46,
     age: "4-6",
     category: "travel",
-    title: { en: "Chhuk-Chhuk, Here We Go!", hi: "छुक-छुक, चलो चलें!" },
-    blurb: { en: "Auggie rides a real Indian train and waves a paw at the whole wide country.", hi: "ऑगी असली भारतीय ट्रेन में सफ़र करता है और पूरे देश को पंजा हिलाकर नमस्ते करता है।" },
-    moral: { en: "Journeys are more fun when you look out and say hello.", hi: "सफ़र में बाहर देखो और सबको नमस्ते करो, मज़ा दोगुना हो जाता है।" },
+    title: { en: "Chhuk-Chhuk to Dadi's House", hi: "छुक-छुक-छुक, दादी के घर!" },
+    blurb: { en: "A busy station, a singing train and a samosa smell… will Auggie reach Dadi?", hi: "भीड़ वाला स्टेशन, गाना गाती ट्रेन और समोसे की ख़ुशबू… क्या ऑगी दादी तक पहुँचेगा?" },
+    moral: { en: "Every journey feels sweeter when someone you love waits at the end.", hi: "सफ़र के आख़िर में कोई अपना इंतज़ार करे, तो हर रास्ता मीठा लगता है।" },
     cover: {
       bg: "station",
-      chars: [ { id: "auggie", pose: "cheer", mood: "happy", x: 0.3 }, { id: "nanu", pose: "wave", mood: "happy", x: 0.72, flip: true } ],
+      chars: [ { id: "auggie", pose: "cheer", mood: "laugh", x: 0.3 }, { id: "nanu", pose: "wave", mood: "happy", x: 0.72, flip: true } ],
       props: [ { id: "suitcase", x: 0.1 } ],
       fx: { en: "TOOT!", hi: "कूऊ!" }
     },
@@ -83,40 +83,40 @@ window.AUGGIE_COMICS.push(
         bg: "home",
         chars: [ { id: "auggie", pose: "sit", mood: "happy", x: 0.3 } ],
         props: [ { id: "suitcase", x: 0.6 }, { id: "ball", x: 0.82 } ],
-        cap: { en: "Auggie packs his own suitcase. Bone, ball and blanket!", hi: "ऑगी ने अपना सूटकेस खुद पैक किया। हड्डी, गेंद और कंबल!" },
-        say: [ { who: 0, en: "Did I forget anything?", hi: "कुछ भूल तो नहीं गया?", kind: "think" } ]
+        cap: { en: "Auggie packs for Dadi's house. Ball. Blanket. Bone. More bones.", hi: "दादी के घर की पैकिंग! गेंद, कंबल, हड्डी… और हड्डियाँ!" },
+        say: [ { who: 0, en: "Hmm… can I pack Papa's pillow too?", hi: "हम्म… पापा का तकिया भी चुपके से रख लूँ?", kind: "think" } ]
       },
       {
         bg: "station",
         chars: [ { id: "auggie", pose: "stand", mood: "surprised", x: 0.3 }, { id: "nanu", pose: "point", mood: "happy", x: 0.72, flip: true } ],
-        cap: { en: "The station is busy. Auggie stays close on his red leash.", hi: "स्टेशन पर बड़ी भीड़ है। ऑगी अपने लाल पट्टे के साथ पास-पास चलता है।" },
-        say: [ { who: 1, en: "Indian trains carry millions of people every day!", hi: "भारत की ट्रेनें रोज़ करोड़ों लोगों को ले जाती हैं!" } ]
+        cap: { en: "The station is SO busy! Auggie sticks close on his red leash.", hi: "स्टेशन पर इत्ती भीड़! ऑगी लाल पट्टे के साथ नानू से चिपककर चलता है।" },
+        say: [ { who: 1, en: "Fact time! Our trains carry millions of people every day!", hi: "एक मज़ेदार बात सुनो! हमारी रेलगाड़ियाँ रोज़ करोड़ों लोगों को ले जाती हैं!" } ]
       },
       {
         bg: "station",
         chars: [ { id: "auggie", pose: "cheer", mood: "surprised", x: 0.3 }, { id: "nanu", pose: "stand", mood: "laugh", x: 0.72, flip: true } ],
-        say: [ { who: 0, en: "The train is singing, Nanu!", hi: "नानू, ट्रेन गाना गा रही है!", kind: "shout" } ],
+        say: [ { who: 0, en: "Nanu! The train is SINGING! Should I sing back?", hi: "नानू! ट्रेन तो गाना गा रही है! मैं भी गाऊँ?", kind: "shout" }, { who: 1, en: "Go on! Toot-toot, woof-woof!", hi: "हाँ-हाँ, गाओ! कू-छुक, भौं-भौं!" } ],
         fx: { en: "TOOT-TOOT!", hi: "कू-छुक!" },
         action: true
       },
       {
         bg: "farm",
-        chars: [ { id: "auggie", pose: "wave", mood: "happy", x: 0.3 }, { id: "goat", pose: "stand", mood: "laugh", x: 0.72, flip: true } ],
-        cap: { en: "Chhuk-chhuk! Fields and villages rush past the window.", hi: "छुक-छुक! खिड़की के बाहर खेत और गाँव भागते जा रहे हैं।" },
-        say: [ { who: 1, en: "Meh-eh! Bye-bye, train doggy!", hi: "में-में! टाटा, ट्रेन वाले कुत्ते!" } ]
+        chars: [ { id: "auggie", pose: "wave", mood: "laugh", x: 0.3 }, { id: "goat", pose: "cheer", mood: "laugh", x: 0.72, flip: true } ],
+        cap: { en: "Chhuk-chhuk! Fields and villages race past the window.", hi: "छुक-छुक-छुक! खेत दौड़े, गाँव दौड़े, पेड़ भी दौड़े!" },
+        say: [ { who: 1, en: "Meh-eh! Wave faster, train doggy, you're zooming!", hi: "में-में! ज़ोर से पंजा हिलाओ, ट्रेन वाले भैया!" } ]
       },
       {
         bg: "village",
-        chars: [ { id: "auggie", pose: "sit", mood: "happy", x: 0.3 }, { id: "nanu", pose: "sit", mood: "happy", x: 0.72, flip: true } ],
+        chars: [ { id: "auggie", pose: "think", mood: "sad", x: 0.3 }, { id: "nanu", pose: "sit", mood: "laugh", x: 0.72, flip: true } ],
         props: [ { id: "apple", x: 0.5 } ],
-        cap: { en: "Snack time on the train!", hi: "ट्रेन में नाश्ते का समय!" },
-        say: [ { who: 1, en: "Apple slices for you, not samosas!", hi: "तुम्हारे लिए सेब, समोसे नहीं!" } ]
+        cap: { en: "“Garam samosa!” calls a seller. Auggie's nose goes sniff-sniff.", hi: "“गरम समोसे!” — ऑगी की नाक फड़कने लगी। सूँ-सूँ!" },
+        say: [ { who: 0, en: "Just ONE samosa, Nanu? Pleeease?", hi: "नानू, बस एक समोसा? प्लीईईज़?" }, { who: 1, en: "Too spicy and oily for dogs! Apple slices instead.", hi: "ना बाबा, तीखा-तेल वाला नहीं! ये लो, कुरकुरा सेब।" } ]
       },
       {
         bg: "station",
         chars: [ { id: "auggie", pose: "cheer", mood: "laugh", x: 0.3 }, { id: "dadi", pose: "wave", mood: "laugh", x: 0.72, flip: true } ],
-        cap: { en: "At the last stop, Dadi is waiting with open arms!", hi: "आख़िरी स्टेशन पर दादी बाँहें फैलाए इंतज़ार कर रही हैं!" },
-        say: [ { who: 1, en: "My Auggie has come by train!", hi: "मेरा ऑगी ट्रेन से आया है!" } ],
+        cap: { en: "Last stop! Dadi is waiting with her arms wide open.", hi: "आख़िरी स्टेशन! दादी बाँहें फैलाए खड़ी हैं।" },
+        say: [ { who: 1, en: "My brave traveller! Psst… a secret carrot, just for you!", hi: "मेरा राजा बेटा ट्रेन से आया! ले, पल्लू वाली गाजर, चुपके से!" } ],
         fx: { en: "WOOF!", hi: "भौं-भौं!" },
         action: true
       }
@@ -128,48 +128,48 @@ window.AUGGIE_COMICS.push(
     id: 47,
     age: "4-6",
     category: "nature",
-    title: { en: "Auggie and the Sandcastle Crab", hi: "ऑगी और रेत के महल वाला केकड़ा" },
-    blurb: { en: "Auggie builds a grand sandcastle, and a tiny crab moves right in.", hi: "ऑगी रेत का शानदार महल बनाता है, और एक नन्हा केकड़ा उसमें रहने आ जाता है।" },
-    moral: { en: "Share your space kindly, even with the smallest friends.", hi: "अपनी जगह प्यार से बाँटो, सबसे छोटे दोस्तों के साथ भी।" },
+    title: { en: "Tiku Moves Into Auggie's Castle", hi: "ऑगी के महल में टिकू का घर" },
+    blurb: { en: "Auggie builds the biggest sandcastle ever… and someone tiny moves in without asking!", hi: "ऑगी ने बनाया सबसे बड़ा रेत का महल… और कोई नन्हा-सा बिना पूछे उसमें रहने आ गया!" },
+    moral: { en: "Sharing turns a small castle into a big, happy home.", hi: "बाँटने से छोटा-सा महल भी बड़ा, प्यारा घर बन जाता है।" },
     cover: {
       bg: "beach",
-      chars: [ { id: "auggie", pose: "cheer", mood: "laugh", x: 0.28 }, { id: "crab", pose: "wave", mood: "happy", x: 0.72, flip: true } ],
+      chars: [ { id: "auggie", pose: "cheer", mood: "laugh", x: 0.28 }, { id: "crab", pose: "wave", mood: "laugh", x: 0.72, flip: true } ],
       props: [ { id: "sandcastle", x: 0.5 }, { id: "sun", x: 0.88, y: 0.15 } ]
     },
     panels: [
       {
         bg: "beach",
-        chars: [ { id: "auggie", pose: "run", mood: "laugh", x: 0.3 }, { id: "mumma", pose: "wave", mood: "happy", x: 0.72, flip: true } ],
+        chars: [ { id: "auggie", pose: "run", mood: "laugh", x: 0.3 }, { id: "mumma", pose: "wave", mood: "laugh", x: 0.72, flip: true } ],
         props: [ { id: "umbrella", x: 0.92 } ],
-        cap: { en: "Beach day! Sun, sand and salty wind.", hi: "समुंदर किनारे का दिन! धूप, रेत और नमकीन हवा।" },
-        say: [ { who: 0, en: "Sand under my paws!", hi: "मेरे पंजों के नीचे रेत!", kind: "shout" } ]
+        cap: { en: "Beach day! Hot sun, soft sand, salty wind.", hi: "समुंदर वाला दिन! गरम धूप, नरम रेत, नमकीन हवा।" },
+        say: [ { who: 0, en: "Sand! Sand! My paws are dancing!", hi: "रेत! रेत! मेरे पंजे नाच रहे हैं!", kind: "shout" }, { who: 1, en: "Wait! My beach list: water, shade, towel…", hi: "रुको! पहले मेरी लिस्ट: पानी, छाँव, तौलिया…" } ]
       },
       {
         bg: "beach",
-        chars: [ { id: "auggie", pose: "sit", mood: "determined", x: 0.28 }, { id: "papa", pose: "sit", mood: "happy", x: 0.75, flip: true } ],
+        chars: [ { id: "auggie", pose: "sit", mood: "laugh", x: 0.28 }, { id: "papa", pose: "sit", mood: "laugh", x: 0.75, flip: true } ],
         props: [ { id: "sandcastle", x: 0.52 } ],
-        cap: { en: "Auggie and Papa dig, pat and build.", hi: "ऑगी और पापा खोदते, थपथपाते और बनाते हैं।" },
-        say: [ { who: 1, en: "The biggest sandcastle on the beach!", hi: "पूरे बीच का सबसे बड़ा रेत का महल!" } ]
+        cap: { en: "Dig, pat, dig, pat. The castle grows and grows!", hi: "खोदो, थपको, खोदो, थपको। महल बड़ा, और बड़ा!" },
+        say: [ { who: 1, en: "Why is the sea so friendly? It keeps waving!", hi: "पता है समुंदर नमकीन क्यों है? उसने सारे चिप्स खा लिए!" }, { who: 0, en: "Ha-ha! Tell it again, Papa!", hi: "हा-हा! पापा, फिर से सुनाओ!" } ]
       },
       {
         bg: "beach",
         chars: [ { id: "auggie", pose: "think", mood: "surprised", x: 0.28 }, { id: "crab", pose: "stand", mood: "happy", x: 0.55, flip: true } ],
         props: [ { id: "sandcastle", x: 0.78 } ],
-        cap: { en: "Out of the castle door peeks Tiku the crab!", hi: "महल के दरवाज़े से टिकू केकड़ा झाँकता है!" },
-        say: [ { who: 1, en: "Hello! Is this castle for me?", hi: "नमस्ते! क्या ये महल मेरे लिए है?" } ]
+        cap: { en: "Peek-a-boo! A tiny crab pops out of the castle door!", hi: "टुक-टुक! महल के दरवाज़े से एक नन्हा केकड़ा झाँका!" },
+        say: [ { who: 1, en: "Hello! I'm Tiku. I LOVE my new house!", hi: "नमस्ते! मैं टिकू। वाह, मेरा नया घर!" }, { who: 0, en: "Hey! That's MY castle…", hi: "अरे! वो तो मेरा महल है…", kind: "think" } ]
       },
       {
         bg: "beach",
-        chars: [ { id: "auggie", pose: "think", mood: "happy", x: 0.3 }, { id: "crab", pose: "cheer", mood: "happy", x: 0.72, flip: true } ],
+        chars: [ { id: "auggie", pose: "think", mood: "happy", x: 0.3 }, { id: "crab", pose: "cheer", mood: "laugh", x: 0.72, flip: true } ],
         props: [ { id: "sandcastle", x: 0.9 } ],
-        say: [ { who: 0, en: "Yes, Tiku! Just don't pinch my nose.", hi: "हाँ टिकू! बस मेरी नाक मत पकड़ना।" } ]
+        say: [ { who: 0, en: "Hmm… okay, Tiku! You live inside, I'll guard outside!", hi: "हम्म… ठीक है टिकू! तुम अंदर रहो, मैं बाहर पहरा दूँगा!" }, { who: 1, en: "Yay! Just keep your giant nose out of my door!", hi: "याय! बस अपनी बड़ी-सी नाक दरवाज़े में मत घुसाना!" } ]
       },
       {
         bg: "beach",
-        chars: [ { id: "auggie", pose: "stand", mood: "surprised", x: 0.28 }, { id: "crab", pose: "stand", mood: "scared", x: 0.75, flip: true } ],
+        chars: [ { id: "auggie", pose: "blast", mood: "surprised", x: 0.28 }, { id: "crab", pose: "stand", mood: "sad", x: 0.75, flip: true } ],
         props: [ { id: "sandcastle", x: 0.52 } ],
-        cap: { en: "Oh no! A big wave washes the castle away!", hi: "अरे नहीं! एक बड़ी लहर महल बहा ले गई!" },
-        say: [ { who: 1, en: "My house!", hi: "मेरा घर!", kind: "shout" } ],
+        cap: { en: "Uh-oh! A big wave rushes in. Auggie barks, “Sit, wave, SIT!”", hi: "हाय राम! बड़ी लहर आई। ऑगी भौंका — “बैठ जा लहर, बैठ!”" },
+        say: [ { who: 1, en: "My house is gone! Waves don't sit, Auggie!", hi: "मेरा घर बह गया! लहरें कुत्तों की बात नहीं मानतीं!", kind: "shout" } ],
         fx: { en: "SPLASH!", hi: "छपाक!" },
         action: true
       },
@@ -177,8 +177,8 @@ window.AUGGIE_COMICS.push(
         bg: "beach",
         chars: [ { id: "auggie", pose: "cheer", mood: "laugh", x: 0.25 }, { id: "crab", pose: "wave", mood: "happy", x: 0.5 }, { id: "mumma", pose: "sit", mood: "laugh", x: 0.78, flip: true } ],
         props: [ { id: "sandcastle", x: 0.5 }, { id: "bowl", x: 0.08 }, { id: "umbrella", x: 0.94 } ],
-        cap: { en: "They build again, far from the waves. Then water and shade!", hi: "दोनों ने लहरों से दूर फिर महल बनाया। फिर पानी और छाँव!" },
-        say: [ { who: 0, en: "Now we're neighbours, Tiku!", hi: "अब हम पड़ोसी हैं, टिकू!" } ]
+        cap: { en: "So they build a new castle together, far from the waves.", hi: "फिर दोनों ने मिलकर लहरों से दूर नया महल बनाया।" },
+        say: [ { who: 0, en: "Now we're neighbours, Tiku! Castle for you, shade for me!", hi: "अब हम पड़ोसी हैं, टिकू! महल तुम्हारा, छाँव मेरी!" }, { who: 2, en: "HA-HA-HA! Water break, builders!", hi: "हा-हा-हा! चलो कारीगरो, पहले पानी पी लो!" } ]
       }
     ]
   },
@@ -188,52 +188,53 @@ window.AUGGIE_COMICS.push(
     id: 48,
     age: "4-6",
     category: "nature",
-    title: { en: "The Red Leash Lake Walk", hi: "लाल पट्टे वाली झील की सैर" },
-    blurb: { en: "Every morning Auggie and Nanu walk by the lake, and today the red leash saves the day.", hi: "हर सुबह ऑगी और नानू झील किनारे घूमते हैं, और आज लाल पट्टा बड़े काम आया।" },
-    moral: { en: "A leash keeps you safe, so you can enjoy every walk.", hi: "पट्टा हमें सुरक्षित रखता है, ताकि हर सैर का मज़ा ले सकें।" },
+    title: { en: "Auggie and the Hoppy Frog", hi: "ऑगी और फुदकू मेंढक" },
+    blurb: { en: "A frog hops past and Auggie's legs shout CHASE! Can the red leash save the day?", hi: "एक मेंढक उछला और ऑगी की टाँगें बोलीं — पकड़ो! क्या लाल पट्टा बचा पाएगा?" },
+    moral: { en: "A leash keeps you safe, and watching gently keeps animal friends happy.", hi: "पट्टा हमें सुरक्षित रखता है, और प्यार से दूर से देखो तो जानवर भी खुश रहते हैं।" },
     cover: {
       bg: "river",
-      chars: [ { id: "auggie", pose: "run", mood: "happy", x: 0.32 }, { id: "nanu", pose: "wave", mood: "happy", x: 0.72, flip: true } ],
+      chars: [ { id: "auggie", pose: "run", mood: "laugh", x: 0.32 }, { id: "nanu", pose: "wave", mood: "happy", x: 0.72, flip: true } ],
       props: [ { id: "tree", x: 0.08 }, { id: "sun", x: 0.88, y: 0.15 } ]
     },
     panels: [
       {
         bg: "home",
-        chars: [ { id: "auggie", pose: "cheer", mood: "happy", x: 0.3 }, { id: "nanu", pose: "stand", mood: "happy", x: 0.72, flip: true } ],
-        cap: { en: "Morning! Auggie brings his red leash to Nanu.", hi: "सुबह हुई! ऑगी अपना लाल पट्टा नानू के पास लाया।" },
-        say: [ { who: 1, en: "Ready for our lake walk, champ?", hi: "झील की सैर के लिए तैयार, चैंपियन?" } ]
+        chars: [ { id: "auggie", pose: "cheer", mood: "laugh", x: 0.3 }, { id: "nanu", pose: "stand", mood: "laugh", x: 0.72, flip: true } ],
+        cap: { en: "Morning! Auggie drags his red leash to Nanu.", hi: "सुबह-सुबह! ऑगी अपना लाल पट्टा घसीटता हुआ नानू के पास आया।" },
+        say: [ { who: 0, en: "Nanu! Leash! Lake! Ducks! Let's GO!", hi: "नानू! पट्टा! झील! बत्तखें! चलो ना!", kind: "shout" }, { who: 1, en: "Easy, champ! Your tail is going 100 kmph!", hi: "आराम से, पहलवान! तुम्हारी पूँछ तो सौ की स्पीड पे है!" } ]
       },
       {
         bg: "city",
         chars: [ { id: "auggie", pose: "stand", mood: "determined", x: 0.3 }, { id: "nanu", pose: "stand", mood: "happy", x: 0.72, flip: true } ],
-        cap: { en: "Near the road, the leash stays short and snug.", hi: "सड़क के पास पट्टा छोटा और कसकर रहता है।" },
-        say: [ { who: 0, en: "Cars go vroom. I stay close!", hi: "गाड़ियाँ व्रूम करती हैं। मैं पास रहता हूँ!" } ]
+        cap: { en: "Near the road, the leash stays short and snug.", hi: "सड़क के पास पट्टा छोटा और कसकर पकड़ा।" },
+        say: [ { who: 0, en: "Cars go VROOM. Auggie goes… slow and close!", hi: "गाड़ियाँ करें पीं-पीं, ऑगी चले धीरे-धीरे, पास-पास!" } ]
       },
       {
         bg: "river",
-        chars: [ { id: "auggie", pose: "point", mood: "happy", x: 0.3 }, { id: "duck", pose: "stand", mood: "happy", x: 0.72, flip: true } ],
-        cap: { en: "At the lake, the ducks say hello.", hi: "झील पर बत्तखें नमस्ते करती हैं।" },
-        say: [ { who: 1, en: "Quack! Good morning, Auggie!", hi: "क्वैक! सुप्रभात, ऑगी!" } ]
+        chars: [ { id: "auggie", pose: "point", mood: "laugh", x: 0.3 }, { id: "duck", pose: "stand", mood: "laugh", x: 0.72, flip: true } ],
+        cap: { en: "At the lake, the ducks paddle over to say hi.", hi: "झील पर बत्तखें तैरती-तैरती पास आ गईं।" },
+        say: [ { who: 1, en: "Quack-quack! Morning, Auggie! Nice big nose!", hi: "क्वैक-क्वैक! राम-राम, ऑगी भैया! क्या बढ़िया नाक है!" } ]
       },
       {
         bg: "river",
-        chars: [ { id: "auggie", pose: "run", mood: "surprised", x: 0.32 }, { id: "frog", pose: "cheer", mood: "laugh", x: 0.75, flip: true } ],
-        cap: { en: "A frog hops! Auggie wants to zoom after it!", hi: "एक मेंढक कूदा! ऑगी उसके पीछे भागना चाहता है!" },
+        chars: [ { id: "auggie", pose: "run", mood: "determined", x: 0.32 }, { id: "frog", pose: "cheer", mood: "laugh", x: 0.75, flip: true } ],
+        cap: { en: "Boing! A frog hops past. Auggie's legs shout, “CHASE!”", hi: "फुदक! एक मेंढक उछला। ऑगी की टाँगें बोलीं — “पकड़ो!”" },
+        say: [ { who: 1, en: "Ribbit! Catch me if you can!", hi: "टर्र-टर्र! पकड़ के दिखाओ!" } ],
         fx: { en: "HOP!", hi: "फुदक!" },
         action: true
       },
       {
         bg: "river",
-        chars: [ { id: "auggie", pose: "sit", mood: "happy", x: 0.3 }, { id: "nanu", pose: "stand", mood: "happy", x: 0.72, flip: true } ],
-        cap: { en: "Tug! The red leash holds. Auggie stops and sits.", hi: "खिंच! लाल पट्टे ने रोक लिया। ऑगी रुककर बैठ गया।" },
-        say: [ { who: 1, en: "Gently, Auggie. The lake is the frog's home.", hi: "आराम से ऑगी। झील मेंढक का घर है।" } ]
+        chars: [ { id: "auggie", pose: "sit", mood: "surprised", x: 0.3 }, { id: "nanu", pose: "stand", mood: "laugh", x: 0.72, flip: true } ],
+        cap: { en: "TUG! The red leash holds. Auggie flops down. Plop!", hi: "खिंच! लाल पट्टे ने रोका, और ऑगी धप्प से बैठ गया!" },
+        say: [ { who: 1, en: "Gently! Frogs can jump 20 times their length!", hi: "आराम से! मेंढक अपने से बीस गुना लंबा कूदता है, तुम हार जाओगे!" }, { who: 0, en: "Fine. I'll be a frog-watcher, not a frog-chaser.", hi: "ठीक है… मैं मेंढक देखूँगा, पकड़ूँगा नहीं।" } ]
       },
       {
         bg: "park",
         chars: [ { id: "auggie", pose: "lie", mood: "happy", x: 0.3 }, { id: "nanu", pose: "sit", mood: "happy", x: 0.72, flip: true } ],
         props: [ { id: "bowl", x: 0.5 }, { id: "tree", x: 0.92 } ],
-        cap: { en: "Rest in the shade, with a bowl of fresh water.", hi: "छाँव में आराम, और ताज़े पानी का कटोरा।" },
-        say: [ { who: 0, en: "Best walk ever, Nanu!", hi: "सबसे बढ़िया सैर, नानू!" } ],
+        cap: { en: "Shade, a bowl of cool water, and one happy dog.", hi: "पेड़ की छाँव, ठंडा-ठंडा पानी, और एक खुश कुत्ता।" },
+        say: [ { who: 0, en: "Nanu, the frog waved at me! Best walk EVER!", hi: "नानू, मेंढक ने मुझे टाटा किया! आज की सैर एकदम मस्त!" }, { who: 1, en: "Because you let him hop home, my wise boy.", hi: "क्योंकि तुमने उसे घर जाने दिया, मेरे समझदार बच्चे।" } ],
         fx: { en: "SLURP!", hi: "लप-लप!" },
         action: true
       }
@@ -245,9 +246,9 @@ window.AUGGIE_COMICS.push(
     id: 49,
     age: "4-6",
     category: "family",
-    title: { en: "The Great Park Picnic", hi: "पार्क में बड़ी पिकनिक" },
-    blurb: { en: "The whole family goes on a picnic, and Auggie learns which snacks are safe for dogs.", hi: "पूरा परिवार पिकनिक पर जाता है, और ऑगी सीखता है कि कुत्तों के लिए कौन-सा नाश्ता सुरक्षित है।" },
-    moral: { en: "Sharing is lovely, but only share foods that are safe.", hi: "बाँटना अच्छा है, पर सिर्फ़ वही खाना बाँटो जो सुरक्षित हो।" },
+    title: { en: "Dadi's Secret Picnic Pallu", hi: "दादी का जादुई पल्लू" },
+    blurb: { en: "Laddoos on the picnic mat, and Auggie has a plan. Will his puppy eyes work?", hi: "पिकनिक में लड्डू, और ऑगी के पास है एक प्लान। क्या उसकी भोली शक्ल काम करेगी?" },
+    moral: { en: "Sharing is lovely, but pets need pet-safe treats.", hi: "बाँटना अच्छी बात है, पर पालतू दोस्तों को उनके लायक़ चीज़ ही खिलाओ।" },
     cover: {
       bg: "park",
       chars: [ { id: "auggie", pose: "cheer", mood: "laugh", x: 0.3 }, { id: "dadi", pose: "wave", mood: "laugh", x: 0.72, flip: true } ],
@@ -256,44 +257,44 @@ window.AUGGIE_COMICS.push(
     panels: [
       {
         bg: "home",
-        chars: [ { id: "auggie", pose: "cheer", mood: "happy", x: 0.3 }, { id: "mumma", pose: "point", mood: "happy", x: 0.72, flip: true } ],
+        chars: [ { id: "auggie", pose: "cheer", mood: "laugh", x: 0.3 }, { id: "mumma", pose: "point", mood: "determined", x: 0.72, flip: true } ],
         props: [ { id: "ball", x: 0.52 } ],
-        cap: { en: "Sunday! Mumma plans a picnic in the park.", hi: "रविवार! मम्मा ने पार्क में पिकनिक का प्लान बनाया।" },
-        say: [ { who: 1, en: "Mittsy, grab the mat! Auggie, grab your ball!", hi: "मिट्सी, चटाई लाओ! ऑगी, तुम अपनी गेंद लाओ!" } ]
+        cap: { en: "Sunday! Mumma plans a picnic. With a list, of course.", hi: "इतवार! मम्मा ने पिकनिक का प्लान बनाया। लिस्ट के साथ, और क्या!" },
+        say: [ { who: 1, en: "Mat, tiffin, water, ball… Mittsy! Where's the mat?", hi: "चटाई, टिफ़िन, पानी, गेंद… मिट्सी! चटाई कहाँ है?", kind: "shout" }, { who: 0, en: "Ball? Check! Me? Double check!", hi: "गेंद — हाज़िर! ऑगी — डबल हाज़िर!" } ]
       },
       {
         bg: "park",
-        chars: [ { id: "auggie", pose: "run", mood: "laugh", x: 0.3 }, { id: "papa", pose: "stand", mood: "happy", x: 0.7, flip: true } ],
+        chars: [ { id: "auggie", pose: "run", mood: "laugh", x: 0.3 }, { id: "papa", pose: "stand", mood: "laugh", x: 0.7, flip: true } ],
         props: [ { id: "tree", x: 0.92 } ],
-        cap: { en: "Under a big shady tree, the mat goes down.", hi: "एक बड़े छायादार पेड़ के नीचे चटाई बिछ गई।" },
-        say: [ { who: 0, en: "Shade for my nap. Perfect!", hi: "मेरी झपकी के लिए छाँव। एकदम बढ़िया!" } ]
+        cap: { en: "Under a big shady tree, Papa spreads the mat.", hi: "बड़े-से छायादार पेड़ के नीचे पापा ने चटाई बिछाई।" },
+        say: [ { who: 1, en: "Welcome to the picnic! It's un-BARK-lievable!", hi: "पिकनिक में सबसे अच्छा क्या? खाना! और दूसरा? और खाना!" }, { who: 0, en: "Ha-ha! Now where's my nap spot?", hi: "हा-हा! अब मेरी झपकी की जगह कहाँ है?" } ]
       },
       {
         bg: "park",
-        chars: [ { id: "auggie", pose: "think", mood: "happy", x: 0.3 }, { id: "dadi", pose: "sit", mood: "happy", x: 0.72, flip: true } ],
-        cap: { en: "Dadi opens the tiffin. Puris, pickle and sweet laddoos!", hi: "दादी ने टिफ़िन खोला। पूरी, अचार और मीठे लड्डू!" },
-        say: [ { who: 0, en: "Laddoos! Just one tiny bite?", hi: "लड्डू! बस एक छोटा-सा टुकड़ा?", kind: "think" } ]
+        chars: [ { id: "auggie", pose: "think", mood: "determined", x: 0.3 }, { id: "dadi", pose: "sit", mood: "happy", x: 0.72, flip: true } ],
+        cap: { en: "Dadi opens the tiffin. Puris, pickle… and sweet laddoos!", hi: "दादी ने टिफ़िन खोला। पूरी, अचार… और मीठे-मीठे लड्डू!" },
+        say: [ { who: 0, en: "Laddoos! Time for my saddest puppy eyes…", hi: "लड्डू! अब चलाता हूँ अपनी सबसे भोली शक्ल…", kind: "think" } ]
       },
       {
         bg: "park",
-        chars: [ { id: "auggie", pose: "sit", mood: "sad", x: 0.3 }, { id: "dadi", pose: "point", mood: "happy", x: 0.72, flip: true } ],
-        say: [ { who: 1, en: "No laddoos for doggies, beta. Sweets make tummies sick.", hi: "बेटा, कुत्तों के लिए लड्डू नहीं। मिठाई से पेट ख़राब होता है।" } ]
+        chars: [ { id: "auggie", pose: "sit", mood: "sad", x: 0.3 }, { id: "dadi", pose: "point", mood: "laugh", x: 0.72, flip: true } ],
+        say: [ { who: 1, en: "Those eyes won't work, beta! Sweets give doggies tummy aches.", hi: "ये भोली शक्ल नहीं चलेगी, बेटा! मिठाई से कुत्तों का पेट दुखता है।" }, { who: 0, en: "Not even one crumb? Sniff…", hi: "एक चूरा भी नहीं? सूँ…", kind: "whisper" } ]
       },
       {
         bg: "park",
         chars: [ { id: "auggie", pose: "cheer", mood: "laugh", x: 0.3 }, { id: "dadi", pose: "sit", mood: "laugh", x: 0.72, flip: true } ],
         props: [ { id: "apple", x: 0.5 } ],
-        cap: { en: "Dadi gives him crunchy apple slices instead.", hi: "दादी ने उसे बदले में कुरकुरे सेब के टुकड़े दिए।" },
-        say: [ { who: 0, en: "Apple! Yum-yum!", hi: "सेब! वाह-वाह!" } ],
+        cap: { en: "Then Dadi peeks into her pallu. Her “secret” snacks!", hi: "फिर दादी ने पल्लू खोला — उनका “सीक्रेट” ख़ज़ाना!" },
+        say: [ { who: 0, en: "Apple AND a carrot? Dadi, you're magic!", hi: "सेब भी, गाजर भी? दादी, आप तो जादूगरनी हो!" }, { who: 1, en: "Shh! Nobody knows about my pallu!", hi: "श्श! मेरे पल्लू का राज़ किसी को मत बताना!", kind: "whisper" } ],
         fx: { en: "CRUNCH!", hi: "कुरकुर!" },
         action: true
       },
       {
         bg: "park",
-        chars: [ { id: "auggie", pose: "run", mood: "happy", x: 0.3 }, { id: "mausi", pose: "cheer", mood: "laugh", x: 0.72, flip: true } ],
+        chars: [ { id: "auggie", pose: "run", mood: "laugh", x: 0.3 }, { id: "mausi", pose: "cheer", mood: "laugh", x: 0.72, flip: true } ],
         props: [ { id: "frisbee", x: 0.5, y: 0.3 } ],
-        cap: { en: "Then Mausi throws the frisbee. Picnic power!", hi: "फिर मौसी ने फ़्रिस्बी फेंकी। पिकनिक पावर!" },
-        say: [ { who: 1, en: "Go, Auggie, go!", hi: "भागो ऑगी, भागो!" } ],
+        cap: { en: "Then Mausi throws the frisbee. Auggie leaps!", hi: "फिर मौसी ने फ़्रिस्बी उछाली। ऑगी ने लगाई छलाँग!" },
+        say: [ { who: 1, en: "Hold that pose! Flying-dog selfie!", hi: "रुको-रुको, ऐसे ही! उड़ते ऑगी वाली सेल्फ़ी!", kind: "shout" }, { who: 0, en: "Hold it? I'm in the AIR!", hi: "कैसे रुकूँ? मैं तो हवा में हूँ!" } ],
         fx: { en: "ZOOM!", hi: "ज़ूम!" },
         action: true
       }
@@ -305,9 +306,9 @@ window.AUGGIE_COMICS.push(
     id: 50,
     age: "4-6",
     category: "nature",
-    title: { en: "Auggie in the Cloud Hills", hi: "बादलों की पहाड़ियों में ऑगी" },
-    blurb: { en: "In the foggy hills of Meghalaya, Auggie's nose helps the family stay together.", hi: "मेघालय की धुंध भरी पहाड़ियों में ऑगी की नाक परिवार को साथ रखती है।" },
-    moral: { en: "When you can't see the way, stay close and help each other.", hi: "जब रास्ता न दिखे, तो पास रहो और एक-दूसरे की मदद करो।" },
+    title: { en: "Auggie Bites a Cloud", hi: "ऑगी ने बादल को काटा!" },
+    blurb: { en: "In Meghalaya, a cloud floats down to say hello… and suddenly everyone disappears!", hi: "मेघालय में एक बादल नीचे उतर आया… और अचानक सब ग़ायब!" },
+    moral: { en: "When you can't see the way, stay calm, stay close, and help each other.", hi: "जब रास्ता न दिखे, तो घबराओ मत — पास रहो और एक-दूसरे का साथ दो।" },
     cover: {
       bg: "mountains",
       chars: [ { id: "auggie", pose: "point", mood: "determined", x: 0.32 }, { id: "mumma", pose: "stand", mood: "surprised", x: 0.72, flip: true } ],
@@ -316,46 +317,47 @@ window.AUGGIE_COMICS.push(
     panels: [
       {
         bg: "mountains",
-        chars: [ { id: "auggie", pose: "cheer", mood: "happy", x: 0.3 }, { id: "nanu", pose: "point", mood: "happy", x: 0.72, flip: true } ],
+        chars: [ { id: "auggie", pose: "cheer", mood: "laugh", x: 0.3 }, { id: "nanu", pose: "point", mood: "happy", x: 0.72, flip: true } ],
         props: [ { id: "cloud", x: 0.5, y: 0.2 } ],
-        cap: { en: "A trip to the green hills of Meghalaya.", hi: "मेघालय की हरी-भरी पहाड़ियों की सैर।" },
-        say: [ { who: 1, en: "Meghalaya means home of the clouds!", hi: "मेघालय का मतलब है बादलों का घर!" } ]
+        cap: { en: "Hello, Meghalaya! Green hills as far as you can see.", hi: "नमस्ते मेघालय! जहाँ देखो, हरी-भरी पहाड़ियाँ।" },
+        say: [ { who: 1, en: "Fact! Meghalaya means “home of the clouds”!", hi: "पता है? मेघालय मतलब — बादलों का घर!" }, { who: 0, en: "Clouds live HERE? Can I nap on one?", hi: "बादल यहाँ रहते हैं? मैं एक पे सो जाऊँ?" } ]
       },
       {
         bg: "mountains",
-        chars: [ { id: "auggie", pose: "think", mood: "surprised", x: 0.35 } ],
+        chars: [ { id: "auggie", pose: "think", mood: "scared", x: 0.35 } ],
         props: [ { id: "cloud", x: 0.2, y: 0.5 }, { id: "cloud", x: 0.6, y: 0.3 }, { id: "cloud", x: 0.85, y: 0.55 } ],
-        cap: { en: "Then a fluffy cloud floats right down the path!", hi: "फिर एक रुई जैसा बादल सीधा रास्ते पर उतर आया!" },
-        say: [ { who: 0, en: "Where did everyone go?", hi: "सब कहाँ चले गए?", kind: "think" } ]
+        cap: { en: "A fluffy cloud floats down. Chomp! Just wet air… and everyone's gone!", hi: "एक रुई जैसा बादल नीचे आया। गप्प! बस गीली हवा… और सब ग़ायब!" },
+        say: [ { who: 0, en: "Mumma? Papa? Where did everyone go?", hi: "मम्मा? पापा? सब कहाँ चले गए?", kind: "think" } ]
       },
       {
         bg: "mountains",
         chars: [ { id: "auggie", pose: "point", mood: "determined", x: 0.35 } ],
         props: [ { id: "cloud", x: 0.15, y: 0.4 }, { id: "cloud", x: 0.8, y: 0.45 } ],
-        cap: { en: "Auggie can't see, but his big nose can smell!", hi: "ऑगी देख नहीं सकता, पर उसकी बड़ी नाक सूँघ सकती है!" },
+        cap: { en: "Auggie can't see a thing. But his big nose can!", hi: "आँखों को कुछ नहीं दिख रहा। पर ऑगी की बड़ी नाक किस दिन काम आएगी?" },
+        say: [ { who: 0, en: "No crying. Nose, it's your turn!", hi: "रोना-वोना नहीं। चल नाक, अब तेरी बारी!", kind: "think" } ],
         fx: { en: "SNIFF!", hi: "सूँ-सूँ!" },
         action: true
       },
       {
         bg: "mountains",
-        chars: [ { id: "auggie", pose: "wave", mood: "happy", x: 0.3 }, { id: "mumma", pose: "stand", mood: "happy", x: 0.72, flip: true } ],
+        chars: [ { id: "auggie", pose: "wave", mood: "laugh", x: 0.3 }, { id: "mumma", pose: "stand", mood: "surprised", x: 0.72, flip: true } ],
         props: [ { id: "cloud", x: 0.5, y: 0.35 } ],
-        cap: { en: "Sniff... that's Mumma's flower shampoo!", hi: "सूँ-सूँ... ये तो मम्मा का फूलों वाला शैम्पू है!" },
-        say: [ { who: 1, en: "Auggie! You found me with your nose?", hi: "ऑगी! तुमने मुझे सूँघकर ढूँढ लिया?" } ]
+        cap: { en: "Sniff… roses? That's Mumma's flower shampoo!", hi: "सूँ-सूँ… गुलाब? ये तो मम्मा का फूलों वाला शैम्पू है!" },
+        say: [ { who: 1, en: "Auggie! You found me with your NOSE?", hi: "ऑगी! तूने मुझे सूँघकर ढूँढ लिया?" }, { who: 0, en: "Next smell… a very smelly sock. That's Papa!", hi: "अगली ख़ुशबू… पुराना बदबूदार मोज़ा। पापा इधर हैं!" } ]
       },
       {
         bg: "mountains",
-        chars: [ { id: "auggie", pose: "stand", mood: "happy", x: 0.25 }, { id: "papa", pose: "stand", mood: "laugh", x: 0.5 }, { id: "mumma", pose: "stand", mood: "happy", x: 0.78, flip: true } ],
+        chars: [ { id: "auggie", pose: "stand", mood: "happy", x: 0.25 }, { id: "papa", pose: "stand", mood: "laugh", x: 0.5 }, { id: "mumma", pose: "stand", mood: "laugh", x: 0.78, flip: true } ],
         props: [ { id: "cloud", x: 0.5, y: 0.15 } ],
-        cap: { en: "Auggie leads Papa to Mumma too. Clever dog!", hi: "ऑगी पापा को भी मम्मा तक ले आया। समझदार कुत्ता!" },
-        say: [ { who: 1, en: "Mottu, hold my hand. Auggie, stay close!", hi: "मोटू, मेरा हाथ पकड़ो। ऑगी, पास रहना!" } ]
+        cap: { en: "Auggie leads Mumma straight to Papa. Clever nose!", hi: "ऑगी मम्मा को सीधा पापा तक ले आया। वाह री नाक!" },
+        say: [ { who: 1, en: "Smelly socks? Me? …Okay, maybe. Hold hands, Mottu!", hi: "मेरे मोज़े बदबूदार? …अच्छा, थोड़े-से। मोटू, हाथ पकड़ो!" }, { who: 2, en: "HA-HA-HA! Auggie, stay close!", hi: "हा-हा-हा! ऑगी, पास-पास रहना!" } ]
       },
       {
         bg: "mountains",
         chars: [ { id: "auggie", pose: "cheer", mood: "laugh", x: 0.3 }, { id: "mumma", pose: "cheer", mood: "laugh", x: 0.72, flip: true } ],
         props: [ { id: "sun", x: 0.85, y: 0.15 }, { id: "rainbow", x: 0.45, y: 0.2 } ],
-        cap: { en: "The cloud floats away. What a green, green view!", hi: "बादल उड़ गया। कितना हरा-भरा नज़ारा!" },
-        say: [ { who: 0, en: "Bye-bye, cloud! Thanks for the game!", hi: "टाटा बादल! खेल के लिए शुक्रिया!" } ],
+        cap: { en: "The cloud drifts away. Green hills, and a rainbow!", hi: "बादल उड़ गया। हरी पहाड़ियाँ… और इंद्रधनुष!" },
+        say: [ { who: 0, en: "Bye, cloud! Next time, bring some flavour!", hi: "टाटा बादल! अगली बार थोड़ा स्वाद लेकर आना!" }, { who: 1, en: "Group hug for my super nose!", hi: "मेरी सुपर नाक वाले को जादू की झप्पी!" } ],
         fx: { en: "WOW!", hi: "वाह!" },
         action: true
       }

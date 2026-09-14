@@ -315,10 +315,15 @@
     } else {
       // stand / point / blast / run / fly / cheer
       const tuck = c.tuck == null ? 1 : c.tuck;
-      const out = [[X(0.26), yW], [X(0.02), yW + 3], [X(-0.2), yW + 3], [X(-0.38), yW + 1], [X(-0.48), yW + 8],
+      const sniff = pose === 'point';
+      const sHx = X(0.64), sHy = -legH * 0.42 - chinOff; // lowered head, nose towards the ground
+      const back = [[X(0.26), yW], [X(0.02), yW + 3], [X(-0.2), yW + 3], [X(-0.38), yW + 1], [X(-0.48), yW + 8],
         [X(-0.53), yW + dp * 0.42], [X(-0.5), yW + dp * 0.82], [X(-0.42), -legH + 8], [X(-0.3), -legH + 4],
-        [X(-0.2), -legH - dp * 0.22 * tuck], [X(0.05), -legH - dp * 0.04], [X(0.24), -legH + 3], [X(0.38), -legH + 3],
-        [X(0.5), yW + dp * 0.72], [X(0.55), yW + dp * 0.36], [X(0.52), yW - 8], [X(0.44), yW - 22], [X(0.34), yW - 16]];
+        [X(-0.2), -legH - dp * 0.22 * tuck], [X(0.05), -legH - dp * 0.04], [X(0.24), -legH + 3], [X(0.38), -legH + 3]];
+      const frontPts = sniff
+        ? [[X(0.5), yW + dp * 0.86], [sHx - R * 0.45, sHy + R * 0.7], [sHx - R * 0.2, sHy - R * 0.55], [X(0.44), yW - 2], [X(0.34), yW - 4]]
+        : [[X(0.5), yW + dp * 0.72], [X(0.55), yW + dp * 0.36], [X(0.52), yW - 8], [X(0.44), yW - 22], [X(0.34), yW - 16]];
+      const out = back.concat(frontPts);
       const fx = X(0.31), rx = X(-0.3);
       let fF = [[fx - 10, -legH + 2], [fx - 9, -13], [fx - 7, -4]];
       let fN = [[fx, -legH + 4], [fx + 1, -13], [fx + 3, -4]];
@@ -359,7 +364,7 @@
       s += L(sp([[X(0.22), yW + 5], [X(0), yW + 7], [X(-0.3), yW + 6]], false), 4, '#FFFFFF', 'opacity=".22"');
       s += furStrokes([[X(0.53), yW + dp * 0.45, X(0.55), yW + dp * 0.55], [X(0.5), yW + dp * 0.7, X(0.51), yW + dp * 0.8], [X(-0.52), yW + dp * 0.5, X(-0.53), yW + dp * 0.62], [X(-0.49), yW + dp * 0.72, X(-0.48), yW + dp * 0.84]]);
       hx = X(0.47); hy = yW + 8 - chinOff;
-      if (pose === 'point') { hx = X(0.62); hy = -10 - chinOff + 8; s += A.taper([[X(0.42), yW + 4], [hx - R * 0.2, hy + R * 0.3]], [R * 1.4, R * 1.3], fur, { ow: OW }); }
+      if (sniff) { hx = sHx; hy = sHy; }
       if (pose === 'blast') { hx += 6; hy -= 6; }
       if (pose === 'run' || pose === 'fly') { hx += 6; }
       if (pose === 'point') front += [0, 1, 2].map(i => L(`M${n(hx + R * 0.9 + i * 8)} ${n(hy + R * (c.ml + 0.1) - i * 5)} q5 -4 0 -8 q-5 -4 0 -8`, 1.6, INK, 'opacity=".7"')).join('');
