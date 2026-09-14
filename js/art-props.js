@@ -8,6 +8,7 @@
     flower: () => A.line(0, 0, 0, -44, 4, C.greenD) + A.path('M0 -18 q14 -14 22 -2 q-12 8 -22 2Z', C.leaf, 2.5) + [0, 72, 144, 216, 288].map(a => A.circ(Math.cos(a * Math.PI / 180) * 11, -52 + Math.sin(a * Math.PI / 180) * 11, 9, C.pink, 3)).join('') + A.circ(0, -52, 7, C.yel, 3),
     rock: () => A.path('M-40 0 Q-46 -30 -18 -40 Q10 -52 32 -30 Q46 -14 40 0 Z', C.grey) + A.path('M-14 -30 q10 -6 18 2', 'none', 3, 'stroke="#fff"'),
     house: () => A.rect(-80, -120, 160, 120, 0, '#FFE3A3') + A.poly([[-100, -116], [0, -200], [100, -116]], C.red) + A.rect(-20, -64, 40, 64, 6, C.brown) + A.rect(-64, -96, 34, 30, 2, '#BFE8FF') + A.rect(30, -96, 34, 30, 2, '#BFE8FF') + A.rect(40, -196, 20, 40, 0, C.brownD),
+    blueball: () => A.circ(0, -20, 20, C.blue) + A.path('M-19 -14 Q0 -2 19 -14 M-19 -26 Q0 -38 19 -26', 'none', 3, 'stroke="#fff"') + A.ell(-7, -28, 5, 3, '#fff', 0, 'opacity=".6"'),
     ball: () => A.circ(0, -20, 20, C.red) + A.path('M-19 -14 Q0 -2 19 -14 M-19 -26 Q0 -38 19 -26', 'none', 3, 'stroke="#fff"'),
     kite: () => A.path('M0 30 q-20 60 10 110 q20 40 -10 90', 'none', 2) + A.poly([[0, -46], [34, 0], [0, 34], [-34, 0]], C.pink) + A.line(0, -46, 0, 34, 3) + A.line(-34, 0, 34, 0, 3) + A.poly([[-4, 50], [4, 60], [-4, 60], [4, 50]], C.yel, 2) + A.poly([[2, 80], [10, 90], [2, 90], [10, 80]], C.cyan, 2),
     balloon: () => A.path('M0 30 q-10 30 6 60 q10 20 -4 50', 'none', 2) + A.ell(0, -8, 30, 36, C.red) + A.poly([[-6, 28], [6, 28], [0, 22]], C.red, 3) + A.ell(-12, -22, 7, 11, '#fff', 0, 'opacity=".7"') + A.ell(46, 10, 22, 28, C.yel) + A.path('M46 38 q-8 30 4 60', 'none', 2),
@@ -50,6 +51,13 @@
     magnet: () => A.path('M-30 -70 L-30 -34 Q-30 0 0 0 Q30 0 30 -34 L30 -70 L14 -70 L14 -34 Q14 -16 0 -16 Q-14 -16 -14 -34 L-14 -70 Z', C.red) + A.rect(-30, -78, 16, 14, 0, C.silver) + A.rect(14, -78, 16, 14, 0, C.silver) + A.path('M-44 -86 l-8 -8 M44 -86 l8 -8 M0 -90 v-10', 'none', 3, `stroke="${C.blue}"`),
     machine: () => A.rect(-60, -100, 120, 100, 12, C.teal) + A.rect(-44, -84, 50, 36, 6, C.screen) + A.path('M-40 -62 l10 -10 l8 12 l10 -16 l8 8', 'none', 3, `stroke="${C.lime}"`) + [20, 42].map(x => A.circ(x, -74, 9, x > 30 ? C.red : C.yel)).join('') + A.rect(12, -44, 40, 10, 5, C.silverD) + A.path('M0 -100 l0 -20 q10 -6 0 -12 q-10 -6 0 -12', 'none', 4) + A.circ(0, -150, 10, C.pink) + A.rect(-50, -24, 100, 12, 4, C.greyD),
     // ---- Auggie's world ----
+    carrot: () => {
+      // a fat orange carrot lying on the ground, leafy top on the left (Auggie's favourite thing in the world)
+      const body = 'M-22 -14 C-10 -24 12 -20 34 -10 C38 -8 38 -6 34 -5 C12 -2 -10 -2 -22 -6 Q-28 -10 -22 -14 Z';
+      return [[-30, -22, -20], [-34, -14, 18], [-25, -27, -48]].map(([x, y, r]) => `<ellipse cx="${x}" cy="${y}" rx="12" ry="4.6" fill="${C.leaf}" stroke="${C.ink}" stroke-width="2.4" transform="rotate(${r} ${x} ${y})"/>`).join('') +
+        A.path(body, C.orange, 3) + A.path('M-8 -18 q3 4 0 8 M6 -17 q3 4 0 7 M18 -14 q2 3 0 6', 'none', 2, `stroke="${A.shade(C.orange, 0.32)}"`) +
+        A.path('M-16 -15 Q4 -21 26 -12', 'none', 2.5, 'stroke="#FFD29A" stroke-opacity=".85"');
+    },
     bone: () => [[-26, -20], [-26, -8], [26, -20], [26, -8]].map(p => A.circ(p[0], p[1], 8, '#fff')).join('') + A.rect(-26, -19, 52, 12, 0, '#fff', 0) + [[-26, -20], [-26, -8], [26, -20], [26, -8]].map(p => A.circ(p[0], p[1], 6.5, '#fff', 0)).join(''),
     bowl: () => A.ell(0, -30, 34, 8, '#8A5A33', 3) + [-18, -6, 6, 18, -12, 0, 12].map((x, i) => A.circ(x, -32 - (i > 3 ? 6 : 0), 5, '#B07A44', 2)).join('') + A.path('M-38 -30 L-30 0 L30 0 L38 -30 Z', C.red) + A.path('M-10 -18 q10 -8 20 0', 'none', 3, 'stroke="#fff"'),
     frisbee: () => `<g transform="rotate(-12 0 -40)">${A.ell(0, -40, 36, 11, C.blue)}${A.ell(0, -43, 22, 5, C.yel, 0)}</g>`,

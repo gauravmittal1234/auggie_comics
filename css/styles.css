@@ -162,7 +162,7 @@ html[lang="hi"] .hero-copy .eyebrow { letter-spacing: 0; }
 .fav-toggle { border: 3px solid var(--line); background: var(--surface); color: var(--text); border-radius: 12px; font-weight: 800; padding: 8px 14px; display: inline-flex; gap: 6px; align-items: center; }
 .fav-toggle svg { width: 1.2em; height: 1.2em; }
 .fav-toggle[aria-pressed="true"] { background: var(--yel); color: #16142B; border-color: #16142B; }
-.cats { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 26px; }
+.cats { display: flex; flex-wrap: wrap; gap: 8px; }
 .chip {
   border: 2.5px solid var(--line); background: var(--surface); color: var(--text); border-radius: 999px;
   font-weight: 700; font-size: .92rem; padding: 3px 13px;
@@ -267,6 +267,55 @@ html[lang="hi"] .hcard .role { letter-spacing: 0; }
   *, *::before, *::after { transition: none !important; animation: none !important; scroll-behavior: auto !important; }
 }
 
-/* Read-aloud voice picker */
-.voice-pick { display: inline-flex; align-items: center; gap: 6px; font-weight: 700; font-size: .9rem; }
-.voice-pick select { font: inherit; font-weight: 600; max-width: 12rem; padding: 6px 8px; border: 3px solid var(--line); border-radius: 10px; background: var(--surface); color: var(--text); }
+/* Read-aloud voice: girl / boy */
+.voice-pick { display: inline-flex; border: 3px solid #16142B; border-radius: 12px; overflow: hidden; background: #fff; box-shadow: 4px 4px 0 #16142B; }
+.voice-pick button { border: 0; background: #fff; color: #16142B; font-weight: 800; padding: .6em 1em; font-size: 1rem; line-height: 1.2; }
+.voice-pick button + button { border-left: 3px solid #16142B; }
+.voice-pick button[aria-pressed="true"] { background: var(--yel); }
+
+/* ---------- Topics ---------- */
+.topics { max-width: 1240px; margin: 44px auto 0; padding: 0 clamp(14px, 3vw, 32px); }
+.tiles { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 14px; }
+.tile {
+  --tc: var(--yel);
+  width: 100%; display: flex; align-items: center; gap: 12px; padding: 10px 14px; text-align: left;
+  border: 3px solid #16142B; border-radius: 14px; background: var(--surface); color: var(--text); box-shadow: 4px 4px 0 var(--shadow);
+  transition: transform .1s, box-shadow .1s;
+}
+.tile:hover { transform: translate(-1px, -1px); box-shadow: 5px 5px 0 var(--shadow); }
+.tile[aria-pressed="true"] { background: var(--tc); color: #16142B; }
+.tile .tn {
+  flex: none; min-width: 46px; height: 46px; padding: 0 8px; display: grid; place-items: center; border-radius: 12px;
+  background: var(--tc); color: #16142B; border: 2.5px solid #16142B; font-family: var(--font-display); font-size: 1.5rem; letter-spacing: .02em;
+}
+.tile[aria-pressed="true"] .tn { background: #16142B; color: var(--tc); }
+.tile .tl { font-weight: 800; font-size: 1rem; line-height: 1.15; }
+
+/* ---------- Filters ---------- */
+.shelf-tools { display: flex; gap: 10px; align-items: center; flex: 1 1 320px; justify-content: flex-end; }
+.fbtn { position: relative; padding: .55em 1em; }
+.fbtn .fcount { position: absolute; top: -10px; right: -10px; min-width: 24px; height: 24px; padding: 0 6px; border-radius: 12px; background: var(--red); color: #fff; border: 2.5px solid #16142B; font-size: .8rem; display: grid; place-items: center; }
+.fbtn[aria-expanded="true"] { background: var(--yel); }
+.fpanel { border: 3px solid var(--line); border-radius: 16px; background: var(--surface); padding: 14px 16px; margin-bottom: 14px; display: grid; gap: 14px; box-shadow: 5px 5px 0 var(--shadow); }
+.frow { display: grid; grid-template-columns: 5.5rem 1fr; gap: 10px; align-items: start; }
+.frow .flabel { font-weight: 800; padding-top: 6px; color: var(--muted); text-transform: uppercase; font-size: .8rem; letter-spacing: .06em; }
+html[lang="hi"] .frow .flabel { letter-spacing: 0; text-transform: none; font-size: .95rem; }
+.frow .fav-toggle, .frow .fclear { margin-right: 10px; }
+.fclear { padding: .45em 1em; font-size: .95rem; box-shadow: 3px 3px 0 #16142B; }
+.active { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 18px; }
+.active:empty { display: none; }
+.achip { display: inline-flex; align-items: center; gap: 6px; border: 2.5px solid #16142B; background: var(--yel); color: #16142B; border-radius: 999px; font-weight: 800; font-size: .9rem; padding: 3px 10px 3px 13px; }
+.achip svg { width: 1em; height: 1em; }
+.achip.all { background: var(--surface); color: var(--text); border-color: var(--line); }
+.chip[disabled] { opacity: .4; cursor: default; }
+@media (max-width: 760px) {
+  .frow { grid-template-columns: 1fr; }
+  .shelf-tools { flex-basis: 100%; }
+  .tiles { grid-template-columns: repeat(auto-fill, minmax(128px, 1fr)); gap: 10px; }
+}
+
+/* Touch targets big enough for small fingers (the visible dot stays small, the tap area is 40px) */
+.dot { position: relative; width: 18px; height: 18px; }
+.dot::after { content: ""; position: absolute; inset: -11px; }
+.chip { padding: 6px 14px; min-height: 36px; }
+.dots { gap: 23px; } /* 18px dot + 23px gap: the 40px tap areas never overlap */

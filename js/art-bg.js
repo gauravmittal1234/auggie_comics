@@ -347,6 +347,80 @@
       s += A.rect(w * 0.4, gy - 56, w * 0.26, 14, 4, '#C9D0DA', LWb()) + A.rect(w * 0.43, gy - 42, 10, 42, 2, '#8C94A8', LWb() * 0.6) + A.rect(w * 0.6, gy - 42, 10, 42, 2, '#8C94A8', LWb() * 0.6);
       return s;
     },
+    nightsky(w, h, gy, rnd) {
+      // a real night sky seen from Earth: deep blue, lots of stars, a soft Milky Way, a crescent moon, rooftops and trees
+      let s = sky('nightsky', w, h, ['#070B2A', '#16225E', '#2B3C84'], 'light', gy);
+      s += `<path d="M${n(-w * 0.1)} ${n(h * 0.62)} Q${n(w * 0.42)} ${n(h * 0.22)} ${n(w * 1.1)} ${n(h * 0.02)}" stroke="#DDE6FF" stroke-opacity=".13" stroke-width="${n(h * 0.17)}" fill="none" stroke-linecap="round"/>`;
+      s += `<path d="M${n(-w * 0.1)} ${n(h * 0.62)} Q${n(w * 0.42)} ${n(h * 0.22)} ${n(w * 1.1)} ${n(h * 0.02)}" stroke="#FFFFFF" stroke-opacity=".08" stroke-width="${n(h * 0.06)}" fill="none" stroke-linecap="round"/>`;
+      s += stars(w, gy * 0.92, rnd, Math.round(70 + w / 8));
+      const mx = w * 0.82, my = h * 0.16, mr = Math.max(14, h * 0.06);
+      s += `<circle cx="${n(mx)}" cy="${n(my)}" r="${n(mr * 2.6)}" fill="url(#glow-y)" opacity=".35"/>` + A.path(`M${n(mx)} ${n(my - mr)} A${n(mr)} ${n(mr)} 0 0 0 ${n(mx)} ${n(my + mr)} A${n(mr * 0.52)} ${n(mr)} 0 0 1 ${n(mx)} ${n(my - mr)} Z`, '#FFF3C4', LWb() * 0.7); // a real crescent, not a disc cut-out
+      // village rooftops and trees in silhouette along the horizon
+      let x = -10;
+      while (x < w) {
+        const bw = 36 + rnd() * 54, bh = 16 + rnd() * 30;
+        if (rnd() < 0.35) s += A.circ(x + bw * 0.5, gy - bh - 10, bh * 0.7 + 8, '#0B1030', 0) + A.rect(x + bw * 0.5 - 3, gy - bh, 6, bh, 0, '#0B1030', 0);
+        else s += A.poly([[x, gy], [x, gy - bh], [x + bw / 2, gy - bh - 16 - rnd() * 8], [x + bw, gy - bh], [x + bw, gy]], '#0A0E28', 0) + (rnd() < 0.5 ? A.rect(x + bw * 0.3, gy - bh * 0.7, bw * 0.18, bh * 0.28, 1, '#FFD76A', 0) : '');
+        x += bw + rnd() * 34;
+      }
+      s += ground(w, h, gy, '#141B3D', '#1E2752');
+      return s;
+    },
+    office(w, h, gy, rnd) {
+      // Papa's open-plan office: blinds, a long desk with screens, a plant, a notice board
+      let s = `<rect width="${n(w)}" height="${n(h)}" fill="#E9EEF5"/>` + A.halftone(0, 0, w, gy, 'dark');
+      const wx = w * 0.08, wy = h * 0.08, ww = w * 0.4, wh = gy * 0.42;
+      s += A.rect(wx, wy, ww, wh, 3, '#BDE9FF', LWb());
+      for (let y = wy + 8; y < wy + wh - 4; y += 12) s += A.rect(wx + 3, y, ww - 6, 6, 1, '#F4F7FB', 0);
+      s += A.rect(wx + 3, wy + 3, ww - 6, 8, 1, '#8C94A8', 0);
+      s += A.rect(w * 0.62, h * 0.1, w * 0.3, gy * 0.32, 4, '#F6E3B5', LWb());
+      [[0.66, 0.14, C.yel], [0.78, 0.13, C.pink], [0.7, 0.26, '#BDE9FF'], [0.82, 0.25, '#A7E34B']].forEach(([fx, fy, col]) => { s += A.rect(w * fx, h * fy, w * 0.07, gy * 0.09, 1, col, 1.5) + A.circ(w * fx + w * 0.035, h * fy, 3, C.red, 0); });
+      s += ground(w, h, gy, '#9FB0C4', '#B7C6D8');
+      const dy = gy - 58, dx = w * 0.06, dw = w * 0.88;
+      s += A.rect(dx, dy, dw, 14, 3, '#F3EAD8', LWb()) + A.rect(dx + 10, dy + 14, 12, 44, 2, '#8C94A8', LWb() * 0.6) + A.rect(dx + dw - 22, dy + 14, 12, 44, 2, '#8C94A8', LWb() * 0.6);
+      [0.14, 0.42, 0.7].forEach(f => { const mx = w * f; s += A.rect(mx, dy - 60, w * 0.16, 52, 4, '#1B2440', LWb()) + A.rect(mx + 5, dy - 55, w * 0.16 - 10, 42, 2, '#2E8BEF', 0) + A.path(`M${n(mx + 12)} ${n(dy - 30)} h${n(w * 0.1)} M${n(mx + 12)} ${n(dy - 40)} h${n(w * 0.06)} M${n(mx + 12)} ${n(dy - 20)} h${n(w * 0.08)}`, 'none', 2.5, 'stroke="#BDE9FF"') + A.rect(mx + w * 0.07, dy - 8, 10, 8, 1, '#8C94A8', 1.5); });
+      s += A.rect(w * 0.9, dy - 26, 22, 26, 3, C.orange, LWb()) + [[-8, -30], [8, -34], [0, -46], [-14, -44], [14, -46]].map(d => A.ell(w * 0.9 + 11 + d[0], dy + d[1], 12, 8, C.leaf, 2, `transform="rotate(${d[0] * 2} ${n(w * 0.9 + 11 + d[0])} ${n(dy + d[1])})"`)).join('');
+      s += A.rect(w * 0.3, dy - 14, 22, 14, 2, '#fff', 2) + A.path(`M${n(w * 0.3 + 4)} ${n(dy - 10)} q7 -8 14 0`, 'none', 2, `stroke="${C.brown}"`);
+      return s;
+    },
+    classroom(w, h, gy, rnd) {
+      // Miss Ji's classroom: blackboard with chalk, a window, two desks
+      let s = `<rect width="${n(w)}" height="${n(h)}" fill="#FFF0C9"/>` + A.halftone(0, 0, w, gy, 'dark');
+      const bx = w * 0.1, by = h * 0.08, bw = w * 0.5, bh = gy * 0.46;
+      s += A.rect(bx - 8, by - 8, bw + 16, bh + 16, 4, '#9A6236', LWb()) + A.rect(bx, by, bw, bh, 2, '#2D5A3D', LWb() * 0.6);
+      s += A.path(`M${n(bx + bw * 0.08)} ${n(by + bh * 0.22)} h${n(bw * 0.5)} M${n(bx + bw * 0.08)} ${n(by + bh * 0.4)} h${n(bw * 0.7)} M${n(bx + bw * 0.08)} ${n(by + bh * 0.58)} h${n(bw * 0.4)}`, 'none', 3, 'stroke="#fff" opacity=".85"');
+      s += A.path(`M${n(bx + bw * 0.66)} ${n(by + bh * 0.28)} l14 -14 l14 14 l-14 14 Z`, 'none', 2.5, 'stroke="#FFE36E"') + A.circ(bx + bw * 0.86, by + bh * 0.66, bh * 0.1, 'none', 2.5, 'stroke="#FFB3C1"');
+      s += A.rect(bx - 8, by + bh + 8, bw + 16, 10, 2, '#7A4E2D', LWb() * 0.6) + A.rect(bx + 10, by + bh + 2, 22, 6, 2, '#fff', 1.2) + A.rect(bx + 40, by + bh + 2, 22, 6, 2, C.pink, 1.2);
+      const wx = w * 0.7, wy = h * 0.1, ww = w * 0.22, wh = gy * 0.36;
+      s += A.rect(wx, wy, ww, wh, 3, '#BDE9FF', LWb()) + A.line(wx + ww / 2, wy, wx + ww / 2, wy + wh, LWb() * 0.7) + cloud(wx + ww * 0.35, wy + wh * 0.3, 0.4);
+      s += A.rect(w * 0.7, wy + wh + 12, ww, 16, 2, '#F2C688', LWb() * 0.6) + A.rect(w * 0.72, wy + wh - 2, 12, 16, 2, C.red, 1.5) + A.rect(w * 0.76, wy + wh - 6, 12, 20, 2, C.blue, 1.5) + A.rect(w * 0.8, wy + wh, 12, 14, 2, C.green, 1.5);
+      s += ground(w, h, gy, '#C98B4F', '#D9A066');
+      [0.06, 0.62].forEach(f => { const dx = w * f, dy = gy - 44; s += A.rect(dx, dy, w * 0.3, 12, 3, '#E8B26A', LWb()) + A.rect(dx + 8, dy + 12, 8, 32, 1, '#8A5A33', LWb() * 0.5) + A.rect(dx + w * 0.3 - 16, dy + 12, 8, 32, 1, '#8A5A33', LWb() * 0.5) + A.rect(dx + 20, dy - 10, 34, 10, 2, C.blue, 2) + A.rect(dx + 24, dy - 14, 26, 6, 1, '#fff', 1.2); });
+      return s;
+    },
+    haunted(w, h, gy, rnd) {
+      // the old bungalow at the end of the lane: night, big moon, bats, a cobweb, glowing windows. Funny, not scary.
+      let s = sky('haunted', w, h, ['#1B1740', '#3E2C6E', '#5B3F8A'], 'light', gy) + stars(w, gy * 0.55, rnd, 22);
+      s += `<circle cx="${n(w * 0.78)}" cy="${n(h * 0.17)}" r="${n(h * 0.17)}" fill="url(#glow-y)" opacity=".55"/>` + A.circ(w * 0.78, h * 0.17, h * 0.085, '#FFF3C4', LWb()) + A.circ(w * 0.76, h * 0.15, 6, '#F0DFA6', 0) + A.circ(w * 0.81, h * 0.2, 4, '#F0DFA6', 0);
+      s += hills(w, gy, gy * 0.18, '#2A2352', rnd, 2);
+      const hx = w * 0.18, hw = w * 0.5, hy = gy * 0.3, hh = gy - hy;
+      s += A.poly([[hx - 20, hy + 10], [hx + hw / 2, hy - gy * 0.2], [hx + hw + 20, hy + 10]], '#3B2E62', LWb());
+      s += A.rect(hx, hy, hw, hh, 0, '#52407E', LWb());
+      s += A.rect(hx + hw * 0.62, hy - gy * 0.12, 18, gy * 0.12, 0, '#3B2E62', LWb() * 0.7);
+      [[0.12, 0.2], [0.62, 0.2], [0.12, 0.55], [0.62, 0.55]].forEach(([fx, fy], i) => { const wx = hx + hw * fx, wy = hy + hh * fy; s += `<rect x="${n(wx - 6)}" y="${n(wy - 6)}" width="${n(hw * 0.26 + 12)}" height="${n(hh * 0.25 + 12)}" rx="6" fill="url(#glow-y)" opacity=".5"/>` + A.rect(wx, wy, hw * 0.26, hh * 0.25, 2, i === 1 ? '#2A2352' : '#FFE36E', LWb() * 0.8) + A.line(wx + hw * 0.13, wy, wx + hw * 0.13, wy + hh * 0.25, LWb() * 0.6) + A.line(wx, wy + hh * 0.125, wx + hw * 0.26, wy + hh * 0.125, LWb() * 0.6); });
+      s += A.rect(hx + hw * 0.4, gy - hh * 0.36, hw * 0.2, hh * 0.36, 8, '#2A2352', LWb()) + A.circ(hx + hw * 0.56, gy - hh * 0.18, 3.5, C.yel, 0);
+      s += A.path(`M${n(hx + hw * 0.4)} ${n(gy - hh * 0.36)} l-6 -14 M${n(hx + hw * 0.3)} ${n(hy + 4)} l-8 -10`, 'none', 2.5, 'stroke="#BDB6E6" opacity=".7"');
+      // cobweb in the top-left corner
+      const cw = w * 0.14;
+      for (let i = 0; i <= 4; i++) { const a = (i / 4) * Math.PI / 2; s += A.line(0, 0, Math.cos(a) * cw, Math.sin(a) * cw, 1.6, '#D9D4F0'); }
+      [0.35, 0.65, 0.95].forEach(f => { let d = `M${n(cw * f)} 0`; for (let i = 1; i <= 4; i++) { const a = (i / 4) * Math.PI / 2; d += ` Q${n(Math.cos(a - 0.2) * cw * f * 0.9)} ${n(Math.sin(a - 0.2) * cw * f * 0.9)} ${n(Math.cos(a) * cw * f)} ${n(Math.sin(a) * cw * f)}`; } s += A.path(d, 'none', 1.4, 'stroke="#D9D4F0"'); });
+      // bats (friendly, tiny)
+      [[0.62, 0.32], [0.9, 0.4], [0.72, 0.5]].forEach(([fx, fy]) => { const bx = w * fx, by = h * fy; s += A.path(`M${n(bx - 16)} ${n(by)} q8 -10 16 0 q8 -10 16 0 q-8 6 -16 2 q-8 4 -16 -2 Z`, '#1B1740', 1.5) + A.circ(bx - 3, by - 1, 1.5, C.yel, 0) + A.circ(bx + 3, by - 1, 1.5, C.yel, 0); });
+      s += ground(w, h, gy, '#3A4A3A', '#4E6B4A');
+      for (let x = 10; x < w; x += 36) s += A.path(`M${n(x)} ${n(gy + 2)} l4 -12 l4 12 M${n(x + 14)} ${n(gy + 2)} l3 -9 l3 9`, 'none', 2, 'stroke="#6C8F5E"');
+      s += A.path(`M${n(w * 0.84)} ${n(gy + 2)} v-40 l-14 -10 M${n(w * 0.84)} ${n(gy - 22)} l16 -12`, 'none', 5, 'stroke="#2A2352"'); // the default style already has round caps
+      return s;
+    },
     action(w, h, gy, rnd) {
       const cx = w * 0.5, cy = h * 0.5, R = Math.hypot(w, h);
       let s = `<rect width="${n(w)}" height="${n(h)}" fill="${C.yel}"/>`;

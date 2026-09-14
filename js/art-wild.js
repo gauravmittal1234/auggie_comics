@@ -505,7 +505,7 @@
       s += K.g(h, { x: H[0], y: H[1], r: hr });
       // near wing
       if (fly || hop) s += spread(fly ? -104 : -112, c.wing, c.wingS);
-      else if (P.wave) s += spread(-70, c.wing, c.wingS);
+      else if (P.wave) s += spread(-128, c.wing, c.wingS);
       else if (P.point) s += spread(-14, c.wing, c.wingS, true);
       let fx = '';
       const top = [H[0], H[1] - R * (c.topK || 1.4)];
@@ -630,10 +630,10 @@
 
   /* ================= PARROT (rose-ringed parakeet) ================= */
   X.parrot = (pose, mood) => K.bird({
-    s: 1.35, L: 38, D: 28, R: 12.5, ang: -58, legH: 7, neck: [5, -6],
+    s: 1.35, L: 38, D: 28, R: 12.5, ang: -46, legH: 11, neck: [5, -6],
     body: '#3DAE4B', bodyS: '#23803A', hi: '#9BDD7A', belly: '#8ED06A',
     wing: '#33A044', wingS: '#1E7434', prim: '#1D6A5A', wingLen: 0.4, span: 62,
-    tail: { len: 58, ws: [10, 7, 3], ang: 16, col: '#2F9F7A' },
+    tail: { len: 58, ws: [10, 7, 3], ang: 34, col: '#2F9F7A' },
     head: '#46B852', headS: '#27853B', beak: 'hook', beakCol: '#D8322E', beakCol2: '#3A2626', iris: '#EFE6C0', pr: 0.42, eyeR: 3.4, eyeRing: '#F2A33A',
     leg: '#9C8C8C', legW: 3, feet: 'perch', toe: 7, topK: 1.5,
     headOver: (R) => K.ink(`M${n(R * 0.5)} ${n(R * 0.7)} Q${n(-R * 0.1)} ${n(R * 1.25)} ${n(-R * 0.95)} ${n(R * 0.55)}`, 2.6, C.ink) + K.ink(`M${n(R * 0.3)} ${n(R * 0.62)} Q${n(-R * 0.2)} ${n(R * 1.05)} ${n(-R * 0.9)} ${n(R * 0.42)}`, 1.6, '#F28FB0'),
@@ -662,12 +662,12 @@
       train: (P2, md, bw, T0) => {
         let s = '';
         if (display) {
-          const cx = T0[0] - 4, cy = T0[1] - 8, R1 = 104;
+          const cx = T0[0] - 4, cy = T0[1] - 8, R1 = 92;
           const fan = []; for (let i = 0; i <= 24; i++) { const a = K.rad(-200 + i * (190 / 24)); const r = R1 * (i % 2 ? 0.96 : 1.02); fan.push([cx + Math.cos(a) * r, cy + Math.sin(a) * r]); }
           fan.push([cx + 12, cy + 12], [cx - 12, cy + 16]);
           let inner = '';
           for (let i = 0; i < 26; i++) { const a = K.rad(-200 + i * (190 / 25)); inner += K.ink(`M${n(cx)} ${n(cy)} L${n(cx + Math.cos(a) * R1)} ${n(cy + Math.sin(a) * R1)}`, 1, '#6F7A2A', 'stroke-opacity=".7"'); }
-          [[94, 12, 19], [70, 10, 15], [46, 8, 10]].forEach(([r, sz, cnt], ring) => { for (let i = 0; i <= cnt; i++) { const a = -200 + (i + (ring % 2) * 0.5) * (190 / cnt); if (a > -8) continue; const q = K.rad(a); inner += eyeSpot(cx + Math.cos(q) * r, cy + Math.sin(q) * r, sz, a + 90); } });
+          [[82, 11, 17], [60, 9, 13], [40, 7, 9]].forEach(([r, sz, cnt], ring) => { for (let i = 0; i <= cnt; i++) { const a = -200 + (i + (ring % 2) * 0.5) * (190 / cnt); if (a > -8) continue; const q = K.rad(a); inner += eyeSpot(cx + Math.cos(q) * r, cy + Math.sin(q) * r, sz, a + 90); } });
           s += K.mass(fan, '#4E7A2E', { sh: '#2F4F1C', off: [-6, -8], inner, t: 0.9 });
         } else {
           const e = [T0[0] - 110, -6 + (P2.fly ? -20 : 0)];
@@ -784,6 +784,356 @@
     return K.out(s, [6, -118 + sq], { lift, rot: run ? 8 : 0, pivot: [0, 0] });
   };
 
+  /* ================= MONKEY (rhesus macaque) ================= */
+  X.monkey = (pose, mood) => {
+    const P = K.pose(pose);
+    const F = '#A57A4E', FS = '#795433', FL = '#D8BD98', FF = '#8C6440', FFS = '#664528', PK = '#E7A28C', PKL = '#F1BBA6', HD = '#9C7466';
+    const sit = P.sit || P.lie, run = P.run || P.fly, hop = P.hop;
+    const lift = hop ? 18 : P.run ? 8 : P.fly ? 26 : 0;
+    let hip = [-6, -46], sh = [4, -84], H = { x: 12, y: -102, r: 0 };
+    if (run) { hip = [-10, -44]; sh = [10, -80]; H = { x: 22, y: -96, r: -4 }; }
+    if (sit) { hip = [-10, -16]; sh = [2, -54]; H = { x: 10, y: -72, r: 0 }; }
+    if (P.lie && mood === 'sleepy') { H.y += 12; H.r = 24; H.x += 6; }
+    if (P.think) H.r = 12;
+    if (mood === 'sad') { H.r += 12; H.y += 3; }
+    if (P.blast) H.r -= 10;
+    let s = '';
+    // tail
+    const tpts = sit ? [[hip[0] - 8, hip[1] + 4], [hip[0] - 30, hip[1] + 10], [hip[0] - 50, hip[1] + 12]] : run ? [[hip[0] - 8, hip[1]], [hip[0] - 28, hip[1] - 10], [hip[0] - 44, hip[1] - 26]] : [[hip[0] - 8, hip[1] + 2], [hip[0] - 26, hip[1] + 8], [hip[0] - 36, hip[1] + 22], [hip[0] - 38, hip[1] + 36]];
+    s += K.limb(tpts, tpts.map((p, i) => 8 - i * 1.5), F, { sh: FS });
+    // legs
+    const foot = (a, dir = 1) => K.mass([[a[0] - 5, a[1] - 5], [a[0] + 5, a[1] - 6], [a[0] + 16 * dir, a[1] - 2], [a[0] + 18 * dir, a[1] + 3], [a[0] - 4, a[1] + 3]], HD, { ow: 2.3, off: [-2, -2] });
+    const legPts = (near) => {
+      const o = near ? 0 : -6;
+      if (sit) return [[hip[0] + o, hip[1]], [hip[0] + 24 + o, hip[1] - 20], [hip[0] + 28 + o, -6]];
+      if (run) return near ? [[hip[0], hip[1]], [hip[0] + 22, hip[1] + 12], [hip[0] + 30, -8]] : [[hip[0], hip[1]], [hip[0] - 6, hip[1] + 22], [hip[0] - 24, -10]];
+      if (hop) return [[hip[0] + o, hip[1]], [hip[0] + 16 + o, hip[1] + 10], [hip[0] + 2 + o, hip[1] + 26]];
+      return [[hip[0] + o, hip[1]], [hip[0] + 14 + o, -24], [hip[0] + 4 + o, -6]];
+    };
+    const lp = legPts(false), ln = legPts(true);
+    s += K.limb(lp, [20, 13, 10], FF, { sh: FFS }) + foot(lp[2]);
+    // arms
+    const armPts = (near) => {
+      const o = near ? 0 : -8, e = (dx, dy) => [sh[0] + dx + o, sh[1] + dy], sp = [sh[0] + o, sh[1]];
+      if (P.cheer || hop) return [sp, e(near ? 16 : -8, -16), e(near ? 14 : -6, -42)];
+      if (P.wave && near) return [sp, e(18, -12), e(22, -38)];
+      if (P.point && near) return [sp, e(22, 4), e(44, 2)];
+      if (P.think && near) return [sp, e(16, 18), e(18, -6)];
+      if (P.blast) return [sp, e(near ? 16 : 6, 8), e(near ? 26 : 14, -8)];
+      if (run) return near ? [sp, e(16, 14), e(30, 6)] : [sp, e(-12, 14), e(-20, 30)];
+      if (sit) return [sp, e(10, 22), e(24, 22)];
+      return [sp, e(8, 22), e(12, 42)];
+    };
+    const hand = (w, up) => K.mass([[w[0] - 4, w[1] - 3], [w[0] + 3, w[1] - 5], [w[0] + 7, w[1] + (up ? -6 : 2)], [w[0] + 4, w[1] + (up ? -2 : 7)], [w[0] - 3, w[1] + 5]], HD, { ow: 2.2, off: [-2, -2] });
+    const af = armPts(false);
+    s += K.limb(af, [13, 10, 8], FF, { sh: FFS }) + hand(af[2], P.cheer || hop);
+    // torso
+    const mid = [(sh[0] + hip[0]) / 2 - 3, (sh[1] + hip[1]) / 2];
+    const tor = K.limbD([[sh[0] - 1, sh[1] - 4], mid, hip], [30, 34, 30]);
+    s += K.mass(tor, F, { sh: FS, off: [-7, -8], hi: '#C49A68', hiK: 0.4, inner: K.fill([[sh[0] + 8, sh[1] + 6], [mid[0] + 16, mid[1]], [hip[0] + 14, hip[1] - 2], [hip[0] + 4, hip[1] + 6], [mid[0] + 4, mid[1]]], FL) + K.fill([[hip[0] - 16, hip[1] - 12], [hip[0] + 4, hip[1] - 14], [hip[0] + 8, hip[1] + 10], [hip[0] - 14, hip[1] + 14]], '#B8804A', 'fill-opacity=".7"'), over: K.fur([[sh[0] - 12, sh[1] + 10, -3, 5], [mid[0] - 14, mid[1], -3, 5], [sh[0] - 6, sh[1] + 2, -2, 5]], FS, 1.3, 0.8) });
+    s += K.limb(ln, [21, 14, 10], F, { sh: FS }) + foot(ln[2]);
+    const an = armPts(true);
+    s += K.limb(an, [14, 11, 8.5], F, { sh: FS, inner: '' }) + hand(an[2], P.cheer || hop || P.wave);
+    if (P.point) s += K.limb([[an[2][0] + 4, an[2][1] - 1], [an[2][0] + 13, an[2][1] - 2]], [3.4, 3], HD);
+    // head (local, centred)
+    let h = '';
+    h += K.mass([[-14, -8], [-21, -9], [-23, -2], [-18, 4], [-13, 1]], '#C98C74', { ow: 2.2, off: [-2, -2] });
+    h += K.mass([[-17, -2], [-16, -13], [-6, -19], [8, -19], [16, -12], [19, -2], [16, 9], [6, 15], [-6, 15], [-15, 8]], F, { sh: FS, off: [-4, -5], hi: '#C49A68', hiK: 0.4, over: K.fur([[-8, -18, 1, 4], [0, -19, 1, 4], [8, -18, 0, 4], [-14, -10, 2, 3]], FS, 1.2, 0.8) });
+    h += K.mass([[-3, -9], [7, -12], [15, -9], [20, -2], [21, 6], [15, 12], [4, 13], [-3, 7], [-5, -1]], PK, { sh: '#C9806C', off: [-2, -3], ow: 1.8 });
+    const open = P.blast || mood === 'laugh' || mood === 'surprised';
+    h += K.mass([[7, 1], [17, -1], [23, 3], [22, 9 + (open ? 3 : 0)], [13, 12 + (open ? 3 : 0)], [6, 8]], PKL, { sh: '#D99A86', off: [-1.5, -2], ow: 1.8 });
+    h += K.dot(18.5, 2.5, 0.9) + K.dot(21, 3.2, 0.9);
+    if (open) h += K.mass([[11, 7], [19, 6], [21, 10], [16, 14], [11, 12]], '#5A1B22', { ow: 1.4, sh: false, inner: K.fill([[12, 7], [19, 6.5], [19, 8], [12, 8.5]], '#FFF8EC') });
+    else h += mood === 'sad' || mood === 'scared' ? K.ink('M11 10 q5 -3 10 0', 1.5) : mood === 'angry' || mood === 'determined' ? K.ink('M11 9 l10 -0.5', 1.5) : K.ink('M11 8 q5 4 10 0', 1.5);
+    h += K.ink('M-2 -9 q6 -4 12 -1 M11 -10 q4 -2 8 1', 2.2, '#5A3A28');
+    const eo = { iris: '#6A3E18', lid: PK, bw: 1.3, sw: 1.3, round: true, look: 1.2 };
+    h += K.eye(13, -4, 2.7, mood, eo) + K.eye(4, -4, 3.1, mood, eo);
+    if (mood === 'sad') h += K.tear(3, 1, 0.7);
+    if (mood === 'scared') h += K.sweat(-16, -16, 0.8);
+    s += K.g(h, H);
+    const top = [H.x, H.y - 26];
+    let fx = '';
+    if (P.blast) fx += K.sound(H.x + 26, H.y + 6, 1.1);
+    if (mood === 'sleepy') fx += K.zz(H.x + 16, H.y - 34, 1);
+    if (P.think) fx += K.qmark(H.x + 26, H.y - 30, 1);
+    return K.out(s + fx, top, { lift, rot: run ? 10 : 0, pivot: [0, 0] });
+  };
+
+  /* ================= RABBIT (wild-type brown rabbit) ================= */
+  X.rabbit = (pose, mood) => {
+    const P = K.pose(pose);
+    const F = '#A88462', FS = '#7B5D41', FF = '#937153', L = '#EFE4D2', PKI = '#E9A9A2';
+    const leap = P.run || P.fly || P.hop, flop = P.lie;
+    const lift = P.hop ? 26 : P.run ? 12 : P.fly ? 30 : 0;
+    let s = '', H, earBase;
+    const earA = mood === 'surprised' ? 10 : (mood === 'scared' || mood === 'angry') ? -62 : mood === 'sad' ? -80 : mood === 'sleepy' ? -58 : leap ? -48 : -6;
+    const ear = (bx, by, rot, col, far) => K.g(K.mass([[-4, 2], [-10, -18], [-12, -42], [-6, -50], [4, -44], [6, -20], [4, 2]], col, { sh: FS, off: [-2, -3], ow: 2.4, inner: far ? '' : K.fill([[-4, -4], [-8, -20], [-8, -40], [-4, -44], [1, -38], [2, -18]], PKI) }), { x: bx, y: by, r: rot });
+    if (leap) {
+      // stretched mid-leap
+      s += K.limb([[-34, -40], [-58, -32], [-86, -28]], [22, 12, 10], FF, { sh: FS }) + K.mass([[-88, -32], [-104, -30], [-106, -24], [-86, -23]], FF, { ow: 2.2, off: [-2, -2] });
+      s += K.limb([[22, -40], [34, -26], [42, -16]], [10, 8, 7], FF, { sh: FS });
+      s += K.mass([[-56, -44], [-44, -58], [-18, -64], [10, -62], [28, -56], [34, -44], [26, -34], [6, -30], [-22, -30], [-48, -34]], F, { sh: FS, off: [-7, -8], hi: '#C9A684', hiK: 0.4, inner: K.fill([[20, -52], [34, -44], [26, -32], [10, -32], [14, -44]], L) });
+      s += K.mass([[-58, -48], [-66, -52], [-68, -44], [-60, -40]], '#FFFFFF', { ow: 2.2, off: [-2, -2] });
+      s += K.limb([[-40, -42], [-62, -38], [-90, -36]], [26, 14, 11], F, { sh: FS }) + K.mass([[-92, -40], [-110, -38], [-112, -31], [-90, -31]], F, { ow: 2.2, off: [-2, -2] });
+      s += K.limb([[26, -42], [40, -30], [50, -22]], [11, 9, 7], F, { sh: FS });
+      H = { x: 42, y: -62, r: -8 }; earBase = [-14, -16];
+    } else if (flop) {
+      s += K.mass([[-54, -4], [-58, -18], [-44, -30], [-12, -34], [12, -32], [22, -20], [20, -6], [0, -1], [-30, -1]], F, { sh: FS, off: [-7, -8], hi: '#C9A684', hiK: 0.4 });
+      s += K.limb([[-46, -8], [-74, -6]], [16, 12], F, { sh: FS }) + K.mass([[-60, -10], [-84, -8], [-86, -2], [-60, -2]], F, { ow: 2.2, off: [-2, -2] });
+      s += K.mass([[-56, -18], [-64, -22], [-66, -14], [-58, -10]], '#FFFFFF', { ow: 2.2, off: [-2, -2] });
+      s += K.limb([[16, -12], [34, -6], [44, -4]], [10, 8, 7], F, { sh: FS });
+      H = { x: 34, y: -20, r: 6 }; earBase = [-14, -16];
+    } else {
+      // classic hunched sit
+      s += K.limb([[6, -30], [8, -14], [9, -3]], [9, 7, 6.5], FF, { sh: FS });
+      s += K.mass([[-44, -8], [-50, -26], [-46, -48], [-30, -62], [-10, -66], [6, -62], [16, -50], [20, -32], [16, -12], [6, -3], [-24, -2]], F, { sh: FS, off: [-8, -9], hi: '#C9A684', hiK: 0.4, inner: K.fill([[6, -54], [20, -42], [18, -12], [8, -4], [2, -30]], L), over: K.fur([[-30, -58, -3, 5], [-16, -62, -2, 5], [-40, -46, -3, 5]], FS, 1.2, 0.7) });
+      s += K.mass([[-48, -36], [-40, -52], [-20, -50], [-12, -32], [-18, -12], [-40, -8]], F, { sh: FS, off: [-5, -6] });
+      s += K.mass([[-36, -8], [-4, -7], [8, -3], [6, 0], [-38, 0]], F, { sh: FS, off: [-2, -2], ow: 2.3 });
+      s += K.mass([[-50, -26], [-58, -30], [-60, -20], [-52, -16]], '#FFFFFF', { ow: 2.2, off: [-2, -2] });
+      const arm = P.wave ? [[12, -34], [22, -50], [28, -60]] : P.think ? [[12, -34], [24, -42], [26, -52]] : P.point ? [[12, -34], [28, -36], [42, -38]] : [[13, -30], [15, -14], [16, -3]];
+      s += K.limb(arm, [10, 8, 7], F, { sh: FS }) + K.mass([[arm[2][0] - 4, arm[2][1] - 3], [arm[2][0] + 6, arm[2][1] - 3], [arm[2][0] + 6, arm[2][1] + 3], [arm[2][0] - 4, arm[2][1] + 3]], F, { ow: 2, off: [-2, -2] });
+      H = { x: 26, y: -66, r: P.think ? 12 : mood === 'sad' ? 12 : P.blast ? -10 : 0 }; earBase = [-10, -18];
+    }
+    // head (local, centred)
+    let h = ear(earBase[0] + 8, earBase[1], earA + 8, FF, true);
+    h += K.mass([[-18, -6], [-10, -16], [4, -20], [16, -14], [24, -4], [26, 4], [22, 10], [12, 14], [-2, 14], [-14, 8]], F, { sh: FS, off: [-4, -5], hi: '#C9A684', hiK: 0.4, inner: K.fill([[8, 0], [22, -2], [26, 8], [16, 14], [4, 12]], L) + K.fill([[0, -12], [12, -12], [12, 0], [0, 0]], L, 'fill-opacity=".6"') });
+    h += ear(earBase[0], earBase[1], earA, F, false);
+    h += K.mass([[23, 1], [27, 1], [25, 5]], '#D98C8C', { ow: 1.4, sh: false });
+    const open = P.blast || mood === 'laugh' || mood === 'surprised';
+    if (open) h += K.mass([[19, 8], [25, 8], [24, 13], [20, 13]], '#5A1B22', { ow: 1.4, sh: false, inner: K.fill([[20, 8], [24, 8], [24, 10], [20, 10]], '#FFF8EC') });
+    else h += K.ink(mood === 'sad' || mood === 'scared' ? 'M25 5 v3 M20 10 q5 -3 9 0' : 'M25 5 v3 M20 8 q2.5 3 5 0 q2.5 3 5 0', 1.4);
+    h += K.ink('M22 5 q-12 -3 -20 1 M22 7 q-10 2 -18 7 M27 5 q8 -3 14 -2', 0.9, '#FFFFFF');
+    h += K.eye(8, -6, 4.6, mood, { iris: '#2A1A10', lid: F, round: true, bw: 1.3, pr: 0.55, look: 0.8 });
+    if (mood === 'sad') h += K.tear(8, 0, 0.8);
+    if (mood === 'scared') h += K.sweat(-20, -20, 0.8);
+    s += K.g(h, H);
+    const top = [H.x - 4, flop ? H.y - 30 : H.y - 66];
+    let fx = '';
+    if (P.blast) fx += K.sound(H.x + 30, H.y + 6, 1);
+    if (mood === 'sleepy') fx += K.zz(H.x + 16, H.y - 30, 1);
+    if (P.think) fx += K.qmark(H.x + 26, H.y - 40, 1);
+    return K.out(s + fx, top, { lift, rot: P.hop ? -12 : 0, pivot: [0, 0] });
+  };
+
+  /* ================= TURTLE (Indian star tortoise) ================= */
+  X.turtle = (pose, mood) => {
+    const P = K.pose(pose);
+    const SH = '#35271A', SHS = '#1E150C', ST = '#E6C24A', SK = '#C9A45A', SKS = '#94743A', SKF = '#B08C48';
+    const hide = mood === 'scared' || ((P.lie || P.sit) && mood === 'sleepy');
+    const walk = P.run || P.fly, lift = P.hop ? 12 : P.fly ? 20 : 0;
+    let s = '';
+    const nails = (x, y) => [0, 4, 8].map(d => K.mass([[x - 5 + d, y - 1], [x - 3 + d, y - 1], [x - 3.5 + d, y + 1.5]], '#EFE3C8', { ow: 1, sh: false })).join('');
+    const leg = (x, dx, col, sh, up) => { const tip = [x + dx, up ? -8 : -2]; return K.limb([[x, -18], tip], [17, 14], col, { sh, inner: [0, 1, 2].map(i => K.dot(x + dx * 0.5 + (i - 1) * 3, -10 + i * 2, 1.2, SKS)).join('') }) + nails(tip[0] + 2, tip[1] + 4); };
+    if (!hide) { s += leg(20, walk ? 12 : 2, SKF, SKS) + leg(-24, walk ? -12 : -2, SKF, SKS); }
+    s += K.mass([[-44, -12], [-54, -9], [-44, -6]], SK, { ow: 2, off: [-2, -1] });
+    // head + neck
+    const hr = P.blast ? -18 : P.hop ? -12 : mood === 'sad' ? 16 : P.think ? 12 : 0;
+    const HN = { x: 40, y: -20, r: hr };
+    let hd = '';
+    if (!hide) {
+      hd += K.limb([[-4, 0], [10, -4], [18, -8]], [15, 12, 11], SK, { sh: SKS });
+      hd += K.mass([[12, -14], [22, -18], [31, -15], [35, -8], [32, -2], [22, 0], [14, -3]], SK, { sh: SKS, off: [-2, -3], inner: [[18, -14], [24, -15], [27, -11], [20, -9]].map(p => K.dot(p[0], p[1], 1.4, '#4A3A20')).join('') });
+      const open = P.blast || mood === 'laugh' || mood === 'surprised';
+      if (open) hd += K.mass([[26, -5], [35, -6], [33, -1], [27, -1]], '#5A1B22', { ow: 1.4, sh: false });
+      else hd += K.ink(mood === 'sad' ? 'M24 -3 q5 -2 10 -1' : 'M24 -4 q5 2 10 -2', 1.4);
+      hd += K.eye(25, -11, 2.8, mood, { iris: '#3A2210', lid: SK, round: true, bw: 1.2, sw: 1.2 });
+      if (mood === 'sad') hd += K.tear(25, -7, 0.6);
+    }
+    if (!hide) s += K.g(hd, HN);
+    // shell
+    const shell = [[-46, -12], [-44, -30], [-32, -46], [-12, -55], [10, -56], [30, -48], [42, -32], [46, -12], [30, -8], [0, -7], [-30, -8]];
+    let inner = '';
+    const scute = (cx, cy, r) => {
+      const hex = []; for (let i = 0; i < 6; i++) { const a = K.rad(i * 60 + 30); hex.push([cx + Math.cos(a) * r, cy + Math.sin(a) * r * 0.85]); }
+      let o = `<path d="${K.poly(hex)}" fill="none" stroke="${C.ink}" stroke-width="${n(1.6 * K.lw)}" stroke-linejoin="round"/>`;
+      o += K.fill([[cx - r * 0.3, cy - r * 0.2], [cx + r * 0.3, cy - r * 0.2], [cx + r * 0.3, cy + r * 0.2], [cx - r * 0.3, cy + r * 0.2]], ST);
+      hex.forEach(p => { o += K.fill(K.poly([[cx - r * 0.12, cy], [cx + r * 0.12, cy], [p[0] + (p[0] - cx) * 0.05, p[1] + (p[1] - cy) * 0.05]]), ST); });
+      return o;
+    };
+    [[-20, -45, 10], [2, -49, 10], [24, -43, 9], [-36, -27, 9], [-13, -31, 10], [11, -31, 10], [32, -27, 9]].forEach(q => { inner += scute(q[0], q[1], q[2]); });
+    for (let i = 0; i < 8; i++) inner += scute(-40 + i * 11.6, -14, 6);
+    s += K.mass(shell, SH, { sh: SHS, off: [-6, -7], inner, hi: '#6A5238', hiK: 0.4, hiOp: 0.6 });
+    s += K.mass([[-44, -14], [0, -10], [44, -14], [40, -6], [0, -3], [-40, -6]], '#C9A04A', { ow: 2.2, sh: '#8E6C2C', off: [-2, -2] });
+    if (hide) {
+      s += K.mass([[34, -24], [44, -24], [44, -12], [34, -12]], '#1A120A', { ow: 2, sh: false });
+      if (mood === 'scared') s += K.dot(38, -18, 2.2, '#fff') + K.dot(38.5, -18, 1.1) + K.sweat(52, -44, 0.8);
+    }
+    if (!hide) { s += leg(28, walk ? 14 : 3, SK, SKS, P.wave) + leg(-30, walk ? -14 : -3, SK, SKS); }
+    let fx = '';
+    if (P.blast) fx += K.sound(80, -34, 1);
+    if (mood === 'sleepy') fx += K.zz(58, -64, 1);
+    if (P.think) fx += K.qmark(66, -60, 1);
+    if (walk) fx += K.ink('M-62 -40 h-18 M-60 -28 h-24 M-62 -16 h-16', 2, C.ink, 'stroke-opacity=".6"');
+    return K.out(s + fx, [36, -64], { lift, floats: false });
+  };
+
+  /* ================= FISH (goldfish) ================= */
+  X.fish = (pose, mood) => {
+    const P = K.pose(pose);
+    const O = '#F28A1E', OS = '#C45F0E', OL = '#FFC46A', FIN = '#F7A64A', FINS = '#D9782A';
+    let rot = 0; if (P.run || P.fly) rot = -8; if (P.hop) rot = -22; if (mood === 'sad') rot = 10; if (P.blast) rot = -6; if (P.lie) rot = 6;
+    const cy = -52, wag = P.run || P.fly ? 8 : P.hop ? -6 : 0;
+    let s = '';
+    const rays = (base, tips) => tips.map(t => K.ink(`M${n(base[0])} ${n(base[1])} L${n(t[0])} ${n(t[1])}`, 1, FINS, 'stroke-opacity=".8"')).join('');
+    const tail = [[-34, cy - 2], [-52, cy - 22 + wag], [-70, cy - 34 + wag], [-80, cy - 28 + wag], [-68, cy - 12 + wag], [-62, cy + wag * 0.5], [-68, cy + 14 + wag], [-80, cy + 28 + wag], [-68, cy + 32 + wag], [-50, cy + 20 + wag], [-34, cy + 2]];
+    s += K.mass(tail, FIN, { sh: FINS, off: [-4, -5], ow: 2.4, over: rays([-36, cy], [[-72, cy - 30 + wag], [-70, cy - 16 + wag], [-64, cy + wag * 0.5], [-70, cy + 18 + wag], [-72, cy + 28 + wag]]) });
+    s += K.mass([[-18, cy - 18], [-12, cy - 36], [4, cy - 32], [16, cy - 20]], FIN, { sh: FINS, off: [-3, -4], ow: 2.4, over: rays([-4, cy - 18], [[-12, cy - 34], [-4, cy - 34], [6, cy - 30]]) });
+    s += K.mass([[-20, cy + 14], [-32, cy + 26], [-22, cy + 28], [-10, cy + 16]], FIN, { ow: 2.2, off: [-2, -3] });
+    s += K.mass([[0, cy + 18], [-6, cy + 32], [6, cy + 28], [12, cy + 18]], FIN, { ow: 2.2, off: [-2, -3] });
+    let scales = '';
+    for (let c = 0; c < 5; c++) for (let r = 0; r < 4; r++) { const x = 12 - c * 8, y = cy - 12 + r * 8 + (c % 2) * 4; scales += K.ink(`M${x} ${y - 4} q-4 4 0 8`, 1.1, OS, 'stroke-opacity=".7"'); }
+    const body = [[40, cy + 2], [34, cy - 12], [18, cy - 20], [-4, cy - 22], [-24, cy - 16], [-38, cy - 4], [-38, cy + 4], [-24, cy + 14], [-4, cy + 20], [18, cy + 20], [34, cy + 12]];
+    s += K.mass(body, O, { sh: OS, off: [-6, -7], hi: '#FFD08A', hiK: 0.45, hiOp: 0.7, inner: K.fill([[36, cy + 6], [10, cy + 10], [-24, cy + 8], [-20, cy + 20], [18, cy + 22]], OL) + scales, over: K.ink(`M18 ${cy - 16} q-7 16 0 32`, 1.6, C.ink, 'stroke-opacity=".7"') });
+    s += K.mass([[14, cy + 4], [2, cy + 16], [8, cy + 20], [18, cy + 10]], '#FFB45A', { ow: 2, off: [-2, -2], over: rays([14, cy + 6], [[4, cy + 15], [8, cy + 18]]) });
+    const open = P.blast || mood === 'surprised' || mood === 'laugh';
+    s += open ? K.mass([[37, cy + 1], [42, cy + 1], [42, cy + 6], [37, cy + 6]], '#7A2A1A', { ow: 1.4, sh: false, t: 1 }) : K.ink(mood === 'sad' || mood === 'scared' ? `M34 ${cy + 6} q3 -2 6 0` : `M34 ${cy + 4} q3 3 6 0`, 1.4);
+    s += K.eye(26, cy - 5, 5.2, mood, { iris: '#E8B020', lid: O, round: true, pr: 0.55, bw: 1.3, sw: 1.5 });
+    if (mood === 'sad') s += K.tear(24, cy + 2, 0.7);
+    if (mood === 'scared') s += K.sweat(8, cy - 38, 0.8);
+    let fx = '';
+    if (mood === 'happy' || mood === 'laugh' || P.blast) fx += [[48, cy - 14, 3], [54, cy - 26, 4], [50, cy - 40, 2.6]].map(b => `<circle cx="${b[0]}" cy="${b[1]}" r="${b[2]}" fill="#DDF3FF" fill-opacity=".6" stroke="${C.ink}" stroke-width="1.2"/>`).join('');
+    if (P.blast) fx += K.sound(58, cy + 2, 1);
+    if (mood === 'sleepy') fx += K.zz(34, cy - 40, 1);
+    if (P.think) fx += K.qmark(40, cy - 38, 1);
+    if (P.run || P.fly) fx += K.ink(`M-92 ${cy - 10} h-20 M-90 ${cy + 4} h-26 M-92 ${cy + 18} h-16`, 2, C.ink, 'stroke-opacity=".5"');
+    return K.out(`<g transform="rotate(${rot} 0 ${cy})">${s}</g>` + fx, [12, cy - 38], { floats: true, lift: P.hop ? 14 : 0 });
+  };
+
+  /* ================= FROG (Indian bullfrog) ================= */
+  X.frog = (pose, mood) => {
+    const P = K.pose(pose);
+    const G = '#7DA23A', GS = '#56752A', GF = '#6A8C30', BL = '#EFE6A8', DK = '#44581E', YE = '#E3D14C';
+    const leap = P.run || P.fly || P.hop;
+    const lift = P.hop ? 26 : P.run ? 14 : P.fly ? 32 : 0;
+    let s = '', eyeC, mouth, head;
+    const web = (p, dir = 1) => K.mass([[p[0] - 2, p[1] - 4], [p[0] + 16 * dir, p[1] - 5], [p[0] + 22 * dir, p[1] - 1], [p[0] + 18 * dir, p[1] + 2], [p[0] - 4, p[1] + 2]], GF, { ow: 2, off: [-2, -2], over: K.ink(`M${p[0]} ${p[1] - 1} l${20 * dir} -3 M${p[0]} ${p[1] - 1} l${18 * dir} 1`, 1, C.ink, 'stroke-opacity=".5"') });
+    const hand = (p) => [[-4, 0], [0, 1], [4, 0]].map(d => K.ink(`M${p[0]} ${p[1] - 2} l${d[0]} ${4 + d[1]}`, 3, C.ink) + K.ink(`M${p[0]} ${p[1] - 2} l${d[0]} ${4 + d[1]}`, 1.4, GF)).join('');
+    const spots = (list) => list.map(q => K.fill([[q[0] - q[2], q[1]], [q[0], q[1] - q[2] * 0.7], [q[0] + q[2], q[1]], [q[0], q[1] + q[2] * 0.7]], DK, 'fill-opacity=".8"')).join('');
+    if (leap) {
+      s += K.limb([[-22, -44], [-48, -34], [-74, -26], [-86, -22]], [18, 11, 8, 7], GF, { sh: GS }) + web([-86, -20], -1);
+      s += K.mass([[-34, -42], [-22, -60], [4, -70], [24, -72], [40, -66], [50, -56], [46, -46], [30, -38], [10, -32], [-16, -30]], G, { sh: GS, off: [-6, -7], hi: '#A9C85E', hiK: 0.4, inner: K.fill([[46, -52], [30, -44], [10, -40], [12, -48], [34, -52]], BL) + spots([[-14, -50, 5], [0, -58, 4], [-24, -44, 4]]) + K.ink('M-30 -46 Q0 -66 30 -66', 2.2, YE) });
+      s += K.limb([[-18, -42], [-44, -38], [-70, -32], [-82, -30]], [20, 12, 9, 7], G, { sh: GS }) + web([-82, -28], -1);
+      s += K.limb([[30, -46], [42, -32], [48, -24]], [9, 7, 5], G, { sh: GS }) + hand([48, -22]);
+      eyeC = [34, -68]; mouth = 'M50 -56 Q40 -50 26 -54';
+    } else {
+      s += K.limb([[20, -24], [21, -12], [22, -3]], [7, 6, 5], GF, { sh: GS }) + hand([21, -1]);
+      s += K.mass([[-30, -6], [-36, -20], [-30, -36], [-12, -46], [8, -50], [26, -52], [38, -46], [46, -36], [44, -28], [34, -24], [24, -18], [14, -10], [0, -4], [-18, -2]], G, { sh: GS, off: [-7, -8], hi: '#A9C85E', hiK: 0.4, inner: K.fill([[44, -30], [30, -22], [16, -10], [4, -4], [12, -18], [30, -28]], BL) + spots([[-16, -36, 5], [-2, -44, 4], [-26, -24, 4], [4, -30, 3.5]]) + K.ink('M-30 -30 Q-4 -50 26 -52', 2.2, YE) });
+      s += K.mass([[-30, -12], [-28, -28], [-10, -30], [2, -20], [-6, -8], [-24, -4]], G, { sh: GS, off: [-4, -5], inner: spots([[-18, -20, 4]]) });
+      s += K.limb([[-24, -10], [-2, -7]], [11, 8], G, { sh: GS }) + web([-2, -3]);
+      const arm = P.wave ? [[24, -24], [34, -36], [40, -48]] : P.point ? [[24, -24], [38, -26], [52, -28]] : [[26, -24], [27, -12], [28, -3]];
+      s += K.limb(arm, [8, 6.5, 5], G, { sh: GS }) + hand([arm[2][0], arm[2][1] + 2]);
+      eyeC = [26, -52]; mouth = mood === 'sad' || mood === 'scared' ? 'M45 -30 Q34 -32 18 -30' : 'M45 -31 Q34 -25 17 -32';
+    }
+    if (P.blast) s += K.mass([[eyeC[0] + 2, eyeC[1] + 26], [eyeC[0] + 18, eyeC[1] + 24], [eyeC[0] + 22, eyeC[1] + 36], [eyeC[0] + 10, eyeC[1] + 42], [eyeC[0] - 2, eyeC[1] + 36]], '#F2ECC8', { ow: 2.2, off: [-2, -3], sh: '#D6CC98' });
+    s += K.ink(mouth, 1.8);
+    if (P.blast || mood === 'laugh' || mood === 'surprised') s += K.mass([[eyeC[0] + 2, eyeC[1] + 20], [eyeC[0] + 18, eyeC[1] + 20], [eyeC[0] + 12, eyeC[1] + 26], [eyeC[0] + 4, eyeC[1] + 25]], '#5A1B22', { ow: 1.4, sh: false });
+    s += K.mass([[eyeC[0] - 16, eyeC[1] + 12], [eyeC[0] - 10, eyeC[1] + 6], [eyeC[0] - 4, eyeC[1] + 12], [eyeC[0] - 10, eyeC[1] + 17]], GS, { ow: 1.4, sh: false, t: 1 });
+    s += K.mass([[eyeC[0] - 9, eyeC[1] + 4], [eyeC[0] - 6, eyeC[1] - 7], [eyeC[0] + 2, eyeC[1] - 10], [eyeC[0] + 9, eyeC[1] - 6], [eyeC[0] + 10, eyeC[1] + 4]], G, { sh: GS, off: [-2, -3], ow: 2.4 });
+    s += K.eye(eyeC[0] + 1, eyeC[1] - 1, 5.8, mood, { iris: '#D9A92A', pupil: 'bar', lid: G, round: true, bw: 1.4, sw: 1.5 });
+    if (mood === 'sad') s += K.tear(eyeC[0], eyeC[1] + 6, 0.7);
+    if (mood === 'scared') s += K.sweat(eyeC[0] - 20, eyeC[1] - 10, 0.8);
+    let fx = '';
+    if (P.blast) fx += K.sound(eyeC[0] + 30, eyeC[1] + 30, 1);
+    if (mood === 'sleepy') fx += K.zz(eyeC[0] + 10, eyeC[1] - 22, 1);
+    if (P.think) fx += K.qmark(eyeC[0] + 18, eyeC[1] - 22, 1);
+    return K.out(s + fx, [eyeC[0], eyeC[1] - 18], { lift, rot: P.hop ? -8 : 0, pivot: [0, 0] });
+  };
+
+  /* ================= DOLPHIN (bottlenose) ================= */
+  X.dolphin = (pose, mood) => {
+    const P = K.pose(pose);
+    const G = '#7F97AE', GS = '#5A7089', GD = '#627A93', BL = '#E1E9F0';
+    let rot = 0; if (P.run || P.fly) rot = -16; if (P.hop) rot = -28; if (mood === 'sad') rot = 10; if (P.lie || P.sit) rot = 4;
+    let s = '';
+    const flukeUp = P.run || P.fly || P.hop ? 8 : 0;
+    s += K.mass([[-88, -68], [-104, -86 - flukeUp], [-118, -92 - flukeUp], [-112, -78], [-100, -68]], GD, { sh: GS, off: [-2, -3], ow: 2.4 });
+    s += K.mass([[-4, -104], [-14, -126], [-26, -132], [-22, -120], [-30, -100]], GD, { sh: GS, off: [-3, -3], ow: 2.4 });
+    const open = P.blast || mood === 'laugh' || mood === 'surprised';
+    const body = open
+      ? [[94, -73], [80, -76], [68, -92], [34, -106], [0, -106], [-30, -100], [-60, -86], [-86, -72], [-96, -66], [-84, -60], [-54, -54], [-14, -50], [30, -52], [62, -58], [78, -60], [92, -60], [80, -66]]
+      : [[94, -70], [80, -74], [68, -92], [34, -106], [0, -106], [-30, -100], [-60, -86], [-86, -72], [-96, -66], [-84, -60], [-54, -54], [-14, -50], [30, -52], [62, -58], [80, -64]];
+    s += K.mass(body, G, { sh: GS, off: [-9, -10], hi: '#A9BED2', hiK: 0.4, hiOp: 0.7, inner: K.fill([[94, -66], [70, -62], [30, -58], [-20, -58], [-60, -60], [-60, -40], [40, -40], [96, -52]], BL) + K.fill([[60, -96], [30, -110], [-30, -104], [-70, -86], [-30, -94], [20, -98]], GD, 'fill-opacity=".6"') });
+    s += K.mass([[-94, -66], [-108, -50 - flukeUp * 0.5], [-122, -46 - flukeUp * 0.5], [-112, -60]], G, { sh: GS, off: [-2, -3], ow: 2.4 });
+    const fl = P.wave ? [[42, -60], [52, -80], [60, -86], [56, -70], [48, -58]] : [[44, -60], [32, -42], [24, -38], [28, -50], [36, -58]];
+    s += K.mass(fl, GD, { sh: GS, off: [-2, -3], ow: 2.4 });
+    if (open) s += K.mass([[80, -70], [92, -69], [90, -63], [78, -64]], '#5A2A34', { ow: 1.4, sh: false });
+    s += K.ink(mood === 'sad' || mood === 'scared' ? 'M92 -67 Q80 -66 68 -66' : 'M92 -67 Q78 -66 66 -72', 1.6);
+    s += K.dot(50, -99, 1.6, C.ink);
+    s += K.eye(62, -80, 3.6, mood, { iris: '#2A2A3A', lid: G, round: true, bw: 1.3, sw: 1.4 });
+    if (mood === 'sad') s += K.tear(62, -76, 0.7);
+    if (mood === 'scared') s += K.sweat(40, -118, 0.8);
+    let fx = '';
+    if (P.blast) fx += K.sound(104, -70, 1.1);
+    if (mood === 'sleepy') fx += K.zz(74, -112, 1);
+    if (P.think) fx += K.qmark(84, -110, 1);
+    if (P.hop || P.fly) fx += [[-60, -30, 3], [-40, -22, 4], [-76, -24, 2.6], [-20, -28, 2.4]].map(b => `<circle cx="${b[0]}" cy="${b[1]}" r="${b[2]}" fill="#9ED8FF" stroke="${C.ink}" stroke-width="1.2"/>`).join('');
+    return K.out(`<g transform="rotate(${rot} 0 -76)">${s}</g>` + fx, [44, -128], { floats: true, lift: P.hop ? 20 : 0 });
+  };
+
+  /* ================= BHOLU (baby Asian elephant) ================= */
+  X.bholu = (pose, mood) => {
+    const P = K.pose(pose);
+    const E = '#9097A4', ES = '#6C7382', EF = '#7E8594', EFS = '#5E6574', EL = '#B8BEC9', PNK = '#D9A7AA', NAIL = '#EDE3CF';
+    const low = P.sit || P.lie, run = P.run || P.fly;
+    const lift = P.hop ? 10 : P.run ? 8 : P.fly ? 26 : 0;
+    const dy = low ? 36 : 0;
+    let s = '';
+    const nails = (x, y) => [-8, 0, 8].map(d => K.mass([[x + d - 3.5, y - 5], [x + d + 3.5, y - 5], [x + d + 3.5, y], [x + d - 3.5, y]], NAIL, { ow: 1.4, sh: false, t: 1 })).join('');
+    const leg = (pts, col, sh) => { const t = pts[pts.length - 1]; return K.limb(pts, [34, 29, 28], col, { sh, over: [0.35, 0.55, 0.75].map(k => { const y = pts[0][1] + (t[1] - pts[0][1]) * k; return K.ink(`M${n(t[0] - 10)} ${n(y)} q10 3 20 0`, 1.2, C.ink, 'stroke-opacity=".4"'); }).join('') }) + nails(t[0] + 2, t[1] + 4); };
+    // tail
+    const tt = run ? [[-62, -82 + dy], [-80, -84 + dy], [-92, -78 + dy]] : [[-64, -80 + dy], [-72, -64 + dy], [-74, -46 + dy]];
+    s += K.limb(tt, [7, 5, 4], E, { sh: ES }) + K.mass([[tt[2][0] - 4, tt[2][1] - 2], [tt[2][0] + 4, tt[2][1] - 2], [tt[2][0] + 3, tt[2][1] + 9], [tt[2][0] - 3, tt[2][1] + 9]], '#3A3A44', { ow: 1.8, off: [-1, -2] });
+    // legs
+    if (low) {
+      s += leg([[22, -26], [48, -14], [66, -8]], EF, EFS);
+      s += leg([[-40, -30], [-18, -16], [6, -8]], EF, EFS);
+    } else {
+      const F = run ? { nf: [[34, -62], [48, -32], [58, -8]], ff: [[22, -62], [12, -32], [4, -6]], nh: [[-44, -64], [-54, -34], [-66, -10]], fh: [[-32, -64], [-24, -34], [-18, -4]] }
+        : P.hop ? { nf: [[34, -62], [50, -42], [52, -22]], ff: [[22, -62], [36, -44], [40, -26]], nh: [[-44, -64], [-44, -34], [-48, -4]], fh: [[-32, -64], [-32, -34], [-34, -4]] }
+          : { nf: [[34, -62], [35, -32], [36, -4]], ff: [[22, -62], [21, -32], [20, -4]], nh: [[-44, -64], [-42, -34], [-46, -4]], fh: [[-32, -64], [-31, -34], [-32, -4]] };
+      if (P.wave) F.nf = [[34, -62], [52, -54], [60, -34]];
+      s += leg(F.ff, EF, EFS) + leg(F.fh, EF, EFS);
+      s += leg(F.nh, E, ES);
+      var nf = F.nf;
+    }
+    const body = [[-66, -58], [-62, -86], [-44, -104], [-14, -110], [16, -108], [38, -100], [52, -84], [50, -62], [40, -44], [10, -40], [-20, -40], [-46, -44], [-62, -50]].map(p => [p[0], p[1] + dy]);
+    s += K.mass(body, E, { sh: ES, off: [-9, -11], ht: 0.45, hi: EL, hiK: 0.35, hiOp: 0.6, over: K.ink(`M-54 ${-92 + dy} q20 10 16 44 M30 ${-96 + dy} q-10 20 -4 46`, 1.4, C.ink, 'stroke-opacity=".45"') + [-40, -20, 0, 20].map(x => K.ink(`M${x} ${-70 + dy} q4 8 0 16`, 1, C.ink, 'stroke-opacity=".3"')).join('') });
+    if (!low) s += leg(nf, E, ES);
+    // head
+    let hr = 0; if (mood === 'sad') hr = 10; if (P.think) hr = 8; if (P.blast || P.hop) hr = -8; if (P.lie && mood === 'sleepy') hr = 14;
+    const H = { x: 62, y: -104 + dy + (mood === 'sad' ? 4 : 0), r: hr };
+    let h = '';
+    const up = P.hop || P.wave || (mood === 'happy' && P.stand) || mood === 'laugh';
+    let tr;
+    if (P.blast) tr = [[26, 2], [44, -4], [58, -20], [70, -42]];
+    else if (P.point) tr = [[26, 2], [44, 8], [64, 8], [86, 2]];
+    else if (P.think) tr = [[26, 2], [36, 18], [30, 32], [18, 26]];
+    else if (up && !low) tr = [[26, 2], [44, -8], [50, -32], [42, -52], [32, -54]];
+    else if (low && mood === 'sleepy') tr = [[26, 2], [36, 18], [40, 36], [52, 42]];
+    else tr = [[26, 2], [36, 20], [38, 44], [34, 62], [40, 70]];
+    const tws = tr.map((p, i) => 22 - i * (13 / (tr.length - 1)));
+    const trunk = K.limb(tr, tws, E, { sh: ES, inner: K.stripes(tr, tws, [0.5, 0.8, 1.1, 1.4, 1.7, 2.0, 2.3, 2.6, 2.9, 3.2].filter(t => t < tr.length - 1.1), '#6E7584', 0.06) });
+    const te = tr[tr.length - 1];
+    let tip = K.dot(te[0], te[1], 2.4, '#3A3A44');
+    if (P.blast) tip = K.mass([[te[0] - 8, te[1] + 4], [te[0] + 4, te[1] - 10], [te[0] + 12, te[1] - 2], [te[0] + 2, te[1] + 10]], E, { sh: ES, ow: 2.4, off: [-2, -2] }) + K.dot(te[0] + 3, te[1], 2.6, '#3A3A44');
+    h += K.mass([[-28, -16], [-14, -34], [0, -38], [8, -35], [18, -32], [28, -18], [32, 0], [28, 16], [14, 26], [-2, 28], [-18, 20], [-28, 6]], E, { sh: ES, off: [-6, -7], hi: EL, hiK: 0.4, hiOp: 0.6, over: K.ink('M3 -37 q2 6 -1 12', 1.3, C.ink, 'stroke-opacity=".5"') + K.ink('M8 -2 q4 -8 12 -6 M6 4 q6 -6 14 -2', 1.1, C.ink, 'stroke-opacity=".4"') + K.fur([[-10, -34, -1, -5], [-4, -37, 0, -5], [2, -38, 1, -5], [8, -36, 2, -5], [14, -33, 3, -4]], '#5E6574', 1.3, 0.9) });
+    const open = P.blast || mood === 'laugh' || mood === 'surprised' || P.hop;
+    h += open ? K.mass([[10, 16], [24, 18], [22, 30], [12, 30]], '#8A3A4A', { ow: 2, sh: false, inner: K.fill([[12, 24], [22, 24], [20, 30], [13, 30]], '#E27E8C') }) : K.mass([[10, 18], [22, 18], [20, 25], [12, 25]], '#A07E86', { ow: 2, sh: false });
+    h += trunk + tip;
+    const earR = mood === 'surprised' ? -24 : mood === 'happy' || mood === 'laugh' || P.hop ? -12 : mood === 'scared' || mood === 'angry' ? 16 : mood === 'sad' || mood === 'sleepy' ? 26 : 0;
+    const earPts = [[-8, -20], [-24, -26], [-38, -16], [-42, 6], [-34, 24], [-20, 30], [-8, 20], [-5, 0]];
+    h += K.g(K.mass(earPts, E, { sh: ES, off: [-4, -5], inner: K.fill([[-38, -18], [-26, -30], [-44, -8], [-46, 10], [-40, 28], [-34, 20], [-38, 4]], PNK, 'fill-opacity=".55"'), over: K.ink('M-12 -20 q-18 -4 -26 6', 1.3, C.ink, 'stroke-opacity=".5"') }), { x: 0, y: 0, r: 0 }).replace('<g transform="translate(0 0)">', `<g transform="rotate(${earR} -6 -4)">`);
+    h += K.eye(14, -8, 5.4, mood, { iris: '#3A2414', lid: E, lash: true, round: true, bw: 1.6, look: 1 });
+    if (mood === 'sad') h += K.tear(12, -1, 1);
+    if (mood === 'scared') h += K.sweat(-20, -40, 1);
+    s += K.g(h, H);
+    const top = [H.x, H.y - 46];
+    let fx = '';
+    if (P.blast) { const t2 = K.tp(te, H); fx += K.sound(t2[0] + 8, t2[1] - 4, 1.3) + [[10, -14, 3], [18, -6, 2.4], [6, -24, 2.2]].map(b => `<circle cx="${n(t2[0] + b[0])}" cy="${n(t2[1] + b[1])}" r="${b[2]}" fill="#9ED8FF" stroke="${C.ink}" stroke-width="1.2"/>`).join(''); }
+    if (mood === 'sleepy') fx += K.zz(H.x + 30, H.y - 50, 1.1);
+    if (P.think) fx += K.qmark(H.x + 36, H.y - 50, 1.1);
+    return K.out(s + fx, top, { lift, rot: P.hop ? -6 : run ? -2 : 0, pivot: [-50, 0] });
+  };
 
   Object.keys(X).forEach(k => { A.EXTRA[k] = (pose, mood, opt) => X[k](pose || 'stand', mood || 'happy', opt || {}); });
 })();

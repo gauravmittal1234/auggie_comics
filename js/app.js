@@ -1,6 +1,6 @@
-/* Auggie Comics — site UI: library, reader, heroes, language, favourites, read-aloud, PDF. */
+/* Auggie Comics — site UI: library, filters, reader, heroes, language, favourites, read-aloud, PDF. */
 (function () {
-  const K = window.AuggiComic;
+  const K = window.AuggiComic, SP = window.AuggiSpeech;
   const COMICS = (window.AUGGIE_COMICS || []).slice().sort((a, b) => a.id - b.id);
   const byId = new Map(COMICS.map(c => [c.id, c]));
   const app = document.getElementById('app');
@@ -11,7 +11,8 @@
   };
   const S = {
     lang: store.get('lang', 'en') === 'hi' ? 'hi' : 'en',
-    age: 'all', cat: 'all', q: '', favOnly: false,
+    age: 'all', cat: 'all', q: '', favOnly: false, filtersOpen: false,
+    voice: store.get('voice-style', 'girl') === 'boy' ? 'boy' : 'girl',
     favs: new Set(store.get('favs', [])), read: new Set(store.get('read', [])),
   };
 
@@ -21,7 +22,7 @@
       eyebrow: n => `${n} original comics · English + हिंदी · free PDFs`,
       heroTitle: 'Woof-woof! Big adventures with a golden hero.',
       lede: 'Auggie is a big-hearted golden Labrador who lives with Papa, Mumma, Mausi, Nanu and Dadi. Travel with him, sniff out mysteries and make new animal friends — every story in English and Hindi.',
-      little: 'Little Readers', littleSub: 'Age 4–6 · 6 panels', big: 'Big Readers', bigSub: 'Age 6–10 · 8 panels', all: 'All comics', allSub: 'Every age',
+      little: 'Little Readers', littleSub: 'Age 4–6 · 6 panels', big: 'Big Readers', bigSub: 'Age 6–10 · 8 panels', all: 'All ages', allSub: 'Every comic',
       search: 'Search by title, hero or topic…', favs: 'Favourites', count: n => `${n} ${n === 1 ? 'comic' : 'comics'}`,
       allCats: 'All topics', empty: 'No comics match. Try another topic or clear the search.', emptyFav: 'Tap the star on any comic to keep it here.',
       age: 'Age', panels: 'panels', read: 'Read', addFav: 'Add to favourites', removeFav: 'Remove from favourites',
@@ -30,14 +31,18 @@
       prev: 'Previous page', next: 'Next page', pageOf: (p, t) => `Page ${p} of ${t}`, readNext: 'Read next', keys: 'Tip: use the ← → keys or swipe to turn pages.',
       notFound: 'That comic does not exist yet.', heroesTitle: 'Meet the Heroes', heroesLede: 'Auggie, his family and his friends. Tap a name to read their stories.',
       footer: 'Every story and drawing here is original. Free to read, free to download — no sign-up needed.', cover: 'Cover', end: 'The End',
-      noVoice: 'Your browser cannot read aloud.', catch: 'Woof-woof, let’s go!', voice: 'Voice',
+      noVoice: 'Your browser cannot read aloud.', noHindi: 'No Hindi voice is installed on this device. iPhone/Mac: Settings → Accessibility → Spoken Content → Voices → Hindi. Android: install Google Text-to-speech and add Hindi.',
+      catch: 'Woof-woof, let’s go!', voice: 'Voice', girl: 'Girl', boy: 'Boy',
+      topics: 'Browse by topic', topicsSub: (c, t) => `${c} comics in ${t} topics — tap one to start`,
+      filters: 'Filters', clear: 'Clear all', showing: (n, total) => `Showing ${n} of ${total}`, topic: 'Topic',
+      newest: 'Newest', allComics: 'All comics',
     },
     hi: {
       comicsTag: 'कॉमिक्स', library: 'लाइब्रेरी', heroes: 'हीरो से मिलो',
       eyebrow: n => `${n} नई कॉमिक्स · हिंदी + English · मुफ़्त PDF`,
       heroTitle: 'भौं-भौं! एक सुनहरे हीरो के साथ बड़े कारनामे।',
       lede: 'ऑगी एक बड़े दिल वाला सुनहरा लैब्राडोर है, जो पापा, मम्मा, मौसी, नानू और दादी के साथ रहता है। उसके साथ घूमो, रहस्य सूँघकर सुलझाओ और नए जानवर दोस्त बनाओ — हर कहानी हिंदी और अंग्रेज़ी में।',
-      little: 'नन्हे पाठक', littleSub: 'उम्र 4–6 · 6 चित्र', big: 'बड़े पाठक', bigSub: 'उम्र 6–10 · 8 चित्र', all: 'सभी कॉमिक्स', allSub: 'हर उम्र',
+      little: 'नन्हे पाठक', littleSub: 'उम्र 4–6 · 6 चित्र', big: 'बड़े पाठक', bigSub: 'उम्र 6–10 · 8 चित्र', all: 'सभी उम्र', allSub: 'हर कॉमिक',
       search: 'नाम, हीरो या विषय से खोजो…', favs: 'पसंदीदा', count: n => `${n} कॉमिक्स`,
       allCats: 'सभी विषय', empty: 'कोई कॉमिक नहीं मिली। दूसरा विषय चुनो या खोज साफ़ करो।', emptyFav: 'किसी भी कॉमिक पर तारा दबाओ, वह यहाँ दिखेगी।',
       age: 'उम्र', panels: 'चित्र', read: 'पढ़ ली', addFav: 'पसंदीदा में जोड़ो', removeFav: 'पसंदीदा से हटाओ',
@@ -46,7 +51,11 @@
       prev: 'पिछला पेज', next: 'अगला पेज', pageOf: (p, t) => `पेज ${p} / ${t}`, readNext: 'आगे पढ़ो', keys: 'सुझाव: पेज पलटने के लिए ← → बटन दबाओ या स्वाइप करो।',
       notFound: 'यह कॉमिक अभी नहीं है।', heroesTitle: 'हीरो से मिलो', heroesLede: 'ऑगी, उसका परिवार और उसके दोस्त। नाम पर टैप करके उनकी कहानियाँ पढ़ो।',
       footer: 'यहाँ की हर कहानी और हर चित्र नया और मौलिक है। पढ़ना मुफ़्त, डाउनलोड मुफ़्त — कोई साइन-अप नहीं।', cover: 'कवर', end: 'समाप्त',
-      noVoice: 'आपका ब्राउज़र पढ़कर नहीं सुना सकता।', catch: 'भौं-भौं, चलो चलें!', voice: 'आवाज़',
+      noVoice: 'आपका ब्राउज़र पढ़कर नहीं सुना सकता।', noHindi: 'इस डिवाइस पर हिंदी आवाज़ नहीं है। iPhone/Mac: Settings → Accessibility → Spoken Content → Voices → Hindi। Android: Google Text-to-speech में हिंदी जोड़ो।',
+      catch: 'भौं-भौं, चलो चलें!', voice: 'आवाज़', girl: 'लड़की', boy: 'लड़का',
+      topics: 'विषय चुनो', topicsSub: (c, t) => `${t} विषयों में ${c} कॉमिक्स — किसी एक पर टैप करो`,
+      filters: 'फ़िल्टर', clear: 'सब हटाओ', showing: (n, total) => `${total} में से ${n}`, topic: 'विषय',
+      newest: 'सबसे नई', allComics: 'सभी कॉमिक्स',
     },
   };
   const t = (k, ...a) => { const v = UI[S.lang][k]; return typeof v === 'function' ? v(...a) : v; };
@@ -54,10 +63,12 @@
   const CATS = {
     home: ['Home', 'घर'], habits: ['Good Habits', 'अच्छी आदतें'], feelings: ['Feelings', 'भावनाएँ'], family: ['Family', 'परिवार'],
     friends: ['Friends', 'दोस्ती'], dogs: ['Dog Friends', 'कुत्ते दोस्त'], animals: ['Animals', 'जानवर'], birds: ['Birds', 'पंछी'],
-    festivals: ['Festivals', 'त्योहार'], travel: ['Travel', 'सैर-सपाटा'], nature: ['Nature', 'प्रकृति'], superhero: ['Super Auggie', 'सुपर ऑगी'],
-    mystery: ['Mysteries', 'रहस्य'], sports: ['Sports', 'खेल'], science: ['Science', 'विज्ञान'], planet: ['Save the Planet', 'धरती बचाओ'],
+    festivals: ['Festivals', 'त्योहार'], travel: ['Travel', 'सैर-सपाटा'], holiday: ['Holidays', 'छुट्टियाँ'], nature: ['Nature', 'प्रकृति'], forest: ['Forest', 'जंगल'],
+    superhero: ['Super Auggie', 'सुपर ऑगी'], mystery: ['Mysteries', 'रहस्य'], ghost: ['Ghost Fun', 'भूतिया मज़ा'], school: ['School', 'स्कूल'], office: ['Office', 'दफ़्तर'],
+    sports: ['Sports', 'खेल'], science: ['Science', 'विज्ञान'], planet: ['Save the Planet', 'धरती बचाओ'],
     space: ['Space', 'अंतरिक्ष'], india: ['India', 'भारत'],
   };
+  const CAT_COLOR = { home: '#FFD400', habits: '#7FD3FF', feelings: '#FF9FC0', family: '#FFB347', friends: '#A7E34B', dogs: '#F3D48B', animals: '#5ACB5F', birds: '#5CF2FF', festivals: '#FF8A1F', travel: '#14B8A6', holiday: '#FFE45C', nature: '#35B24A', forest: '#1E9E4A', superhero: '#E63329', mystery: '#7B3FC4', ghost: '#BDB6E6', school: '#1D5BD8', office: '#8C94A8', sports: '#FF5C8A', science: '#5CF2FF', planet: '#1E7A31', space: '#123C99', india: '#FF8A1F' };
   const catName = c => (CATS[c] ? CATS[c][S.lang === 'hi' ? 1 : 0] : c);
 
   const HEROES = [
@@ -67,12 +78,14 @@
     { id: 'mausi', bg: 'cafe', pose: 'point', mood: 'happy', name: ['Mausi · Shambhavi', 'मौसी · शांभवी'], role: ['Mumma calls her “Chottu”', 'मम्मा उन्हें “छोटू” बुलाती हैं'], bio: ['Café lover, selfie queen and Auggie’s trick teacher. Sit! Paw! Pose for the camera!', 'कैफ़े की दीवानी, सेल्फ़ी की रानी और ऑगी की ट्रिक-टीचर। बैठो! पंजा! कैमरे के लिए पोज़!'] },
     { id: 'nanu', bg: 'garden', pose: 'stand', mood: 'happy', name: ['Nanu · Ashok', 'नानू · अशोक'], role: ['Mumma calls him “Daddy”', 'मम्मा उन्हें “डैडी” बुलाती हैं'], bio: ['A smart gentleman in a blue suit who has a science fact for everything, and long morning walks with Auggie.', 'नीले सूट वाले समझदार सज्जन, जिनके पास हर बात का एक विज्ञान वाला जवाब है, और ऑगी के साथ लंबी सुबह की सैर।'] },
     { id: 'dadi', bg: 'home', pose: 'wave', mood: 'laugh', name: ['Dadi · Krishna', 'दादी · कृष्णा'], role: ['Papa calls her “Mummy” and “Ma”', 'पापा उन्हें “मम्मी” और “माँ” बुलाते हैं'], bio: ['Colourful sarees, jingly bangles, the best stories — and a secret carrot for Auggie.', 'रंग-बिरंगी साड़ियाँ, खनकती चूड़ियाँ, सबसे अच्छी कहानियाँ — और ऑगी के लिए एक छुपी हुई गाजर।'] },
-    { id: 'moti', bg: 'city', pose: 'stand', mood: 'determined', name: ['Moti', 'मोती'], role: ['Street-smart best friend', 'गलियों का होशियार दोस्त'], bio: ['A brave Indie dog who knows every lane of Chamakpur.', 'बहादुर देसी कुत्ता, जो चमकपुर की हर गली जानता है।'] },
-    { id: 'pinku', bg: 'home', pose: 'sit', mood: 'surprised', name: ['Pinku', 'पिंकू'], role: ['The dramatic pug', 'नाटकबाज़ पग'], bio: ['Snorts, sulks and loves being the centre of attention.', 'फुँफकारता है, रूठता है और सबका ध्यान चाहता है।'] },
+    { id: 'missji', bg: 'classroom', pose: 'point', mood: 'happy', name: ['Miss Ji', 'मिस जी'], role: ['The class teacher', 'क्लास टीचर'], bio: ['Kind, funny and strict about tidy desks. Secretly the biggest dog-lover in Chamakpur Public School.', 'प्यारी, मज़ेदार और साफ़-सुथरी डेस्क की पक्की। चमकपुर पब्लिक स्कूल में चुपके से कुत्तों की सबसे बड़ी फ़ैन।'] },
+    { id: 'moti', bg: 'city', pose: 'stand', mood: 'determined', name: ['Moti', 'मोती'], role: ['Street-smart best friend', 'गलियों का होशियार दोस्त'], bio: ['A brave Indie dog who knows every lane of Chamakpur, and a shortcut that is never shorter.', 'बहादुर देसी कुत्ता, जो चमकपुर की हर गली जानता है, और एक शॉर्टकट जो कभी छोटा नहीं निकलता।'] },
+    { id: 'pinku', bg: 'home', pose: 'sit', mood: 'surprised', name: ['Pinku', 'पिंकू'], role: ['The dramatic pug', 'नाटकबाज़ पग'], bio: ['Snorts, sulks, faints and loves being the centre of attention.', 'फुँफकारता है, रूठता है, बेहोश हो जाता है और सबका ध्यान चाहता है।'] },
     { id: 'snowy', bg: 'snow', pose: 'stand', mood: 'happy', name: ['Snowy', 'स्नोवी'], role: ['The mountain husky', 'पहाड़ों वाला हस्की'], bio: ['Howls instead of barking. Loves snow, hates the summer heat.', 'भौंकने की जगह हूँ-हूँ करता है। बर्फ़ पसंद, गर्मी नापसंद।'] },
-    { id: 'chiku', bg: 'playground', pose: 'run', mood: 'laugh', name: ['Chiku', 'चीकू'], role: ['Tiny, speedy, curious', 'छोटा, तेज़, जिज्ञासु'], bio: ['A little dachshund who is always first to the finish line.', 'छोटा-सा डैशहुंड, जो हर रेस में सबसे पहले पहुँचता है।'] },
+    { id: 'chiku', bg: 'playground', pose: 'run', mood: 'laugh', name: ['Chiku', 'चीकू'], role: ['Tiny, speedy, curious', 'छोटा, तेज़, जिज्ञासु'], bio: ['A little dachshund who is always first to the finish line, and always says so.', 'छोटा-सा डैशहुंड, जो हर रेस में सबसे पहले पहुँचता है, और सबको बताता भी है।'] },
     { id: 'bholu', bg: 'river', pose: 'cheer', mood: 'laugh', name: ['Bholu', 'भोलू'], role: ['Baby elephant pal', 'नन्हा हाथी दोस्त'], bio: ['Lives at the elephant sanctuary and loves trunk-showers.', 'हाथी अभयारण्य में रहता है और सूँड से फुहार डालना पसंद करता है।'] },
-    { id: 'gadbad', bg: 'lab', pose: 'blast', mood: 'laugh', name: ['Professor Gadbad', 'प्रोफ़ेसर गड़बड़'], role: ['Inventor next door', 'पड़ोसी आविष्कारक'], bio: ['His gadgets always go wrong. He always says sorry.', 'इनकी मशीनें हमेशा गड़बड़ करती हैं। ये हमेशा सॉरी बोलते हैं।'], villain: true },
+    { id: 'bhootu', bg: 'haunted', pose: 'wave', mood: 'happy', name: ['Bhootu', 'भूतू'], role: ['The friendly little ghost', 'प्यारा नन्हा भूत'], bio: ['Lives in the old bungalow at the end of the lane. Not scary at all: he just wants a friend to play hide-and-seek with.', 'गली के आख़िरी पुराने बंगले में रहता है। ज़रा भी डरावना नहीं: उसे बस छुपन-छुपाई खेलने के लिए एक दोस्त चाहिए।'] },
+    { id: 'gadbad', bg: 'lab', pose: 'blast', mood: 'laugh', name: ['Professor Gadbad', 'प्रोफ़ेसर गड़बड़'], role: ['Inventor next door', 'पड़ोसी आविष्कारक'], bio: ['His gadgets always go wrong. He always says sorry — to the gadget.', 'इनकी मशीनें हमेशा गड़बड़ करती हैं। ये हमेशा सॉरी बोलते हैं — मशीन से।'], villain: true },
     { id: 'kichdu', bg: 'river', pose: 'cheer', mood: 'angry', name: ['Kichdu', 'किचडू'], role: ['The litter mud-monster', 'कचरे वाला कीचड़-राक्षस'], bio: ['Grows when people litter, shrinks when places are cleaned.', 'कचरा फैले तो बड़ा होता है, सफ़ाई हो तो छोटा।'], villain: true },
     { id: 'garaj', bg: 'rain', pose: 'stand', mood: 'angry', name: ['Garaj', 'गरज'], role: ['The grumpy storm cloud', 'गुस्सैल तूफ़ानी बादल'], bio: ['Thunders when upset — but mostly he is just lonely.', 'नाराज़ होने पर गरजता है — पर असल में अकेला है।'], villain: true },
   ];
@@ -84,6 +97,8 @@
     down: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m-5-5l5 5 5-5M4 20h16" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>',
     speak: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9z" fill="currentColor"/><path d="M16 8.5a5 5 0 010 7M18.5 6a8.5 8.5 0 010 12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>',
     stop: '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2" fill="currentColor"/></svg>',
+    filter: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5h18l-7 8v6l-4 2v-8z" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"/></svg>',
+    x: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg>',
   };
 
   const esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
@@ -91,10 +106,10 @@
   const tr = o => o[S.lang] || o.en;
 
   let toastTimer;
-  function toast(msg) {
+  function toast(msg, long) {
     const el = document.querySelector('.toast');
     el.textContent = msg; el.hidden = false;
-    clearTimeout(toastTimer); toastTimer = setTimeout(() => { el.hidden = true; }, 3200);
+    clearTimeout(toastTimer); toastTimer = setTimeout(() => { el.hidden = true; }, long ? 9000 : 3200);
   }
 
   /* ---------- static chrome ---------- */
@@ -109,11 +124,14 @@
   const coverCache = new Map();
   const coverSVG = c => { const key = c.id + S.lang; if (!coverCache.has(key)) coverCache.set(key, K.render(c, 0, S.lang).svg); return coverCache.get(key); };
   const io = 'IntersectionObserver' in window ? new IntersectionObserver(entries => {
-    entries.forEach(e => { if (e.isIntersecting) { const el = e.target; io.unobserve(el); const c = byId.get(+el.dataset.id); if (c) el.innerHTML = coverSVG(c); } });
+    entries.forEach(e => { if (e.isIntersecting) { const el = e.target; io.unobserve(el); watched.delete(el); const c = byId.get(+el.dataset.id); if (c) el.innerHTML = coverSVG(c); } });
   }, { rootMargin: '500px 0px' }) : null;
+  const watched = new Set();
   function lazyCovers(root) {
+    // forget covers from an older grid that are no longer on the page (otherwise every re-filter leaks them)
+    if (io) watched.forEach(el => { if (!el.isConnected) { io.unobserve(el); watched.delete(el); } });
     root.querySelectorAll('.cover[data-id]').forEach((el, i) => {
-      if (!io || i < 8) { const c = byId.get(+el.dataset.id); el.innerHTML = coverSVG(c); } else io.observe(el);
+      if (!io || i < 8) { const c = byId.get(+el.dataset.id); el.innerHTML = coverSVG(c); } else { io.observe(el); watched.add(el); }
     });
   }
 
@@ -132,7 +150,7 @@
 
   /* ---------- HOME ---------- */
   const heroScene = () => ({
-    bg: 'city', action: true,
+    bg: 'city', action: true, shot: 'wide',
     chars: [
       { id: 'papa', pose: 'cheer', mood: 'laugh', x: 0.13 },
       { id: 'auggie', pose: 'fly', mood: 'determined', x: 0.5, s: 1.2, cape: true },
@@ -143,32 +161,59 @@
     fx: { en: 'WOOF!', hi: 'भौं-भौं!' },
   });
 
+  const countsAll = (() => { const m = {}; COMICS.forEach(c => { m[c.category] = (m[c.category] || 0) + 1; }); return m; })();
+  const catList = () => Object.keys(CATS).filter(k => countsAll[k]);
+
+  // search by a character's name in either language ("pinku", "पिंकू", "papa", "गौरव"), not by fragments of ids
+  const NAME_INDEX = (() => {
+    const m = new Map();
+    HEROES.forEach(h => [h.id, ...h.name.flatMap(nm => nm.split('·').map(x => x.trim().toLowerCase()))].forEach(nm => { if (nm) m.set(nm, h.id); }));
+    return m;
+  })();
+  const charIdFor = q => { if (NAME_INDEX.has(q)) return NAME_INDEX.get(q); if (q.length >= 3) for (const [nm, id] of NAME_INDEX) if (nm.startsWith(q)) return id; return null; };
+
   function filtered() {
     const q = S.q.trim().toLowerCase();
+    const cid = q ? charIdFor(q) : null;
     return COMICS.filter(c => (S.age === 'all' || c.age === S.age) && (S.cat === 'all' || c.category === S.cat) && (!S.favOnly || S.favs.has(c.id)) &&
       (!q || [c.title.en, c.title.hi, c.blurb.en, c.blurb.hi, catName(c.category), String(c.id)].join(' ').toLowerCase().includes(q) ||
-        c.panels.some(p => (p.chars || []).some(ch => ch.id.includes(q)))));
+        (cid && c.panels.some(p => (p.chars || []).some(ch => ch.id === cid)))));
   }
+  const activeFilterCount = () => (S.age !== 'all') + (S.cat !== 'all') + S.favOnly + (S.q.trim() ? 1 : 0);
 
   function renderShelf() {
     const list = filtered();
     const pool = COMICS.filter(c => S.age === 'all' || c.age === S.age);
     const counts = {}; pool.forEach(c => { counts[c.category] = (counts[c.category] || 0) + 1; });
-    const cats = Object.keys(CATS).filter(k => counts[k]);
     if (S.cat !== 'all' && !counts[S.cat]) S.cat = 'all';
-    app.querySelector('.cats').innerHTML = `<button class="chip" type="button" data-cat="all" aria-pressed="${S.cat === 'all'}">${t('allCats')}<span>${pool.length}</span></button>` +
-      cats.map(k => `<button class="chip" type="button" data-cat="${k}" aria-pressed="${S.cat === k}">${esc(catName(k))}<span>${counts[k]}</span></button>`).join('');
+    const panel = app.querySelector('.fpanel');
+    panel.hidden = !S.filtersOpen;
+    const fb = app.querySelector('.fbtn'); fb.setAttribute('aria-expanded', String(S.filtersOpen));
+    const nActive = activeFilterCount();
+    fb.querySelector('.fcount').textContent = nActive ? String(nActive) : ''; fb.querySelector('.fcount').hidden = !nActive;
+    panel.querySelector('.cats').innerHTML = `<button class="chip" type="button" data-cat="all" aria-pressed="${S.cat === 'all'}">${t('allCats')}<span>${pool.length}</span></button>` +
+      catList().map(k => `<button class="chip" type="button" data-cat="${k}" aria-pressed="${S.cat === k}"${counts[k] ? '' : ' disabled'}>${esc(catName(k))}<span>${counts[k] || 0}</span></button>`).join('');
     app.querySelectorAll('.age-btn').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.age === S.age)));
     app.querySelector('.fav-toggle').setAttribute('aria-pressed', String(S.favOnly));
-    app.querySelector('.count').textContent = t('count', list.length);
+    app.querySelector('.shelf .count').textContent = nActive ? t('showing', list.length, COMICS.length) : t('count', list.length);
+    // active-filter summary (always visible, even when the panel is closed)
+    const act = [];
+    if (S.age !== 'all') act.push({ k: 'age', label: `${t('age')} ${S.age}` });
+    if (S.cat !== 'all') act.push({ k: 'cat', label: catName(S.cat) });
+    if (S.favOnly) act.push({ k: 'fav', label: t('favs') });
+    if (S.q.trim()) act.push({ k: 'q', label: `“${S.q.trim()}”` });
+    app.querySelector('.active').innerHTML = act.map(a => `<button class="achip" type="button" data-clear="${a.k}">${esc(a.label)}${ICON.x}</button>`).join('') + (act.length > 1 ? `<button class="achip all" type="button" data-clear="all">${esc(t('clear'))}</button>` : '');
+    app.querySelectorAll('.tile').forEach(el => { const k = el.dataset.cat; el.setAttribute('aria-pressed', String(k === S.cat)); el.querySelector('.tn').textContent = counts[k] || 0; el.disabled = !counts[k]; });
     const grid = app.querySelector('.grid');
     grid.innerHTML = list.length ? list.map(card).join('') : `<li class="empty">${S.favOnly && !S.favs.size ? t('emptyFav') : t('empty')}</li>`;
     lazyCovers(grid);
   }
 
   function home() {
+    stopSpeech(); // leaving a comic stops the read-aloud
     applyChrome('home');
     document.title = 'Auggie Comics';
+    const cats = catList();
     app.innerHTML = `
       <section class="hero">
         <div class="hero-art" role="img" aria-label="Super Auggie leaping over Chamakpur with Papa and Mumma">${K.scene(heroScene(), 1200, 500, { lang: S.lang, fs: 30, seed: 11, big: true })}</div>
@@ -182,18 +227,30 @@
           </div>
         </div>
       </section>
+      <section class="topics" aria-labelledby="topics-h">
+        <div class="shelf-head"><h2 id="topics-h" class="display">${esc(t('topics'))}</h2><span class="count">${esc(t('topicsSub', COMICS.length, cats.length))}</span></div>
+        <ul class="tiles">${cats.map(k => `<li><button class="tile" type="button" data-cat="${k}" data-jumpcat="1" aria-pressed="false" style="--tc:${CAT_COLOR[k] || '#FFD400'}"><span class="tn">${countsAll[k]}</span><span class="tl">${esc(catName(k))}</span></button></li>`).join('')}</ul>
+      </section>
       <section class="shelf" id="shelf" aria-labelledby="shelf-h">
-        <div class="shelf-head"><h2 id="shelf-h" class="display">${esc(t('library'))}</h2><span class="count"></span></div>
-        <div class="filters">
-          <div class="ages" role="group" aria-label="${esc(t('age'))}">
-            <button class="age-btn" type="button" data-age="all">${esc(t('all'))}<small>${esc(t('allSub'))}</small></button>
-            <button class="age-btn" type="button" data-age="4-6">${esc(t('little'))}<small>${esc(t('littleSub'))}</small></button>
-            <button class="age-btn" type="button" data-age="6-10">${esc(t('big'))}<small>${esc(t('bigSub'))}</small></button>
+        <div class="shelf-head">
+          <h2 id="shelf-h" class="display">${esc(t('library'))}</h2><span class="count"></span>
+          <div class="shelf-tools">
+            <label class="search"><span class="skip">${esc(t('search'))}</span><input type="search" value="${esc(S.q)}" placeholder="${esc(t('search'))}"></label>
+            <button class="btn fbtn" type="button" aria-expanded="false" aria-controls="fpanel">${ICON.filter}${esc(t('filters'))}<span class="fcount" hidden></span></button>
           </div>
-          <label class="search"><span class="skip">${esc(t('search'))}</span><input type="search" value="${esc(S.q)}" placeholder="${esc(t('search'))}"></label>
-          <button class="fav-toggle" type="button" aria-pressed="false">${ICON.star}${esc(t('favs'))}</button>
         </div>
-        <div class="cats" role="group" aria-label="Topics"></div>
+        <div class="fpanel" id="fpanel" hidden>
+          <div class="frow"><span class="flabel">${esc(t('age'))}</span>
+            <div class="ages" role="group" aria-label="${esc(t('age'))}">
+              <button class="age-btn" type="button" data-age="all">${esc(t('all'))}<small>${esc(t('allSub'))}</small></button>
+              <button class="age-btn" type="button" data-age="4-6">${esc(t('little'))}<small>${esc(t('littleSub'))}</small></button>
+              <button class="age-btn" type="button" data-age="6-10">${esc(t('big'))}<small>${esc(t('bigSub'))}</small></button>
+            </div>
+          </div>
+          <div class="frow"><span class="flabel">${esc(t('topic'))}</span><div class="cats" role="group" aria-label="${esc(t('topic'))}"></div></div>
+          <div class="frow"><span class="flabel"></span><button class="fav-toggle" type="button" aria-pressed="false">${ICON.star}${esc(t('favs'))}</button><button class="btn fclear" type="button" data-clear="all">${esc(t('clear'))}</button></div>
+        </div>
+        <div class="active"></div>
         <ol class="grid"></ol>
       </section>`;
     renderShelf();
@@ -204,46 +261,26 @@
   let speaking = false;
   const R = { comic: null, page: 0, total: 0 };
 
-  function stopSpeech() { if ('speechSynthesis' in window) window.speechSynthesis.cancel(); speaking = false; updateSpeakBtn(); }
+  function stopSpeech() { SP.stop(); speaking = false; updateSpeakBtn(); }
   function updateSpeakBtn() {
     const b = app.querySelector('.speak'); if (!b) return;
     b.innerHTML = speaking ? `${ICON.stop}${esc(t('stop'))}` : `${ICON.speak}${esc(t('readAloud'))}`;
     b.setAttribute('aria-pressed', String(speaking));
   }
-  // Read-aloud: a high, child-like pitch for the narrator and kids, a different pitch for each character.
-  const PITCH = { narrator: 1.55, auggie: 1.9, moti: 1.5, pinku: 2, snowy: 1.6, chiku: 2, rohan: 1.75, anaya: 1.85, kabir: 2, zoya: 1.8, mumma: 1.35, mausi: 1.5, dadi: 1.2, papa: 0.95, nanu: 0.8, gadbad: 1.2, kichdu: 0.6, garaj: 0.5, zibbo: 2, bholu: 1.7 };
-  const PREF = { hi: ['Lekha', 'लेखा', 'Google हिन्दी', 'Kiyara', 'Swara'], en: ['Veena', 'Samantha', 'Google UK English Female', 'Karen', 'Tessa', 'Moira', 'Zira', 'Google US English', 'Female'] };
-  const voicesFor = lang => ('speechSynthesis' in window ? window.speechSynthesis.getVoices() : []).filter(v => (v.lang || '').toLowerCase().replace('_', '-').startsWith(lang === 'hi' ? 'hi' : 'en'));
-  function pickVoice(lang) {
-    const list = voicesFor(lang);
-    if (!list.length) return null;
-    const saved = store.get('voice-' + lang, null);
-    const hit = saved && list.find(v => v.name === saved);
-    if (hit) return hit;
-    for (const p of PREF[lang]) { const v = list.find(x => x.name.includes(p)); if (v) return v; }
-    return list[0];
+  function updateVoiceUI() {
+    app.querySelectorAll('[data-voice]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.voice === S.voice)));
+    const nm = app.querySelector('.vname'); if (nm) nm.textContent = SP.voiceName(S.lang, S.voice);
   }
-  function fillVoices() {
-    const sel = app.querySelector('.voice-sel'); if (!sel) return;
-    const list = voicesFor(S.lang), cur = pickVoice(S.lang);
-    sel.closest('.voice-pick').hidden = list.length < 2;
-    sel.innerHTML = list.map(v => `<option value="${esc(v.name)}"${cur && v.name === cur.name ? ' selected' : ''}>${esc(v.name.replace(/\s*\(.*\)/, ''))}</option>`).join('');
-  }
-  if ('speechSynthesis' in window) window.speechSynthesis.addEventListener('voiceschanged', fillVoices);
   function speakPage() {
-    if (!('speechSynthesis' in window)) { toast(t('noVoice')); return; }
-    const synth = window.speechSynthesis;
-    synth.cancel();
     const lines = K.script(R.comic, R.page, S.lang).filter(l => l.text);
-    const voice = pickVoice(S.lang);
     speaking = true; updateSpeakBtn();
-    lines.forEach((l, i) => {
-      const u = new SpeechSynthesisUtterance(l.text.replace(/[—–]/g, ', '));
-      u.lang = S.lang === 'hi' ? 'hi-IN' : 'en-IN'; if (voice) u.voice = voice;
-      u.pitch = PITCH[l.who] != null ? PITCH[l.who] : 1.7;
-      u.rate = (R.comic.age === '4-6' ? 0.86 : 0.94) * (l.who === 'narrator' ? 0.96 : 1);
-      if (i === lines.length - 1) u.onend = () => { speaking = false; updateSpeakBtn(); };
-      synth.speak(u);
+    SP.speak(lines, {
+      lang: S.lang, style: S.voice, age: R.comic.age,
+      onEnd: why => {
+        speaking = false; updateSpeakBtn();
+        if (why === 'unsupported') toast(t('noVoice'));
+        else if (why === 'no-hindi-voice') toast(t('noHindi'), true);
+      },
     });
   }
 
@@ -272,7 +309,7 @@
     if (!c) { app.innerHTML = `<section class="reader"><p class="empty">${esc(t('notFound'))}</p><p><a class="btn" href="#/">${ICON.left}${esc(t('back'))}</a></p></section>`; return; }
     R.comic = c; R.total = K.pageCount(c);
     document.title = `${tr(c.title)} · Auggie Comics`;
-    const next = COMICS.filter(x => x.age === c.age && x.id > c.id).concat(COMICS.filter(x => x.age === c.age && x.id < c.id)).slice(0, 4);
+    const next = COMICS.filter(x => x.category === c.category && x.id !== c.id).concat(COMICS.filter(x => x.age === c.age && x.category !== c.category && x.id > c.id)).slice(0, 4);
     const dots = Array.from({ length: R.total }, (_, i) => `<button class="dot" type="button" data-page="${i}" aria-label="${i === 0 ? esc(t('cover')) : i === R.total - 1 ? esc(t('end')) : esc(t('pageOf', i, R.total - 2))}"></button>`).join('');
     app.innerHTML = `
       <section class="reader">
@@ -281,7 +318,9 @@
           <div class="rtitle"><span class="num">No. ${pad(c.id)}</span><h1 class="display">${esc(tr(c.title))}</h1>
             <p class="meta">${t('age')} ${c.age} · ${esc(catName(c.category))} · ${c.panels.length} ${t('panels')}</p></div>
           <div class="ractions">
-            <label class="voice-pick" hidden><span>${esc(t('voice'))}</span><select class="voice-sel"></select></label>
+            <div class="voice-pick" role="group" aria-label="${esc(t('voice'))}">
+              <button type="button" data-voice="girl" aria-pressed="true">${esc(t('girl'))}</button><button type="button" data-voice="boy" aria-pressed="false">${esc(t('boy'))}</button>
+            </div>
             <button class="btn btn-yel speak" type="button" aria-pressed="false"></button>
             <button class="btn btn-red dl" type="button">${ICON.down}<span>${esc(t('download'))}</span></button>
           </div>
@@ -301,7 +340,8 @@
         <section class="more"><h2 class="display">${esc(t('readNext'))}</h2><ol class="grid">${next.map(card).join('')}</ol></section>
       </section>`;
     updateSpeakBtn();
-    fillVoices();
+    updateVoiceUI();
+    SP.ready().then(updateVoiceUI);
     lazyCovers(app.querySelector('.more'));
     showPage((page || 1) - 1);
     // swipe
@@ -336,7 +376,7 @@
     const L = S.lang === 'hi' ? 1 : 0;
     app.innerHTML = `<section class="heroes"><h1 class="display">${esc(t('heroesTitle'))}</h1><p>${esc(t('heroesLede'))}</p>
       <ul class="hgrid">${HEROES.map((h, i) => {
-        const sc = { bg: h.bg, chars: [{ id: h.id, pose: h.pose, mood: h.mood, x: h.pose === 'fly' ? 0.46 : 0.5, s: h.id === 'kichdu' ? 0.85 : 1.1 }] };
+        const sc = { bg: h.bg, shot: 'medium', chars: [{ id: h.id, pose: h.pose, mood: h.mood, x: h.pose === 'fly' ? 0.46 : 0.5, s: h.id === 'kichdu' ? 0.85 : 1 }] };
         return `<li class="hcard${h.villain ? ' villain' : ''}"><div class="art">${K.scene(sc, 400, 300, { lang: S.lang, seed: 30 + i })}</div>
           <div class="body"><h2 class="display"><a href="#/" data-hero="${h.id}" style="text-decoration:none">${esc(h.name[L])}</a></h2><p class="role">${esc(h.role[L])}</p><p>${esc(h.bio[L])}</p></div></li>`;
       }).join('')}</ul></section>`;
@@ -356,6 +396,7 @@
     if (h.startsWith('heroes')) { heroes(); return; }
     home();
   }
+  const scrollShelf = () => { const s = document.getElementById('shelf'); if (s) s.scrollIntoView(); };
 
   /* ---------- events ---------- */
   document.addEventListener('click', e => {
@@ -369,23 +410,32 @@
       return;
     }
     if (el.dataset.fav) { e.preventDefault(); const id = +el.dataset.fav; if (S.favs.has(id)) S.favs.delete(id); else S.favs.add(id); store.set('favs', [...S.favs]); el.setAttribute('aria-pressed', String(S.favs.has(id))); el.setAttribute('aria-label', S.favs.has(id) ? t('removeFav') : t('addFav')); if (S.favOnly && app.querySelector('.shelf')) renderShelf(); return; }
-    if (el.dataset.jump) { S.age = el.dataset.jump; S.cat = 'all'; renderShelf(); document.getElementById('shelf').scrollIntoView(); return; }
+    if (el.dataset.jump) { S.age = el.dataset.jump; S.cat = 'all'; renderShelf(); scrollShelf(); return; }
     if (el.classList.contains('age-btn')) { S.age = el.dataset.age; renderShelf(); return; }
-    if (el.dataset.cat) { S.cat = el.dataset.cat; renderShelf(); return; }
+    if (el.dataset.cat) { S.cat = S.cat === el.dataset.cat && el.dataset.jumpcat ? 'all' : el.dataset.cat; renderShelf(); if (el.dataset.jumpcat) scrollShelf(); return; }
     if (el.classList.contains('fav-toggle')) { S.favOnly = !S.favOnly; renderShelf(); return; }
-    if (el.dataset.hero) { e.preventDefault(); S.q = el.dataset.hero; S.age = 'all'; S.cat = 'all'; S.favOnly = false; location.hash = '#/'; setTimeout(() => { const s = document.getElementById('shelf'); if (s) s.scrollIntoView(); }, 30); return; }
-    if (el.dataset.go) { showPage(R.page + +el.dataset.go); return; }
+    if (el.classList.contains('fbtn')) { S.filtersOpen = !S.filtersOpen; renderShelf(); return; }
+    if (el.dataset.clear) {
+      const k = el.dataset.clear;
+      if (k === 'age' || k === 'all') S.age = 'all';
+      if (k === 'cat' || k === 'all') S.cat = 'all';
+      if (k === 'fav' || k === 'all') S.favOnly = false;
+      if (k === 'q' || k === 'all') { S.q = ''; const inp = app.querySelector('.search input'); if (inp) inp.value = ''; }
+      renderShelf(); return;
+    }
+    if (el.dataset.hero) { e.preventDefault(); S.q = el.dataset.hero; S.age = 'all'; S.cat = 'all'; S.favOnly = false; location.hash = '#/'; setTimeout(scrollShelf, 30); return; }
+    if (el.dataset.go) { if (speaking) SP.unlock(); showPage(R.page + +el.dataset.go); return; }
     if (el.dataset.page != null && el.classList.contains('dot')) { showPage(+el.dataset.page); return; }
-    if (el.classList.contains('speak')) { if (speaking) stopSpeech(); else speakPage(); return; }
+    if (el.dataset.voice) { S.voice = el.dataset.voice; store.set('voice-style', S.voice); updateVoiceUI(); if (speaking) { SP.unlock(); speakPage(); } return; }
+    if (el.classList.contains('speak')) { if (speaking) stopSpeech(); else { SP.unlock(); speakPage(); } return; }
     if (el.classList.contains('dl')) { downloadPDF(el); return; }
   });
   document.addEventListener('keydown', e => {
-    if (!R.comic || !app.querySelector('.reader') || e.target.matches('input, textarea')) return;
+    const tg = e.target;
+    if (!R.comic || !app.querySelector('.reader') || (tg && tg.matches && tg.matches('input, textarea, select, [contenteditable="true"]'))) return;
+    if (e.altKey || e.ctrlKey || e.metaKey) return; // leave browser shortcuts (back/forward) alone
     if (e.key === 'ArrowRight') { showPage(R.page + 1); e.preventDefault(); }
     if (e.key === 'ArrowLeft') { showPage(R.page - 1); e.preventDefault(); }
-  });
-  document.addEventListener('change', e => {
-    if (e.target.classList.contains('voice-sel')) { store.set('voice-' + S.lang, e.target.value); if (speaking) speakPage(); }
   });
   window.addEventListener('hashchange', route);
 

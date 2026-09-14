@@ -544,5 +544,5 @@
     return auggi(pose, mood);
   };
   // Relative display size of each character (1 = kid height)
-  A.CHAR_SIZE = { auggi: 1, mira: 1, rohan: 1, anaya: 1, kabir: 1, zoya: 1, dadi: 1, gadbad: 1, glitchy: 1, zibbo: 1, kichdu: 1.05, garaj: 1, bholu: 1.05, cat: 0.9, dog: 0.95, parrot: 0.95, monkey: 0.95, cow: 1.1, rabbit: 0.9, turtle: 0.95, fish: 0.95, frog: 0.95, owl: 0.95, lion: 1.1, penguin: 0.95, dolphin: 1, peacock: 1 };
+  A.CHAR_SIZE = { auggi: 1, mira: 1, rohan: 1, anaya: 1, kabir: 1, zoya: 1, dadi: 1, gadbad: 1, glitchy: 1, zibbo: 1, kichdu: 1.05, garaj: 1, bholu: 1.05, cat: 0.9, dog: 0.95, parrot: 0.95, monkey: 0.95, cow: 1.1, rabbit: 0.9, turtle: 0.95, fish: 0.95, frog: 0.95, owl: 0.95, lion: 1.1, penguin: 0.95, dolphin: 1, peacock: 1, bhootu: 0.85, missji: 1 };
 })();

@@ -5,12 +5,12 @@ const fs = require('fs');
 const vm = require('vm');
 
 const E = {
-  category: 'home habits feelings family friends dogs animals birds festivals travel nature superhero mystery sports science planet space india'.split(' '),
-  bg: 'city citynight park garden forest jungle beach ocean underwater space moon mountains snow desert village farm school home kitchen bedroom lab sky rain volcano cave market festival river playground action station airport wedding cafe vet'.split(' '),
-  chars: 'auggie papa mumma mausi nanu dadi rohan anaya kabir zoya moti pinku snowy chiku bholu gadbad kichdu garaj zibbo cat parrot monkey cow rabbit turtle fish frog owl lion penguin dolphin peacock camel goat duck pigeon squirrel crab tiger deer horse'.split(' '),
+  category: 'home habits feelings family friends dogs animals birds festivals travel nature superhero mystery sports science planet space india school holiday forest office ghost'.split(' '),
+  bg: 'city citynight park garden forest jungle beach ocean underwater space moon mountains snow desert village farm school home kitchen bedroom lab sky rain volcano cave market festival river playground action station airport wedding cafe vet office classroom haunted nightsky'.split(' '),
+  chars: 'auggie papa mumma mausi nanu dadi rohan anaya kabir zoya moti pinku snowy chiku bholu gadbad kichdu garaj zibbo cat parrot monkey cow rabbit turtle fish frog owl lion penguin dolphin peacock camel goat duck pigeon squirrel crab tiger deer horse missji bhootu'.split(' '),
   pose: 'stand wave run fly cheer point think sit blast lie'.split(' '),
   mood: 'happy sad surprised angry scared determined laugh sleepy'.split(' '),
-  props: 'tree palm bush flower rock house ball kite balloon rocket ufo star planet cake gift book trophy umbrella mango apple banana icecream bicycle car bus boat diya toothbrush dustbin sapling map chest telescope gear clock drum rainbow sun cloud puddle bottle crown bulb shell crystal magnet machine bone bowl frisbee suitcase camera laptop plane train tent campfire sandcastle rickshaw hotair'.split(' '),
+  props: 'tree palm bush flower rock house ball kite balloon rocket ufo star planet cake gift book trophy umbrella mango apple banana icecream bicycle car bus boat diya toothbrush dustbin sapling map chest telescope gear clock drum rainbow sun cloud puddle bottle crown bulb shell crystal magnet machine bone bowl frisbee suitcase camera laptop plane train tent campfire sandcastle rickshaw hotair carrot blueball'.split(' '),
   kind: 'say shout think whisper'.split(' '),
 };
 

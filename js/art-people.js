@@ -56,6 +56,9 @@
     dadi: { kind: 'woman', H: 43, leg: 90, torso: 55, neck: 7, sw: 23, hw: 11.5, waist: 21, hip: 24, skin: SK.dadi, iris: '#2E1C10', lip: '#9A4A48', old: true,
       hair: 'plait', hairColor: '#2A2420', hairHi: '#8F8983', greyStreaks: true, brow: '#3A322C', extras: ['bindi', 'nosering', 'bangles', 'earrings'],
       top: { type: 'saree', color: '#EE6557', border: '#F4A43A', stripe1: '#F9B24A', stripe2: '#5FAE63', blouse: '#E0493F' }, shoe: { type: 'sandal', color: '#7A4A2A' } },
+    missji: { kind: 'woman', H: 44, leg: 96, torso: 56, neck: 8, sw: 24, hw: 11, waist: 18, hip: 23, skin: '#B87A52', iris: '#3A2317', lip: '#B0505A',
+      hair: 'bun', hairColor: '#1E1410', hairHi: '#4B3A32', brow: '#1E1410', extras: ['roundglasses', 'earrings', 'bindi'],
+      top: { type: 'dress', color: '#7B3FC4', hem: -40, kurta: true }, shoe: { type: 'flat', color: '#E0A526' } },
     gadbad: { kind: 'man', H: 44, leg: 100, torso: 60, neck: 7, sw: 27, hw: 12, waist: 23, hip: 23, belly: 2, skin: '#E2AE88', iris: '#3E5B7A', old: true,
       hair: 'professor', hairColor: '#F2F0EC', hairHi: '#FFFFFF', brow: '#DAD6CF', extras: ['bigglasses', 'moustache', 'bowtie'],
       top: { type: 'coat', color: '#F4F6F8', shirt: '#7B3FC4', tie: '#FFB300' }, bottom: { type: 'trousers', color: '#3A3550' }, shoe: { type: 'formal', color: '#2A2A2A' } },
@@ -302,6 +305,12 @@
         front += E(X(-0.35), Y(0.08), hw * 0.3, H * 0.05, '#FFFFFF', 0, 'opacity=".35"');
         break;
       }
+      case 'bun': {
+        back += F(sp(P([[-0.5, -0.1], [-0.28, -0.42], [0.28, -0.42], [0.5, -0.1], [0.3, 0.06], [-0.3, 0.06]])), hc, OW) + L(sp(P([[-0.3, -0.3], [0, -0.36], [0.3, -0.3]]), false), 1, hi, 'opacity=".5"');
+        const d = sp(P([[-1.02, 0.5], [-1.07, 0.24], [-0.82, -0.04], [0, -0.13], [0.82, -0.04], [1.07, 0.24], [1.02, 0.5], [0.92, 0.34], [0.62, 0.16], [0.1, 0.1], [-0.1, 0.1], [-0.62, 0.16], [-0.92, 0.34]]));
+        front += shaded(d, hc, [sh([[0.2, -0.3], [1.3, -0.1], [1.3, 0.6], [0.9, 0.35], [0.6, 0.1]])], OW) + hl([[-0.7, 0.05, -0.2, -0.08], [0.15, -0.08, 0.6, 0.02]], 1.2);
+        break;
+      }
       case 'short': {
         const d = sp(P([[-1.0, 0.46], [-1.06, 0.2], [-0.8, -0.06], [0, -0.14], [0.8, -0.06], [1.06, 0.2], [1.0, 0.46], [0.9, 0.3], [0.6, 0.22], [0.2, 0.26], [-0.2, 0.22], [-0.6, 0.24], [-0.9, 0.3]]));
         front += shaded(d, hc, [sh([[0.3, -0.3], [1.3, 0], [1.2, 0.6], [0.7, 0.3]])], OW);
@@ -396,13 +405,26 @@
   }
 
   /* ------------------------------------------------------------------ body */
-  function person(id, pose, mood) {
+  // An office chair seen from the front: backrest behind the shoulders, seat under the hips, pole and wheeled base.
+  function chairSvg(c, hipY, shY) {
+    const col = '#3E4458', w = c.sw + 8, seatY = hipY + 4;
+    let s = F(sp([[-w + 5, shY + 8], [w - 5, shY + 8], [w, shY + 18], [w - 1, seatY - 8], [-w + 1, seatY - 8], [-w, shY + 18]]), col, 2.2);
+    s += Fn(sp([[w * 0.35, shY + 10], [w - 3, shY + 16], [w - 2, seatY - 10], [w * 0.4, seatY - 10]]), 'rgba(0,0,0,.25)');
+    s += F(poly([[-w - 5, seatY - 4], [w + 5, seatY - 4], [w + 3, seatY + 7], [-w - 3, seatY + 7]]), shade(col, -0.14), 2.2);
+    s += `<rect x="-3.5" y="${n(seatY + 7)}" width="7" height="${n(Math.max(4, -seatY - 15))}" fill="${shade(col, 0.2)}" stroke="${INK}" stroke-width="1.6"/>`;
+    s += L('M-28 -3 L28 -3 M0 -9 L-20 0 M0 -9 L20 0', 4.2, INK) + L('M-28 -3 L28 -3 M0 -9 L-20 0 M0 -9 L20 0', 2.4, shade(col, 0.1));
+    s += E(-26, -1.5, 3.2, 3.2, '#22252E', 0) + E(26, -1.5, 3.2, 3.2, '#22252E', 0) + E(0, -1.5, 3, 3, '#22252E', 0);
+    return s;
+  }
+
+  function person(id, pose, mood, opt = {}) {
     const c = PEOPLE[id];
     const P = POSE[pose] || POSE.stand;
     const kid = c.kind === 'boy' || c.kind === 'girl', man = c.kind === 'man' || c.kind === 'boy';
     const sit = !!P.sit;
+    const chair = sit && !!opt.chair; // sitting on a chair (offices, cafés, classrooms) instead of cross-legged on the floor
     const H = c.H;
-    const hipY = sit ? -20 : -c.leg;
+    const hipY = chair ? -(c.leg * 0.52) - 2 : sit ? -20 : -c.leg;
     const shY = hipY - c.torso, waistY = hipY - c.torso * 0.36;
     const neckBase = shY - 7, chinY = neckBase - c.neck - 3, top = chinY - H;
     const skin = c.skin, skinS = shade(skin, 0.2);
@@ -415,7 +437,11 @@
     const legs = {};
     for (const s of ['L', 'R']) {
       const sd = s === 'L' ? -1 : 1, hp = [sd * c.hw, hipY];
-      if (sit) {
+      if (chair) {
+        // thighs point at the reader (foreshortened), shins straight down to the floor
+        const kn = [sd * (c.hw + 3), hipY + 7], an = [sd * (c.hw + 4), -9];
+        legs[s] = { hp, kn, an };
+      } else if (sit) {
         const kn = [sd * (c.hw + thigh * 0.92), -13], an = [-sd * 7, -9];
         legs[s] = { hp, kn, an };
       } else {
@@ -434,15 +460,16 @@
     }
     const hr = hair(c, top, shY);
 
-    let s = defs + hr.back;
+    let s = defs + (chair ? chairSvg(c, hipY, shY) : '') + hr.back;
     // legs
     const legW = man ? [23, 15, 15.5, 9] : kid ? [15.5, 11, 11, 7] : [21, 13, 13.5, 8];
     const pants = bot.type === 'jeans' || bot.type === 'trousers' || bot.type === 'overalls';
     const covered = top_.type === 'saree';
+    const legCol = top_.kurta ? '#F7F3EA' : skin;
     const drawLeg = s0 => {
       const Lg = legs[s0];
       const mid = lerp(Lg.kn, Lg.an, 0.35);
-      return A.taper([Lg.hp, Lg.kn, [mid[0] + (s0 === 'L' ? -0.8 : 0.8), mid[1]], Lg.an], legW, skin, { ow: OW * 0.9, shadowColor: skinS });
+      return A.taper([Lg.hp, Lg.kn, [mid[0] + (s0 === 'L' ? -0.8 : 0.8), mid[1]], Lg.an], legW, legCol, { ow: OW * 0.9, shadowColor: shade(legCol, 0.18) });
     };
     if (!covered) {
       const order = sit ? ['L', 'R'] : ['L', 'R'];
@@ -464,7 +491,7 @@
         }
       }
       if (!pants) { /* bare legs already drawn */ }
-      for (const k of ['L', 'R']) s += shoe(c, legs[k].an, k, sit);
+      for (const k of ['L', 'R']) s += shoe(c, legs[k].an, k, sit && !chair);
     }
 
     // shorts / overalls pelvis
@@ -487,7 +514,7 @@
     // saree skirt (floor length, pleated) or dress skirt
     if (top_.type === 'saree') {
       const hem = -3, wx = c.hip + 3;
-      const spread = sit ? 44 : 8;
+      const spread = chair ? 12 : sit ? 44 : 8;
       const d = sp([[-c.waist - 2, waistY], [c.waist + 2, waistY], [wx + 2, hipY + 6], [wx + 7 + spread * 0.5, (hipY + hem) / 2], [wx + 10 + spread, hem - 2], [wx + 6 + spread, hem + 1], [0, hem + 2], [-wx - 6 - spread, hem + 1], [-wx - 10 - spread, hem - 2], [-wx - 7 - spread * 0.5, (hipY + hem) / 2], [-wx - 2, hipY + 6]]);
       const stripes = [];
       for (let i = 0; i < 7; i++) { const y = waistY + 12 + i * ((hem - waistY - 16) / 7); stripes.push(L(`M${n(-wx - 20 - spread)} ${n(y)} q${n(12)} -3 ${n(24)} 0 t${n(24)} 0 t${n(24)} 0 t${n(24)} 0 t${n(24)} 0`, 1.8, i % 2 ? top_.stripe2 : top_.stripe1, 'opacity=".85"')); }
@@ -498,9 +525,13 @@
       for (const sd of [-1, 1]) s += F(sp([[sd * 5 - 4, hem - 1], [sd * 5 + 4, hem - 1], [sd * 7 + 4, hem + 3.5], [sd * 6, hem + 4.6], [sd * 5 - 5, hem + 3.5]]), skin, 1.6) + L(`M${n(sd * 5 - 4)} ${n(hem + 1)} L${n(sd * 5 + 5)} ${n(hem + 1)}`, 1.8, c.shoe.color);
     }
     if (top_.type === 'dress' || top_.type === 'coat' || bot.type === 'skirt') {
-      const hemY = top_.type === 'coat' ? hipY + 30 : sit ? -6 : (top_.hem || -32);
-      const col = top_.color, sx = sit ? 30 : 0;
-      if (top_.type === 'dress') {
+      const hemY = top_.type === 'coat' ? hipY + 30 : chair ? Math.max(hipY + 30, -40) : sit ? -6 : (top_.hem || -32);
+      const col = top_.color, sx = chair ? 6 : sit ? 30 : 0;
+      if (top_.type === 'dress' && top_.kurta) {
+        const d = sp([[-c.waist - 1, waistY], [c.waist + 1, waistY], [c.hip + 5, hipY + 2], [c.hip + 8 + sx * 0.3, (hipY + hemY) / 2], [c.hip + 9 + sx * 0.4, hemY - 1], [0, hemY + 1], [-c.hip - 9 - sx * 0.4, hemY - 1], [-c.hip - 8 - sx * 0.3, (hipY + hemY) / 2], [-c.hip - 5, hipY + 2]]);
+        s += shaded(d, col, [rightShadow(c.hip * 0.3, waistY, c.hip * 0.5 + sx * 0.3, hemY + 6, 6), Fn(`M-200 ${n(hemY - 4)} L200 ${n(hemY - 4)} L200 ${n(hemY + 6)} L-200 ${n(hemY + 6)} Z`, '#F2B52C', 'opacity=".9"')], OW);
+        s += L(`M${n(-c.hip - 8)} ${n(hemY - 22)} v22 M${n(c.hip + 8)} ${n(hemY - 22)} v22`, 1.2, shade(col, 0.35));
+      } else if (top_.type === 'dress') {
         const d = sp([[-c.waist - 1, waistY], [c.waist + 1, waistY], [c.hip + 4, hipY + 2], [c.hip + 11 + sx * 0.6, (hipY + hemY) / 2 + 4], [c.hip + 17 + sx, hemY - 2], [c.hip * 0.5, hemY + 2], [0, hemY], [-c.hip * 0.5, hemY + 2], [-c.hip - 17 - sx, hemY - 2], [-c.hip - 11 - sx * 0.6, (hipY + hemY) / 2 + 4], [-c.hip - 4, hipY + 2]]);
         s += shaded(d, col, [rightShadow(c.hip * 0.3, waistY, c.hip * 0.6 + sx * 0.5, hemY + 6, 8), Fn(`M-200 ${n(hemY - 5)} L200 ${n(hemY - 5)} L200 ${n(hemY + 6)} L-200 ${n(hemY + 6)} Z`, 'rgba(255,255,255,.18)')], OW);
         s += [-0.55, 0.05, 0.6].map(f => L(`M${n(f * c.hip * 0.6)} ${n(hipY + 6)} Q${n(f * c.hip * 0.9)} ${n((hipY + hemY) / 2)} ${n(f * (c.hip + 12 + sx))} ${n(hemY - 2)}`, 0.9, shade(col, 0.3))).join('');
@@ -590,6 +621,11 @@
       for (const sd of [-1, 1]) headSvg += `<rect x="${n(sd * ex0 - gw)}" y="${n(eyeY - gh * 1.05)}" width="${n(gw * 2)}" height="${n(gh * 1.9)}" rx="2.2" fill="#FFFFFF" fill-opacity=".12" stroke="#15110F" stroke-width="1.9"/>` + L(`M${n(sd * ex0 - gw * 0.6)} ${n(eyeY - gh * 0.6)} l${n(gw * 0.5)} ${n(gh * 0.9)}`, 0.9, '#FFFFFF', 'opacity=".55"');
       headSvg += L(`M${n(-ex0 + gw)} ${n(eyeY - gh * 0.45)} Q0 ${n(eyeY - gh * 0.95)} ${n(ex0 - gw)} ${n(eyeY - gh * 0.45)}`, 1.7, '#15110F') + L(`M${n(-ex0 - gw)} ${n(eyeY - gh * 0.6)} L${n(-hw * 1.02)} ${n(eyeY - gh * 0.3)} M${n(ex0 + gw)} ${n(eyeY - gh * 0.6)} L${n(hw * 1.02)} ${n(eyeY - gh * 0.3)}`, 1.6, '#15110F');
     }
+    if (ex.includes('roundglasses')) {
+      const eyeY = Y(0.5), ex0 = hw * 0.45, r = hw * 0.3;
+      for (const sd of [-1, 1]) headSvg += `<circle cx="${n(sd * ex0)}" cy="${n(eyeY)}" r="${n(r)}" fill="#FFFFFF" fill-opacity=".12" stroke="#15110F" stroke-width="1.8"/>` + L(`M${n(sd * ex0 - r * 0.55)} ${n(eyeY - r * 0.35)} q${n(r * 0.25)} ${n(-r * 0.3)} ${n(r * 0.6)} ${n(-r * 0.32)}`, 0.9, '#FFFFFF', 'opacity=".6"');
+      headSvg += L(`M${n(-ex0 + r)} ${n(eyeY - 1)} Q0 ${n(eyeY - 4)} ${n(ex0 - r)} ${n(eyeY - 1)}`, 1.6, '#15110F') + L(`M${n(-ex0 - r)} ${n(eyeY - 2)} L${n(-hw * 1.02)} ${n(eyeY - 1)} M${n(ex0 + r)} ${n(eyeY - 2)} L${n(hw * 1.02)} ${n(eyeY - 1)}`, 1.5, '#15110F');
+    }
     if (ex.includes('bigglasses')) {
       const eyeY = Y(0.5), ex0 = hw * 0.46, r = hw * 0.34;
       for (const sd of [-1, 1]) headSvg += `<circle cx="${n(sd * ex0)}" cy="${n(eyeY)}" r="${n(r)}" fill="#DDF3FF" fill-opacity=".28" stroke="#6B4A22" stroke-width="2"/>` + L(`M${n(sd * ex0 - r * 0.5)} ${n(eyeY - r * 0.4)} q${n(r * 0.3)} ${n(-r * 0.3)} ${n(r * 0.7)} ${n(-r * 0.35)}`, 1, '#FFFFFF', 'opacity=".8"');
@@ -662,6 +698,6 @@
     return { svg: `<g transform="${tr}">${s}</g>`, anchor, floats: pose === 'fly' };
   }
 
-  Object.keys(PEOPLE).forEach(id => { A.EXTRA[id] = (pose, mood) => person(id, pose, mood); });
+  Object.keys(PEOPLE).forEach(id => { A.EXTRA[id] = (pose, mood, opt) => person(id, pose, mood, opt || {}); });
   A.PEOPLE = PEOPLE;
 })();

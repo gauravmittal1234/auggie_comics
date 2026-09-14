@@ -26,8 +26,11 @@
   // and would break SVG-to-image rendering for PDFs).
   const sx = (sw, extra) => {
     let s = st(sw);
-    if (/(^|\s)stroke="/.test(extra)) s = s.replace(/stroke="[^"]*"/, '');
-    if (/stroke-width="/.test(extra)) s = s.replace(/stroke-width="[^"]*"/, '');
+    // drop every default attribute that the caller sets again in `extra` (stroke, stroke-width, stroke-linecap,
+    // stroke-linejoin, …). A duplicated attribute is invalid XML: the screen forgives it, but the PDF export
+    // (which draws the page as an image) fails.
+    const names = new Set((String(extra || '').match(/[a-zA-Z-]+(?==")/g) || []));
+    names.forEach(nm => { s = s.replace(new RegExp('(^|\\s)' + nm + '="[^"]*"'), ''); });
     return s + ' ' + extra;
   };
 
