@@ -45,8 +45,9 @@ for (const c of comics) {
   if (seenB.has(bl)) add(c, 'blurb', 'dup-blurb', `also #${seenB.get(bl)}`); else seenB.set(bl, c.id);
   for (const l of lines(c)) {
     const en = l.en || '', hi = l.hi || '';
+    const enN = en.replace(/Caf[eé] Chottu/g, ''), hiN = hi.replace(/कैफ़े छोटू|कैफे छोटू/g, ''); // Mausi's café is named after her nickname
     if (l.who) for (const pn of PET) {
-      if ((pn.re.test(en) || pn.hi.test(hi)) && !pn.who.includes(l.who)) add(c, l.where, 'pet-name', `${l.who} says ${pn.name}: "${en}"`);
+      if ((pn.re.test(enN) || pn.hi.test(hiN)) && !pn.who.includes(l.who)) add(c, l.where, 'pet-name', `${l.who} says ${pn.name}: "${en}"`);
     }
     for (const [re, good] of MISSPELL) if (re.test(en) && !new RegExp('\\b' + good + '\\b').test(en.match(re)[0])) add(c, l.where, 'spelling', `"${en.match(re)[0]}" should be ${good}: "${en}"`);
     for (const [re, good] of MISSPELL_HI) if (re.test(hi)) add(c, l.where, 'spelling-hi', `"${hi.match(re)[0]}" should be ${good}: "${hi}"`);

@@ -368,7 +368,7 @@ window.AUGGIE_COMICS.push(
         say: [ { who: 1, en: "A party? I can't go. Everyone screams when they see a ghost.", hi: "पार्टी? मैं नहीं जा सकता। भूत देखते ही सब चीख़ने लगते हैं।" } ] },
       { bg: "haunted", chars: [ { id: "auggie", pose: "think", mood: "determined", x: 0.3 }, { id: "bhootu", pose: "stand", mood: "surprised", x: 0.72, flip: true } ],
         say: [ { who: 0, en: "It's FANCY DRESS! Everyone will think you're a costume. Come as yourself!", hi: "अरे, फ़ैंसी ड्रेस है! सब सोचेंगे तुमने पोशाक पहनी है। तुम बस तुम बनकर आओ!" },
-               { who: 1, en: "Me? At a party? With real friends? Eeee!", hi: "मैं? पार्टी में? सच के दोस्तों के साथ? ईईई!", kind: "shout" } ] },
+               { who: 1, en: "Me? At a party? Eeee!", hi: "मैं? पार्टी में? ईईई!", kind: "shout" } ] },
       { bg: "garden", chars: [ { id: "rohan", pose: "stand", mood: "surprised", x: 0.22 }, { id: "bhootu", pose: "cheer", mood: "laugh", x: 0.5 }, { id: "kabir", pose: "stand", mood: "happy", x: 0.8, flip: true } ], props: [ { id: "balloon", x: 0.08, y: 0.15 } ],
         say: [ { who: 0, en: "Wow! Best ghost costume ever! It even FLOATS!", hi: "वाह! क्या ग़ज़ब का भूत बना है! ये तो तैर भी रहा है!" },
                { who: 2, en: "How do you glow like that? Batteries?", hi: "तुम ऐसे चमकते कैसे हो? बैटरी से?", kind: "whisper" } ] },

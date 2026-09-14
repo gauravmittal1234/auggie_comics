@@ -163,8 +163,8 @@ Rules:
 
 **mood** — `happy`, `sad`, `surprised`, `angry`, `scared`, `determined`, `laugh`, `sleepy`
 
-**props** — `tree`, `palm`, `bush`, `flower`, `rock`, `house`, `ball`, `kite`, `balloon`, `rocket`, `ufo`, `star`, `planet`, `cake`, `gift`, `book`, `trophy`, `umbrella`, `mango`, `apple`, `banana`, `icecream`, `bicycle`, `car`, `bus`, `boat`, `diya`, `toothbrush`, `dustbin`, `sapling`, `map`, `chest`, `telescope`, `gear`, `clock`, `drum`, `rainbow`, `sun`, `cloud`, `puddle`, `bottle`, `crown`, `bulb`, `shell`, `crystal`, `magnet`, `machine`, `bone`, `bowl`, `frisbee`, `suitcase`, `camera`, `laptop`, `plane`, `train`, `tent`, `campfire`, `sandcastle`, `rickshaw`, `hotair`, `carrot`
-(`carrot` = Auggie's favourite snack — give it a `y` to make it float, e.g. in space; `bowl` = dog bowl; `machine` = one of Gadbad's gadgets; `hotair` = hot-air balloon; `rickshaw` = auto-rickshaw; `plane` floats in the sky.)
+**props** — `tree`, `palm`, `bush`, `flower`, `rock`, `house`, `ball`, `kite`, `balloon`, `rocket`, `ufo`, `star`, `planet`, `cake`, `gift`, `book`, `trophy`, `umbrella`, `mango`, `apple`, `banana`, `icecream`, `bicycle`, `car`, `bus`, `boat`, `diya`, `toothbrush`, `dustbin`, `sapling`, `map`, `chest`, `telescope`, `gear`, `clock`, `drum`, `rainbow`, `sun`, `cloud`, `puddle`, `bottle`, `crown`, `bulb`, `shell`, `crystal`, `magnet`, `machine`, `bone`, `bowl`, `frisbee`, `suitcase`, `camera`, `laptop`, `plane`, `train`, `tent`, `campfire`, `sandcastle`, `rickshaw`, `hotair`, `carrot`, `blueball`
+(`ball` is red, `blueball` is blue — dogs see blue and yellow much better than red; `carrot` = Auggie's favourite snack — give it a `y` to make it float, e.g. in space; `bowl` = dog bowl; `machine` = one of Gadbad's gadgets; `hotair` = hot-air balloon; `rickshaw` = auto-rickshaw; `plane` floats in the sky.)
 
 ---
 

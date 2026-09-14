@@ -10,7 +10,7 @@ const E = {
   chars: 'auggie papa mumma mausi nanu dadi rohan anaya kabir zoya moti pinku snowy chiku bholu gadbad kichdu garaj zibbo cat parrot monkey cow rabbit turtle fish frog owl lion penguin dolphin peacock camel goat duck pigeon squirrel crab tiger deer horse missji bhootu'.split(' '),
   pose: 'stand wave run fly cheer point think sit blast lie'.split(' '),
   mood: 'happy sad surprised angry scared determined laugh sleepy'.split(' '),
-  props: 'tree palm bush flower rock house ball kite balloon rocket ufo star planet cake gift book trophy umbrella mango apple banana icecream bicycle car bus boat diya toothbrush dustbin sapling map chest telescope gear clock drum rainbow sun cloud puddle bottle crown bulb shell crystal magnet machine bone bowl frisbee suitcase camera laptop plane train tent campfire sandcastle rickshaw hotair carrot'.split(' '),
+  props: 'tree palm bush flower rock house ball kite balloon rocket ufo star planet cake gift book trophy umbrella mango apple banana icecream bicycle car bus boat diya toothbrush dustbin sapling map chest telescope gear clock drum rainbow sun cloud puddle bottle crown bulb shell crystal magnet machine bone bowl frisbee suitcase camera laptop plane train tent campfire sandcastle rickshaw hotair carrot blueball'.split(' '),
   kind: 'say shout think whisper'.split(' '),
 };
 

@@ -159,13 +159,17 @@
       art += l;
     }
 
-    // props
+    // props. Small story objects (a ball, a carrot, a camera, a book) are what a panel is often about, so speech
+    // bubbles try not to cover them; big scenery (trees, houses, vehicles, the sun) may be covered.
+    const SCENERY = { tree: 1, palm: 1, bush: 1, flower: 1, rock: 1, house: 1, rainbow: 1, sun: 1, cloud: 1, bus: 1, train: 1, hotair: 1, plane: 1, tent: 1, car: 1, boat: 1, rickshaw: 1, bicycle: 1, dustbin: 1, puddle: 1, sandcastle: 1, campfire: 1, machine: 1 };
+    const propBoxes = [];
     for (const p of sc.props || []) {
       const sky = A.SKY_PROPS[p.id];
       const k = unit * (p.s || 1) * (A.PROP_SIZE[p.id] || 1);
       const px = p.x * w;
       const py = p.y != null ? p.y * h : sky != null ? sky * h : gy + 4;
       art += `<g transform="translate(${n(px)} ${n(py)}) scale(${n(k * 100) / 100})">${A.prop(p.id)}</g>`;
+      if (!SCENERY[p.id]) propBoxes.push({ x: px - 32 * k, y: py - 46 * k, w: 64 * k, h: 48 * k, id: p.id });
     }
 
     // headroom: how much of the top of the panel the caption and bubbles will need, so heads sit below the words.
@@ -302,7 +306,7 @@
       placed[d.i] = { anchor: { x: ax, y: ay }, face: { x: ax - headR, y: ay + 4, w: headR * 2, h: headR * 2.1 }, body: { x: d.l, y: by + ch.anchor[1] * k, w: d.r - d.l, h: Math.min(h, by) - (by + ch.anchor[1] * k) } };
     });
     chars.forEach((c, i) => { anchors.push(placed[i].anchor); faces.push(placed[i].face); bodies.push(placed[i].body); });
-    if (opt.meta) opt.meta.push({ box, chars: drawn.map(d => ({ id: d.c.id, l: d.l, r: d.r, cx: d.cx, depth: d.depth })), faces, anchors, shot, ks });
+    if (opt.meta) opt.meta.push({ props: propBoxes, box, chars: drawn.map(d => ({ id: d.c.id, l: d.l, r: d.r, cx: d.cx, depth: d.depth })), faces, anchors, shot, ks });
     art += A.halftone(0, 0, w, h * 0.0001, 'dark');
 
     const texts = [];
@@ -378,6 +382,7 @@
           const box2 = { x, y, w: bw, h: bh }, big = { x: x - extra, y: y - extra, w: bw + extra * 2, h: bh + extra * 2 };
           let score = pen + narrowPen;
           faces.forEach(fc => { score += (areaOf(box2, fc) / (fc.w * fc.h)) * 40; });
+          propBoxes.forEach(pb => { score += (areaOf(box2, pb) / (pb.w * pb.h)) * 16; }); // keep story objects visible
           boxes.forEach(o => { const ov2 = areaOf(big, o); if (ov2 > 0) score += 30 + (ov2 / (bw * bh)) * 90; }); // never on the caption
           if (x < m + extra - 1 || x + bw > w - m - extra + 1 || y < 6 || y + bh > h - 6) score += 60;
           score += Math.hypot(x + bw / 2 - an.x, y + bh / 2 - an.y) / w * 2.2;
@@ -449,7 +454,7 @@
       const cands = [[near, 0.5], [near, 0.72], [near, 0.32], [far, 0.34], [far, 0.68], [0.5, 0.78], [0.5, 0.4], [0.18, 0.28], [0.82, 0.28], [0.18, 0.74], [0.82, 0.74], [0.5, 0.26]];
       const area = areaOf;
       let best = cands[0], bestScore = 1e9, bestR = R0;
-      [1, 0.82, 0.68, 0.56].forEach(fz => cands.forEach((cd, ci) => {
+      [1, 0.82, 0.68, 0.56, 0.46].forEach(fz => cands.forEach((cd, ci) => { // down to a small burst for very tight panels
         const R = R0 * fz;
         const cxx = Math.max(R + 6, Math.min(w - R - 6, cd[0] * w)), cyy = Math.max(R * 0.8 + 6, Math.min(h - R * 0.8 - 6, cd[1] * h));
         const fb = { x: cxx - R, y: cyy - R * 0.8, w: R * 2, h: R * 1.6 };
@@ -460,7 +465,12 @@
       }));
       R = bestR;
       const fx0 = Math.max(R + 6, Math.min(w - R - 6, best[0] * w)), fy0 = Math.max(R * 0.8 + 6, Math.min(h - R * 0.8 - 6, best[1] * h));
-      if (opt.meta) opt.meta[opt.meta.length - 1].fx = { x: fx0 - R, y: fy0 - R * 0.8, w: R * 2, h: R * 1.6, score: bestScore };
+      const fxBox = { x: fx0 - R, y: fy0 - R * 0.8, w: R * 2, h: R * 1.6 };
+      const coversFace = faces.some(fc => areaOf(fxBox, fc) > fc.w * fc.h * 0.18);
+      if (opt.meta && !(coversFace)) opt.meta[opt.meta.length - 1].fx = Object.assign({ score: bestScore }, fxBox);
+      const coversWords = boxes.some(o => areaOf(fxBox, o) > Math.min(fxBox.w * fxBox.h, o.w * o.h) * 0.12);
+      if (!(coversFace || coversWords)) {
+
       const pts = A.burstPts(0, 0, R, R * 0.62, 13, rnd() * 0.4, 0.28, rnd).map(p => [fx0 + p[0] * 1.15, fy0 + p[1] * 0.85]);
       art += A.poly(pts.map(p => [p[0] + 5, p[1] + 5]), C.ink, 0) + A.poly(pts, C.yel, 3.5);
       const ff = fxFont(lang);
@@ -468,6 +478,7 @@
       const tw = K.measure(sc.fx[lang], size, ff.weight, ff.family);
       if (tw > R * 1.9) size *= (R * 1.9) / tw;
       texts.push({ text: sc.fx[lang], x: X + fx0, y: Y + fy0 + size * (isHi(lang) ? 0.28 : 0.36), size, weight: ff.weight, family: ff.family, fill: C.red, stroke: C.ink, sw: 5, anchor: 'middle', rot: -9, cx: X + fx0, cy: Y + fy0, ls: isHi(lang) ? 0 : 1 });
+      } else if (opt.meta) opt.meta[opt.meta.length - 1].fxSkipped = true;
     }
 
     art += `</g></g>`;
@@ -520,10 +531,20 @@
     const pages = [{ type: 'cover' }];
     let i = 0, flip = 0;
     const crowd = j => ((comic.panels[j] && comic.panels[j].chars) || []).length;
-    // a layout is fine when no half-width slot gets a 3-character panel; among fine layouts alternate for variety
+    // word-heavy panels (a caption plus two bubbles, or lots of words) need a full-width slot to stay readable
+    const wc = t => String(t || '').trim().split(/\s+/).filter(Boolean).length;
+    const heavy = j => {
+      const p = comic.panels[j]; if (!p) return false;
+      const words = wc(p.cap && p.cap.en) + (p.say || []).reduce((a, b) => a + wc(b.en), 0);
+      return words > 30 || (!!p.cap && (p.say || []).length >= 2 && words > 22);
+    };
+    // how badly a layout fits: 3 characters or lots of words in a half-width slot; among the best, alternate for variety
+    // words beyond what a half-width panel holds comfortably: the wordiest panel should get the full width
+    const excess = j => { const p = comic.panels[j]; if (!p) return 0; const words = wc(p.cap && p.cap.en) + (p.say || []).reduce((a, b) => a + wc(b.en), 0); return Math.max(0, words - 18) + (p.cap && (p.say || []).length >= 2 ? 6 : 0); };
+    const misfit = (from, L) => HALF[L].reduce((a, j) => a + (crowd(from + j) > 2 ? 40 : 0) + excess(from + j), 0);
     const pick = (from, options) => {
-      const ok = options.filter(L => HALF[L].every(j => crowd(from + j) <= 2));
-      const list = ok.length ? ok : options;
+      const best = Math.min(...options.map(L => misfit(from, L)));
+      const list = options.filter(L => misfit(from, L) === best);
       return list[flip % list.length];
     };
     while (i < P) {

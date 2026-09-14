@@ -434,7 +434,7 @@ window.AUGGIE_COMICS.push(
         chars: [ { id: "auggie", pose: "cheer", mood: "laugh", x: 0.3 }, { id: "papa", pose: "stand", mood: "laugh", x: 0.72, flip: true } ],
         props: [ { id: "frisbee", x: 0.5, y: 0.4 } ],
         say: [
-          { who: 1, en: "Every rupee earned by you, champ! Frisbees are like my jokes: they always come back!", hi: "हर रुपया तुमने ख़ुद कमाया, चैंप! ये फ़्रिस्बी मेरे चुटकुलों जैसी है: लौटकर ज़रूर आती है!" },
+          { who: 1, en: "You earned every single rupee, champ! Frisbees are like my jokes: they always come back!", hi: "हर रुपया तुमने ख़ुद कमाया, चैंप! ये फ़्रिस्बी मेरे चुटकुलों जैसी है: लौटकर ज़रूर आती है!" },
           { who: 0, en: "Ha-ha! Terrible, Papa! But this frisbee feels extra special, because I waited for it.", hi: "हा-हा! बहुत बेकार, पापा! पर ये फ़्रिस्बी और भी ख़ास लग रही है, क्योंकि मैंने इसका इंतज़ार किया।" }
         ]
       },
@@ -602,7 +602,7 @@ window.AUGGIE_COMICS.push(
         props: [ { id: "sun", x: 0.5, y: 0.1 } ],
         cap: { en: "Rohan swings in with his bat. Cricket, right NOW, in the blazing afternoon!", hi: "रोहन बल्ला घुमाता हुआ आया: 'चलो, मैच! अभी के अभी!' और बाहर आग बरस रही है।" },
         say: [
-          { who: 2, en: "Wait! Hand on the road, seven seconds. Too hot for your hand? Too hot for paws!", hi: "रुको! सड़क पर सात सेकंड हथेली का पिछला हिस्सा रखो। हाथ न टिके, तो पंजे भी जलेंगे!" },
+          { who: 2, en: "Wait! Hand on the road, seven seconds. Too hot for your hand? Too hot for paws!", hi: "रुको! सड़क पर सात सेकंड उल्टा हाथ रखकर देखो। हाथ न टिके, तो पंजे भी जलेंगे!" },
           { who: 0, en: "Ow-ow-ow! Two seconds and I'm cooked! Okay, okay... evening cricket.", hi: "आह-आह! दो सेकंड में ही सिक गया! ठीक है, ठीक है... क्रिकेट शाम को।" }
         ]
       },
@@ -620,7 +620,7 @@ window.AUGGIE_COMICS.push(
       },
       {
         bg: "park",
-        chars: [ { id: "rohan", pose: "run", mood: "laugh", x: 0.2 }, { id: "auggie", pose: "run", mood: "laugh", x: 0.5 }, { id: "snowy", pose: "run", mood: "happy", x: 0.8, flip: true } ],
+        chars: [ { id: "rohan", pose: "run", mood: "laugh", x: 0.2 }, { id: "auggie", pose: "run", mood: "laugh", x: 0.5 }, { id: "snowy", pose: "run", mood: "happy", x: 0.8 } ],
         props: [ { id: "ball", x: 0.35, y: 0.4 } ],
         cap: { en: "Sunset. The road has cooled. Rohan tests it again: seven seconds, easy!", hi: "सूरज ढला, सड़क ठंडी हुई। रोहन ने फिर हाथ रखकर देखा: सात सेकंड, आराम से!" },
         say: [
@@ -744,7 +744,7 @@ window.AUGGIE_COMICS.push(
     cover: {
       bg: "park",
       chars: [ { id: "auggie", pose: "cheer", mood: "laugh", x: 0.35 }, { id: "rohan", pose: "cheer", mood: "happy", x: 0.72, flip: true } ],
-      props: [ { id: "ball", x: 0.52, y: 0.3 } ],
+      props: [ { id: "blueball", x: 0.52, y: 0.3 } ],
       fx: { en: "CATCH!", hi: "पकड़ा!" }
     },
     panels: [
@@ -810,7 +810,7 @@ window.AUGGIE_COMICS.push(
       {
         bg: "park",
         chars: [ { id: "anaya", pose: "wave", mood: "happy", x: 0.25 }, { id: "auggie", pose: "cheer", mood: "surprised", x: 0.7, flip: true } ],
-        props: [ { id: "ball", x: 0.45, y: 0.5 }, { id: "frisbee", x: 0.12, y: 0.3 } ],
+        props: [ { id: "blueball", x: 0.45, y: 0.5 }, { id: "frisbee", x: 0.12, y: 0.3 } ],
         say: [
           { who: 0, en: "I asked the animal doctor! Dogs see blue best. So I brought my blue tennis ball!", hi: "मैंने जानवरों वाले डॉक्टर से पूछा! कुत्तों को नीला सबसे अच्छा दिखता है। इसलिए लाई हूँ नीली टेनिस बॉल!" },
           { who: 1, en: "WOW! It glows like a full moon! Rohan, bowl it to me!", hi: "वाह! ये तो पूरे चाँद जैसी चमक रही है! रोहन, डालो बॉल!" }
@@ -819,7 +819,7 @@ window.AUGGIE_COMICS.push(
       {
         bg: "park",
         chars: [ { id: "rohan", pose: "cheer", mood: "laugh", x: 0.2 }, { id: "auggie", pose: "cheer", mood: "laugh", x: 0.6, flip: true } ],
-        props: [ { id: "ball", x: 0.62, y: 0.2 } ],
+        props: [ { id: "blueball", x: 0.62, y: 0.2 } ],
         say: [
           { who: 0, en: "OUT! One jump, one catch! Auggie, you're back in the team... as captain!", hi: "आउट! एक छलाँग, एक कैच! ऑगी, तुम टीम में वापस... और वो भी कप्तान बनकर!", kind: "shout" },
           { who: 1, en: "Captain Auggie's rules: the ball must be blue, and there's a carrot break every over!", hi: "कप्तान ऑगी के नियम: गेंद नीली होगी, और हर ओवर के बाद गाजर ब्रेक!" }
@@ -1570,9 +1570,9 @@ window.AUGGIE_COMICS.push(
     id: 106,
     age: "6-10",
     category: "space",
-    title: { en: "Who Took a Bite of the Sun?", hi: "सूरज पर किसने काटा?" },
-    blurb: { en: "Eclipse day in Chamakpur! There's only one pair of eclipse glasses, until Auggie spots something magical under a tree.", hi: "चमकपुर में ग्रहण का दिन! ग्रहण वाला चश्मा बस एक है, फिर ऑगी को पेड़ के नीचे कुछ जादुई दिखता है!" },
-    moral: { en: "Never look straight at the Sun. Watch eclipses with pinholes or eclipse glasses.", hi: "सूरज को कभी सीधे मत देखो। ग्रहण पिनहोल या ख़ास चश्मे से देखो।" },
+    title: { en: "Eclipse Under the Neem Tree", hi: "नीम के नीचे ग्रहण" },
+    blurb: { en: "Eclipse day! One pair of safe glasses, lots of sad faces. Can Auggie's sniffing save the show?", hi: "ग्रहण का दिन! सुरक्षित चश्मा बस एक, और उदास चेहरे ढेर सारे। क्या ऑगी की सूँघने की आदत कमाल करेगी?" },
+    moral: { en: "Our eyes are precious: never stare at the Sun. Let pinholes and shadows show you eclipses!", hi: "आँखें अनमोल हैं: सूरज को कभी मत घूरो। ग्रहण छोटे छेद और परछाइयों में देखो!" },
     cover: {
       bg: "garden",
       chars: [ { id: "auggie", pose: "point", mood: "surprised", x: 0.35 }, { id: "anaya", pose: "cheer", mood: "happy", x: 0.75, flip: true } ],
@@ -1582,12 +1582,12 @@ window.AUGGIE_COMICS.push(
     panels: [
       {
         bg: "garden",
-        chars: [ { id: "auggie", pose: "cheer", mood: "happy", x: 0.3 }, { id: "mausi", pose: "stand", mood: "laugh", x: 0.72, flip: true } ],
+        chars: [ { id: "auggie", pose: "cheer", mood: "laugh", x: 0.3 }, { id: "mausi", pose: "stand", mood: "laugh", x: 0.72, flip: true } ],
         props: [ { id: "sun", x: 0.5, y: 0.1 }, { id: "camera", x: 0.85, y: 0.5 } ],
-        cap: { en: "Big news! Today the Moon will pass in front of the Sun: a solar eclipse!", hi: "बड़ी ख़बर! आज चाँद सूरज के सामने से गुज़रेगा: सूर्य ग्रहण!" },
+        cap: { en: "Big news in Chamakpur! Today the Moon will slide in front of the Sun: a solar eclipse!", hi: "आज चमकपुर में ख़ास दिन! चाँद सूरज के आगे से गुज़रकर उसे ढक लेगा। सूर्य ग्रहण!" },
         say: [
-          { who: 1, en: "I'll take the best selfie ever with the eclipse!", hi: "मैं ग्रहण के साथ अब तक की सबसे बढ़िया सेल्फ़ी लूँगी!" },
-          { who: 0, en: "And I'll bark at the Sun. Just in case.", hi: "और मैं सूरज पर भौंकूँगा। बस यूँ ही, एहतियात के लिए।" }
+          { who: 1, en: "Eclipse selfie! Me, the Sun, and a perfect pout. Hold that pose, Sun!", hi: "ग्रहण वाली सेल्फ़ी! मैं, सूरज, और एक परफ़ेक्ट पोज़। सूरज जी, पोज़ पकड़ो!" },
+          { who: 0, en: "And I'll bark at the Moon until it gives the Sun back. Just in case!", hi: "और मैं चाँद पर भौंकूँगा, जब तक वो सूरज वापस न कर दे। बस, पक्का करने के लिए!" }
         ]
       },
       {
@@ -1595,8 +1595,8 @@ window.AUGGIE_COMICS.push(
         chars: [ { id: "mausi", pose: "stand", mood: "surprised", x: 0.2 }, { id: "auggie", pose: "sit", mood: "surprised", x: 0.5 }, { id: "nanu", pose: "point", mood: "determined", x: 0.8, flip: true } ],
         props: [ { id: "sun", x: 0.5, y: 0.1 } ],
         say: [
-          { who: 2, en: "Stop! Never look straight at the Sun, not even through cameras. It hurts eyes!", hi: "रुको! सूरज को कभी सीधे मत देखो, कैमरे से भी नहीं। आँखों को नुकसान हो सकता है!", kind: "shout" },
-          { who: 0, en: "Oh! Sorry! I didn't know that.", hi: "अरे! सॉरी! मुझे ये नहीं पता था।" }
+          { who: 2, en: "STOP! Never look straight at the Sun, even with sunglasses or through cameras. Eyes get hurt!", hi: "रुको! सूरज को कभी सीधे मत देखो, धूप के चश्मे या कैमरे से भी नहीं। आँखें ख़राब हो सकती हैं!", kind: "shout" },
+          { who: 0, en: "Not even for ONE selfie? Okay, okay... eyes matter more than likes.", hi: "एक सेल्फ़ी के लिए भी नहीं? अच्छा, ठीक है... लाइक्स से ज़्यादा ज़रूरी आँखें हैं।" }
         ],
         fx: { en: "STOP!", hi: "रुको!" },
         action: true
@@ -1606,55 +1606,58 @@ window.AUGGIE_COMICS.push(
         chars: [ { id: "auggie", pose: "think", mood: "surprised", x: 0.3 }, { id: "nanu", pose: "point", mood: "happy", x: 0.72, flip: true } ],
         props: [ { id: "sun", x: 0.15, y: 0.1 } ],
         say: [
-          { who: 1, en: "The Moon slides between the Sun and Earth, hiding the Sun. Only special glasses are safe.", hi: "चाँद सूरज और धरती के बीच आकर सूरज का चेहरा ढक देता है। बस ये ख़ास चश्मा सुरक्षित है।" },
-          { who: 0, en: "Only one pair? How will everyone else see it?", hi: "बस एक चश्मा? फिर बाक़ी सब कैसे देखेंगे?" }
+          { who: 1, en: "The Moon slides between Sun and Earth, covering the Sun. Only proper eclipse glasses are safe.", hi: "चाँद, सूरज और धरती के बीच आकर सूरज को ढक देता है। देखो तो सिर्फ़ ग्रहण वाले चश्मे से।" },
+          { who: 0, en: "And we have... one pair? For five people and one very curious dog?", hi: "और हमारे पास... बस एक चश्मा? पाँच लोग और एक बहुत उत्सुक कुत्ता?" }
         ]
       },
       {
         bg: "garden",
-        chars: [ { id: "anaya", pose: "stand", mood: "sad", x: 0.2 }, { id: "rohan", pose: "stand", mood: "sad", x: 0.45 }, { id: "auggie", pose: "think", mood: "sad", x: 0.78, flip: true } ],
+        chars: [ { id: "anaya", pose: "stand", mood: "sad", x: 0.2 }, { id: "rohan", pose: "stand", mood: "angry", x: 0.45 }, { id: "auggie", pose: "think", mood: "sad", x: 0.78, flip: true } ],
         props: [ { id: "tree", x: 0.95 } ],
         say: [
-          { who: 0, en: "We waited all year to see an eclipse...", hi: "हमने पूरे साल ग्रहण देखने का इंतज़ार किया..." },
-          { who: 1, en: "And now we can't even look up!", hi: "और अब हम ऊपर देख भी नहीं सकते!" }
+          { who: 0, en: "I waited a whole year for this eclipse... and I only get ten seconds?", hi: "मैंने पूरे साल इस ग्रहण का इंतज़ार किया... और मुझे बस दस सेकंड मिलेंगे?" },
+          { who: 1, en: "Ten seconds, then a queue, then it's over. Worst. Eclipse. Ever.", hi: "दस सेकंड, फिर लाइन, फिर ख़त्म। सबसे बेकार ग्रहण!" }
         ]
       },
       {
         bg: "garden",
         chars: [ { id: "auggie", pose: "point", mood: "surprised", x: 0.35 }, { id: "anaya", pose: "run", mood: "surprised", x: 0.75, flip: true } ],
         props: [ { id: "tree", x: 0.55 } ],
-        cap: { en: "Auggie, as usual, is sniffing the ground under the neem tree. And then he sees them...", hi: "ऑगी हमेशा की तरह नीम के नीचे ज़मीन सूँघ रहा था। तभी उसे वो दिखे..." },
-        say: [ { who: 0, en: "Hey! Why are there hundreds of tiny banana-shaped lights on the ground?", hi: "अरे! ज़मीन पर सैकड़ों छोटी-छोटी केले जैसी रोशनियाँ क्यों हैं?" } ],
+        cap: { en: "Auggie does what Auggie always does: sniffs the ground under the neem tree. And then he sees them...", hi: "ऑगी ने वही किया जो वो हमेशा करता है: नीम के नीचे ज़मीन सूँघी। और तभी उसे दिखीं..." },
+        say: [
+          { who: 0, en: "Anaya, LOOK! Hundreds of tiny glowing bananas, all over the ground!", hi: "अनाया, देखो! ज़मीन पर सैकड़ों छोटे-छोटे चमकते केले!" },
+          { who: 1, en: "Bananas? Auggie, those are little suns... with bites taken out!", hi: "केले? ऑगी, ये तो छोटे-छोटे सूरज हैं... जिनमें से किसी ने कौर खा लिया!" }
+        ],
         fx: { en: "WOW!", hi: "वाह!" },
         action: true
       },
       {
         bg: "garden",
-        chars: [ { id: "anaya", pose: "cheer", mood: "laugh", x: 0.2 }, { id: "auggie", pose: "sit", mood: "happy", x: 0.5 }, { id: "nanu", pose: "point", mood: "laugh", x: 0.8, flip: true } ],
+        chars: [ { id: "anaya", pose: "cheer", mood: "laugh", x: 0.2 }, { id: "auggie", pose: "sit", mood: "laugh", x: 0.5 }, { id: "nanu", pose: "point", mood: "laugh", x: 0.8, flip: true } ],
         props: [ { id: "tree", x: 0.35 } ],
         say: [
-          { who: 2, en: "Brilliant, Auggie! Gaps between leaves work like pinholes. Each shows a picture of the Sun!", hi: "शाबाश, ऑगी! पत्तियों के बीच के छोटे छेद पिनहोल जैसे हैं। हर एक में सूरज की तस्वीर बनती है!" },
-          { who: 0, en: "Hundreds of little eclipses, and all safe to look at!", hi: "सैकड़ों छोटे-छोटे ग्रहण, और सब देखने में सुरक्षित!" }
+          { who: 2, en: "Brilliant, Auggie! Tiny gaps between leaves work like pinholes. Each one paints a little Sun below!", hi: "शाबाश, ऑगी! पत्तियों की नन्ही झिरियाँ छोटे छेद का काम करती हैं। हर झिरी नीचे नन्हा सूरज बनाती है!" },
+          { who: 0, en: "Hundreds of eclipses for everybody, and all safe to look at! No queue!", hi: "सबके लिए सैकड़ों ग्रहण, और सब देखने में सुरक्षित! कोई लाइन नहीं!" }
         ]
       },
       {
         bg: "garden",
         chars: [ { id: "mausi", pose: "blast", mood: "happy", x: 0.2 }, { id: "auggie", pose: "sit", mood: "laugh", x: 0.5 }, { id: "dadi", pose: "point", mood: "laugh", x: 0.8, flip: true } ],
         props: [ { id: "book", x: 0.32, y: 0.5 } ],
-        cap: { en: "Mausi pokes one tiny hole in a card, stands with her back to the Sun, and looks at the ground.", hi: "मौसी ने एक कार्ड में छोटा-सा छेद किया, सूरज की ओर पीठ करके खड़ी हुईं, और ज़मीन पर देखा।" },
+        cap: { en: "Mausi pokes a tiny hole in a card, turns her back to the Sun, and watches the ground.", hi: "मौसी ने एक कार्ड में सुई से छोटा-सा छेद किया, सूरज की ओर पीठ की, और ज़मीन पर देखा।" },
         say: [
-          { who: 2, en: "Look! The little Sun on the ground has a bite in it!", hi: "देखो! ज़मीन वाले छोटे सूरज में से किसी ने बाइट ली है!" },
-          { who: 1, en: "Not me this time, Dadi! Promise!", hi: "इस बार मैंने नहीं लिया, दादी! पक्का!" }
+          { who: 2, en: "Arre! The little Sun on the ground has a bite missing! Who's the culprit?", hi: "अरे! ज़मीन वाले नन्हे सूरज में से कौर ग़ायब! ये किसकी शरारत है?" },
+          { who: 1, en: "Not me, Dadi! I only bite carrots. And apples. And sometimes Papa's slipper.", hi: "मैंने नहीं, दादी! मैं तो बस गाजर काटता हूँ। और सेब। और कभी-कभी पापा की चप्पल।" }
         ]
       },
       {
         bg: "garden",
         chars: [ { id: "auggie", pose: "cheer", mood: "laugh", x: 0.3 }, { id: "nanu", pose: "stand", mood: "laugh", x: 0.72, flip: true } ],
         props: [ { id: "sun", x: 0.52, y: 0.1 }, { id: "tree", x: 0.9 } ],
-        cap: { en: "Slowly, the Moon moves on, and the Sun is round again.", hi: "धीरे-धीरे चाँद आगे बढ़ गया, और सूरज फिर से गोल हो गया।" },
+        cap: { en: "Slowly the Moon moves on. And Mausi gets her best selfie ever: back to the Sun, crescents at her feet!", hi: "धीरे-धीरे चाँद आगे खिसका। और मौसी की सबसे बढ़िया सेल्फ़ी: सूरज की ओर पीठ, पैरों के पास सैकड़ों नन्हे कटे सूरज!" },
         say: [
-          { who: 0, en: "You can have your bite back now, Sun!", hi: "सूरज भैया, अपनी बाइट वापस ले लो!" },
-          { who: 1, en: "Remember: back to the Sun, eyes on the shadows!", hi: "याद रखना: सूरज की ओर पीठ, नज़र परछाइयों पर!" }
+          { who: 0, en: "Bye, Moon! And Sun, you can have your bite back now. Good as new!", hi: "टाटा, चाँद! और सूरज भैया, अपना कौर वापस ले लो। एकदम नए जैसे!" },
+          { who: 1, en: "Today's lesson: feel the sunshine, never stare at the Sun. Shadows are for looking!", hi: "आज का सबक: धूप को महसूस करो, सूरज को घूरो मत। देखना है तो परछाइयों में देखो!" }
         ],
         fx: { en: "SHINE!", hi: "चमक!" },
         action: true
@@ -1665,9 +1668,9 @@ window.AUGGIE_COMICS.push(
     id: 107,
     age: "6-10",
     category: "science",
-    title: { en: "The Copycat in the Cave", hi: "गुफ़ा का नकलची" },
-    blurb: { en: "Auggie is sure a copycat dog lives in the hill cave, until the torch goes out and the copycat saves the day.", hi: "ऑगी को यक़ीन है कि पहाड़ी गुफ़ा में कोई नकलची कुत्ता रहता है, फिर टॉर्च बुझती है और वही नकलची काम आता है!" },
-    moral: { en: "Sound bounces off hard walls and comes back as an echo. Listen and learn!", hi: "आवाज़ सख़्त दीवारों से टकराकर लौटती है, इसे गूँज कहते हैं। ध्यान से सुनो और सीखो!" },
+    title: { en: "The Copycat Who Saved Us", hi: "गुफ़ा का नक़लची दोस्त" },
+    blurb: { en: "Something in the hill cave copies every bark Auggie makes. Then the torch dies. Can a copycat help?", hi: "पहाड़ी गुफ़ा में कोई ऑगी की हर भौं की नक़ल करता है। फिर टॉर्च बुझ जाती है! क्या वो नक़लची काम आएगा?" },
+    moral: { en: "Sound bounces off hard walls as an echo. And always pack a spare torch!", hi: "आवाज़ सख़्त दीवारों से टकराकर गूँज बनकर लौटती है। और हाँ, एक्स्ट्रा टॉर्च हमेशा साथ रखो!" },
     cover: {
       bg: "cave",
       chars: [ { id: "auggie", pose: "blast", mood: "surprised", x: 0.4 }, { id: "mumma", pose: "stand", mood: "laugh", x: 0.78, flip: true } ],
@@ -1679,18 +1682,18 @@ window.AUGGIE_COMICS.push(
         bg: "cave",
         chars: [ { id: "mumma", pose: "stand", mood: "scared", x: 0.2 }, { id: "auggie", pose: "stand", mood: "determined", x: 0.5 }, { id: "papa", pose: "stand", mood: "laugh", x: 0.8, flip: true } ],
         props: [ { id: "crystal", x: 0.92 } ],
-        cap: { en: "A trip to the Chamakpur hill caves with Papa, Mumma and Nanu, on the safe, marked path.", hi: "पापा, मम्मा और नानू के साथ चमकपुर की पहाड़ी गुफ़ाओं की सैर, सुरक्षित, निशान वाले रास्ते पर।" },
+        cap: { en: "A family trip to the Chamakpur hill caves, on the safe, marked path. Auggie is Chief Bodyguard.", hi: "चमकपुर की पहाड़ी गुफ़ाओं की सैर, निशान लगे सुरक्षित रास्ते पर। ऑगी है चीफ़ बॉडीगार्ड।" },
         say: [
-          { who: 0, en: "Mittsy, hold my hand. It's so spooky in here!", hi: "मिट्सी, मेरा हाथ पकड़ो। यहाँ तो बड़ा डरावना है!" },
-          { who: 2, en: "Relax, Mottu. Auggie is our bodyguard!", hi: "आराम से, मोटू। ऑगी हमारा बॉडीगार्ड है!" }
+          { who: 0, en: "Mittsy, hold my hand. It's dark, it's drippy, and I just heard a squeak!", hi: "मिट्सी, मेरा हाथ पकड़ो। अँधेरा है, टपक-टपक है, और कुछ चूँ-चूँ भी सुना!" },
+          { who: 2, en: "Relax, Mottu! We've got a torch AND a bodyguard. What could go wrong?", hi: "आराम से, मोटू! टॉर्च भी है और बॉडीगार्ड भी। क्या ग़लत हो सकता है?" }
         ]
       },
       {
         bg: "cave",
         chars: [ { id: "auggie", pose: "blast", mood: "angry", x: 0.4 } ],
         props: [ { id: "rock", x: 0.8 } ],
-        cap: { en: "Auggie gives one brave bark. The cave barks back: WOOF... woof... woof...", hi: "ऑगी ने एक बहादुर भौं लगाई। गुफ़ा ने वापस भौंका: भौं... भौं... भौं..." },
-        say: [ { who: 0, en: "Hey! Who's copying me? Come out, copycat dog!", hi: "ए! कौन मेरी नकल कर रहा है? बाहर आओ, नकलची कुत्ते!", kind: "shout" } ],
+        cap: { en: "Auggie gives one brave bark to guard his family. The cave barks back: WOOF... woof... woof...", hi: "परिवार की रक्षा के लिए ऑगी ने एक बहादुर भौं लगाई। गुफ़ा ने भी जवाब दिया: भौं... भौं... भौं..." },
+        say: [ { who: 0, en: "Who's COPYING me? I'm the bravest dog here! ...Here! ...Here! Stop THAT!", hi: "कौन मेरी नक़ल कर रहा है? यहाँ सबसे बहादुर मैं हूँ! ...हूँ! ...हूँ! ये बंद करो!", kind: "shout" } ],
         fx: { en: "WOOF!", hi: "भौं!" },
         action: true
       },
@@ -1698,43 +1701,43 @@ window.AUGGIE_COMICS.push(
         bg: "cave",
         chars: [ { id: "auggie", pose: "think", mood: "surprised", x: 0.3 }, { id: "mumma", pose: "point", mood: "laugh", x: 0.72, flip: true } ],
         say: [
-          { who: 1, en: "Auggie, that copycat is YOU!", hi: "ऑगी, वो नकलची तुम ख़ुद हो!" },
-          { who: 0, en: "Me? But I'm standing right here!", hi: "मैं? पर मैं तो यहाँ खड़ा हूँ!", kind: "think" }
+          { who: 1, en: "Ha-ha-ha! Auggie, that copycat is YOU! You're arguing with yourself!", hi: "हा-हा-हा! ऑगी, वो नक़लची तुम ख़ुद हो! अपने आप से झगड़ रहे हो!" },
+          { who: 0, en: "Me? But I'm standing right here. How can I be over THERE too?", hi: "मैं? पर मैं तो यहाँ खड़ा हूँ। वहाँ भी मैं कैसे हो सकता हूँ?", kind: "think" }
         ]
       },
       {
         bg: "cave",
-        chars: [ { id: "auggie", pose: "sit", mood: "surprised", x: 0.3 }, { id: "nanu", pose: "point", mood: "happy", x: 0.72, flip: true } ],
+        chars: [ { id: "auggie", pose: "sit", mood: "laugh", x: 0.3 }, { id: "nanu", pose: "point", mood: "happy", x: 0.72, flip: true } ],
         props: [ { id: "rock", x: 0.52 } ],
         say: [
-          { who: 1, en: "Sound travels through air, hits these hard rock walls and bounces back. That's an echo!", hi: "आवाज़ हवा में चलती है, इन सख़्त चट्टानों से टकराकर लौट आती है। इसे गूँज कहते हैं!" },
-          { who: 0, en: "My bark went on a trip and came back? Like a ball off a wall!", hi: "मेरी भौं घूमकर वापस आ गई? दीवार से लौटी गेंद जैसी!" }
+          { who: 1, en: "Your bark flies off, smacks the hard rock, and bounces home. That bounce-back is an echo!", hi: "तुम्हारी भौं उड़कर सख़्त चट्टान से टकराती है, और लौटकर आ जाती है। इसी लौटती आवाज़ को गूँज कहते हैं!" },
+          { who: 0, en: "So my bark is a boomerang? Throw a woof, catch a woof! Cool!", hi: "मतलब मेरी भौं बूमरैंग है? एक भौं फेंको, वही भौं पकड़ो! मज़ेदार!" }
         ]
       },
       {
         bg: "cave",
         chars: [ { id: "papa", pose: "stand", mood: "scared", x: 0.2 }, { id: "auggie", pose: "stand", mood: "surprised", x: 0.5 }, { id: "mumma", pose: "stand", mood: "scared", x: 0.8, flip: true } ],
         say: [
-          { who: 0, en: "Uh-oh. The torch battery is finished!", hi: "अरे बाप रे। टॉर्च की बैटरी ख़त्म!" },
-          { who: 2, en: "It's pitch dark! Which way is out?", hi: "घुप्प अँधेरा है! बाहर किधर है?" }
+          { who: 0, en: "Uh-oh. The torch just died. I, er... charged my laptop instead of the torch.", hi: "उफ़्फ़। टॉर्च बंद हो गई। मैंने, वो... टॉर्च की जगह लैपटॉप चार्ज कर लिया था।" },
+          { who: 2, en: "Mittsy! 'Spare torch' was on my list! Now it's pitch dark. Which way is out?", hi: "मिट्सी! 'एक्स्ट्रा टॉर्च' मेरी लिस्ट में था! अब घुप्प अँधेरा है। बाहर किधर है?" }
         ],
-        fx: { en: "FLICKER!", hi: "झपक!" },
+        fx: { en: "FLICKER!", hi: "झप!" },
         action: true
       },
       {
         bg: "cave",
         chars: [ { id: "auggie", pose: "think", mood: "determined", x: 0.3 }, { id: "nanu", pose: "point", mood: "happy", x: 0.72, flip: true } ],
         say: [
-          { who: 1, en: "Stay calm. Bats find their way in the dark by listening to echoes. Try it, Auggie!", hi: "सब शांत रहो। चमगादड़ अँधेरे में गूँज सुनकर रास्ता ढूँढते हैं। ऑगी, तुम भी कोशिश करो!" },
-          { who: 0, en: "Bat mode! Quick echo means a wall is near. Slow echo means open space!", hi: "चमगादड़ मोड! जल्दी गूँज, मतलब दीवार पास। देर से गूँज, मतलब खुली जगह!" }
+          { who: 1, en: "Stay calm, stay together. Bats fly in the dark by listening to echoes. Try it, Auggie!", hi: "घबराओ मत, साथ रहो। चमगादड़ अँधेरे में गूँज सुनकर उड़ते हैं। ऑगी, तुम भी कोशिश करो!" },
+          { who: 0, en: "Bat-dog mode ON! Quick echo: wall close by. Slow, faraway echo: open space!", hi: "चमगादड़-कुत्ता मोड चालू! जल्दी लौटी गूँज: दीवार पास। देर से, दूर से आई गूँज: खुली जगह!" }
         ]
       },
       {
         bg: "cave",
         chars: [ { id: "auggie", pose: "blast", mood: "determined", x: 0.4 } ],
         props: [ { id: "rock", x: 0.1 } ],
-        cap: { en: "Bark left: a quick echo. Wall! Bark right: a long, faraway echo. Open space!", hi: "बाईं ओर भौं: जल्दी गूँज। दीवार! दाईं ओर भौं: लंबी, दूर की गूँज। खुली जगह!" },
-        say: [ { who: 0, en: "And I smell fresh air... and pakodas! This way, everyone!", hi: "और मुझे ताज़ी हवा की महक आ रही है... और पकौड़ों की! सब इधर!" } ],
+        cap: { en: "Woof to the left: a quick echo. Wall! Woof to the right: a long, faraway echo. The way out!", hi: "बाईं ओर भौं: फ़ौरन गूँज। दीवार! दाईं ओर भौं: लंबी, दूर की गूँज। यही है रास्ता!" },
+        say: [ { who: 0, en: "Plus, my nose says: fresh air... and hot PAKORAS! Everybody, follow the wagging tail!", hi: "ऊपर से नाक कह रही है: ताज़ी हवा... और गरमा-गरम पकौड़े! सब हिलती पूँछ के पीछे चलो!" } ],
         fx: { en: "WOOF!", hi: "भौं!" },
         action: true
       },
@@ -1742,10 +1745,10 @@ window.AUGGIE_COMICS.push(
         bg: "mountains",
         chars: [ { id: "papa", pose: "cheer", mood: "laugh", x: 0.2 }, { id: "auggie", pose: "cheer", mood: "laugh", x: 0.5 }, { id: "mumma", pose: "cheer", mood: "laugh", x: 0.8, flip: true } ],
         props: [ { id: "sun", x: 0.9, y: 0.12 } ],
-        cap: { en: "Out in the sunshine! And yes, there really is a pakoda stall.", hi: "बाहर धूप में! और हाँ, सच में वहाँ पकौड़ों का ठेला है।" },
+        cap: { en: "Daylight! Sunshine! And right at the cave mouth... an actual pakoda stall!", hi: "उजाला! धूप! और गुफ़ा के मुँह पर... सच में पकौड़ों का ठेला!" },
         say: [
-          { who: 0, en: "Three cheers for Auggie, our bat-dog hero!", hi: "हमारे चमगादड़-कुत्ते हीरो ऑगी के लिए तीन चीयर्स!" },
-          { who: 1, en: "Thank you, copycat echo! You were helpful after all!", hi: "थैंक यू, नकलची गूँज! आख़िर तुम काम आ ही गईं!" }
+          { who: 0, en: "Three cheers for Auggie, the bat-dog! And a new rule: I charge the TORCH first.", hi: "चमगादड़-कुत्ते ऑगी के लिए तीन चीयर्स! और नया नियम: पहले टॉर्च चार्ज होगी, फिर लैपटॉप।" },
+          { who: 1, en: "Bye, copycat! You were a friend all along! ...all along! ...all along!", hi: "टाटा, नक़लची! तुम तो दोस्त निकले! ...निकले! ...निकले!" }
         ]
       }
     ]
@@ -1754,9 +1757,9 @@ window.AUGGIE_COMICS.push(
     id: 108,
     age: "6-10",
     category: "science",
-    title: { en: "The Volcano That Went Gadbad", hi: "गड़बड़ वाला ज्वालामुखी" },
-    blurb: { en: "At the science fair, Professor Gadbad's Mega Lava Machine floods the hall with foam, and Auggie must stop it fast.", hi: "साइंस मेले में प्रोफ़ेसर गड़बड़ की मेगा लावा मशीन पूरे हॉल को झाग से भर देती है, और ऑगी को इसे जल्दी रोकना है!" },
-    moral: { en: "Baking soda and vinegar make fizzy gas. Measure carefully and work as a team!", hi: "बेकिंग सोडा और सिरका मिलकर गैस के बुलबुले बनाते हैं। नाप-तौलकर करो, मिलकर करो!" },
+    title: { en: "The Mega Lava Mess", hi: "मेगा लावा की गड़बड़" },
+    blurb: { en: "Anaya's volcano looks like a sleepy potato. Gadbad's is MEGA. Guess which one floods the whole hall?", hi: "अनाया का ज्वालामुखी ऊँघता आलू लगता है, और गड़बड़ का है मेगा! अब बताओ, पूरा हॉल किसने झाग से भर दिया?" },
+    moral: { en: "Baking soda and vinegar make fizzy gas. Measure carefully: bigger isn't always better!", hi: "बेकिंग सोडा और सिरका मिलकर गैस के बुलबुले बनाते हैं। नाप-तौलकर करो, बड़ा हमेशा बढ़िया नहीं होता!" },
     cover: {
       bg: "volcano",
       chars: [ { id: "auggie", pose: "cheer", mood: "surprised", x: 0.3 }, { id: "anaya", pose: "cheer", mood: "laugh", x: 0.72, flip: true } ],
@@ -1766,21 +1769,21 @@ window.AUGGIE_COMICS.push(
     panels: [
       {
         bg: "home",
-        chars: [ { id: "anaya", pose: "sit", mood: "sad", x: 0.3 }, { id: "auggie", pose: "sit", mood: "sad", x: 0.72, flip: true } ],
+        chars: [ { id: "anaya", pose: "sit", mood: "sad", x: 0.3 }, { id: "auggie", pose: "sit", mood: "happy", x: 0.72, flip: true } ],
         props: [ { id: "rock", x: 0.52 } ],
-        cap: { en: "Two days before the science fair, Anaya and Auggie look at their clay volcano.", hi: "साइंस मेले से दो दिन पहले, अनाया और ऑगी अपने मिट्टी के ज्वालामुखी को देख रहे हैं।" },
+        cap: { en: "Two days before the science fair. Anaya and Auggie stare at their clay volcano. It stares back.", hi: "साइंस मेले से दो दिन पहले। अनाया और ऑगी अपने मिट्टी के ज्वालामुखी को घूर रहे हैं। वो भी उन्हें घूर रहा है।" },
         say: [
-          { who: 0, en: "Our volcano looks like a sad brown laddoo.", hi: "हमारा ज्वालामुखी तो उदास भूरे लड्डू जैसा लग रहा है।" },
-          { who: 1, en: "A laddoo? Now I'm sad AND hungry.", hi: "लड्डू? अब मैं उदास भी हूँ और भूखा भी।" }
+          { who: 0, en: "Our volcano looks like a sleepy potato. It won't erupt. It'll just nap.", hi: "हमारा ज्वालामुखी तो ऊँघते आलू जैसा दिख रहा है। ये फटेगा नहीं, बस सो जाएगा।" },
+          { who: 1, en: "A napping potato? Honestly, that's my kind of volcano.", hi: "सोने वाला आलू? सच कहूँ, ये तो मेरे टाइप का ज्वालामुखी है।" }
         ]
       },
       {
         bg: "volcano",
         chars: [ { id: "anaya", pose: "stand", mood: "surprised", x: 0.2 }, { id: "auggie", pose: "sit", mood: "surprised", x: 0.5 }, { id: "nanu", pose: "point", mood: "happy", x: 0.8, flip: true } ],
-        cap: { en: "Nanu opens his big book of volcanoes.", hi: "नानू ने ज्वालामुखियों वाली अपनी मोटी किताब खोली।" },
+        cap: { en: "Before anyone can ask, Nanu opens his fattest volcano book. Fact incoming!", hi: "किसी के पूछने से पहले ही नानू ने ज्वालामुखी वाली सबसे मोटी किताब खोल ली। विज्ञान की बात आ रही है!" },
         say: [
-          { who: 2, en: "Deep inside, hot melted rock called magma pushes up. When it bursts out, it's lava!", hi: "धरती के अंदर पिघली गरम चट्टान होती है, जिसे मैग्मा कहते हैं। बाहर निकले तो लावा!" },
-          { who: 0, en: "But we can't use real lava at school!", hi: "पर स्कूल में असली लावा थोड़ी ला सकते हैं!" }
+          { who: 2, en: "Deep down, rock gets so hot it melts: magma! When it bursts out, it's called lava!", hi: "धरती के बहुत अंदर चट्टान इतनी गरम होती है कि पिघल जाती है: मैग्मा! बाहर फूटे, तो लावा!" },
+          { who: 0, en: "Real lava at school? Miss Ji would faint! We need a SAFE eruption.", hi: "स्कूल में असली लावा? मिस जी तो बेहोश हो जाएँगी! हमें सुरक्षित वाला विस्फोट चाहिए।" }
         ]
       },
       {
@@ -1788,62 +1791,62 @@ window.AUGGIE_COMICS.push(
         chars: [ { id: "auggie", pose: "cheer", mood: "surprised", x: 0.3 }, { id: "nanu", pose: "point", mood: "laugh", x: 0.72, flip: true } ],
         props: [ { id: "rock", x: 0.52 }, { id: "bottle", x: 0.62 } ],
         say: [
-          { who: 1, en: "For a safe model: baking soda plus vinegar. Together they make gas bubbles that foam up!", hi: "सुरक्षित मॉडल के लिए: बेकिंग सोडा और सिरका। दोनों मिलकर गैस के बुलबुले बनाते हैं जो झाग बनकर उठते हैं!" },
-          { who: 0, en: "Foamy lava! Can I lick it? No? Okay, no licking.", hi: "झागदार लावा! चाट लूँ? नहीं? ठीक है, नहीं चाटूँगा।" }
+          { who: 1, en: "Kitchen lava! Pour vinegar on baking soda, and gas bubbles come foaming up. Watch!", hi: "रसोई वाला लावा बनाओ! बेकिंग सोडा में सिरका डालो, और देखो, गैस के बुलबुले झाग बनकर उफन पड़ेंगे!" },
+          { who: 0, en: "It's bubbling like Dadi's dal! Wait... it smells like pickle. I'll pass.", hi: "ये तो दादी की दाल की तरह उबल रहा है! रुको... इसमें अचार जैसी महक है। रहने दो।" }
         ],
-        fx: { en: "FIZZ!", hi: "फ़िज़्ज़!" },
+        fx: { en: "FIZZ!", hi: "फ़्स्स!" },
         action: true
       },
       {
         bg: "school",
         chars: [ { id: "auggie", pose: "think", mood: "scared", x: 0.3 }, { id: "gadbad", pose: "blast", mood: "laugh", x: 0.72, flip: true } ],
         props: [ { id: "machine", x: 0.52 } ],
-        cap: { en: "Science fair day! Right next to Anaya's table: Professor Gadbad and his Mega Lava Machine!", hi: "साइंस मेले का दिन! अनाया की मेज़ के ठीक बगल में: प्रोफ़ेसर गड़बड़ और उनकी मेगा लावा मशीन!" },
+        cap: { en: "Science fair day! Anaya's little volcano sits next to something ENORMOUS, humming and wobbling.", hi: "साइंस मेले का दिन! अनाया के छोटे ज्वालामुखी के बगल में खड़ी है एक विशाल, भनभनाती, डगमगाती मशीन।" },
         say: [
-          { who: 1, en: "Behold! The biggest volcano in Chamakpur history!", hi: "देखो! चमकपुर के इतिहास का सबसे बड़ा ज्वालामुखी!" },
-          { who: 0, en: "Big machine, Professor Gadbad... what could go wrong?", hi: "बड़ी मशीन, प्रोफ़ेसर गड़बड़... क्या ग़लत हो सकता है?", kind: "think" }
+          { who: 1, en: "Behold, my Mega Lava Machine! Bigger is better! What could possibly go wrong?", hi: "देखिए, मेरी मेगा लावा मशीन! जितनी बड़ी, उतनी बढ़िया! भला क्या गड़बड़ हो सकती है?" },
+          { who: 0, en: "Uh-oh. Famous last words...", hi: "उफ़्फ़... अब तो पक्का गड़बड़ होगी!", kind: "think" }
         ]
       },
       {
         bg: "school",
         chars: [ { id: "gadbad", pose: "stand", mood: "scared", x: 0.2 }, { id: "anaya", pose: "stand", mood: "scared", x: 0.5 }, { id: "auggie", pose: "stand", mood: "surprised", x: 0.8, flip: true } ],
         props: [ { id: "machine", x: 0.35 } ],
-        cap: { en: "The machine keeps pouring vinegar onto baking soda. Foam floods the whole hall!", hi: "मशीन लगातार बेकिंग सोडा पर सिरका डाल रही है। पूरा हॉल झाग से भर गया!" },
+        cap: { en: "Vinegar pours onto baking soda, again and again. Foam everywhere! Gadbad shouts STOP, and it goes FASTER!", hi: "मशीन लगातार बेकिंग सोडा पर सिरका उड़ेल रही है। हर तरफ़ झाग! गड़बड़ ने 'रुको!' कहा, तो और तेज़ हो गई!" },
         say: [
-          { who: 0, en: "It won't stop! Sorry, sorry, sorry!", hi: "ये रुक ही नहीं रही! सॉरी, सॉरी, सॉरी!" },
-          { who: 1, en: "The judges come in five minutes!", hi: "जज पाँच मिनट में आने वाले हैं!" }
+          { who: 0, en: "Stop, machine! STOP! ...Why are you going faster? Sorry, sorry, SORRY, dear machine!", hi: "रुक जा, मशीन! रुक! ...तू और तेज़ क्यों हो गई? माफ़ कर दे, प्यारी मशीन!" },
+          { who: 1, en: "The judges come in five minutes! Our little volcano is swimming in foam!", hi: "जज पाँच मिनट में आने वाले हैं! हमारा छोटा ज्वालामुखी झाग में तैर रहा है!" }
         ],
         fx: { en: "WHOOSH!", hi: "फ़ुर्र!" },
         action: true
       },
       {
         bg: "school",
-        chars: [ { id: "auggie", pose: "run", mood: "determined", x: 0.35 }, { id: "gadbad", pose: "stand", mood: "surprised", x: 0.78, flip: true } ],
+        chars: [ { id: "auggie", pose: "run", mood: "determined", x: 0.35 }, { id: "gadbad", pose: "point", mood: "surprised", x: 0.78, flip: true } ],
         props: [ { id: "machine", x: 0.6 } ],
         say: [
-          { who: 0, en: "Nanu said soda plus vinegar makes bubbles. No vinegar, no new bubbles!", hi: "नानू ने कहा था, सोडा और सिरका मिलें तो बुलबुले। सिरका नहीं, तो नए बुलबुले नहीं!" },
-          { who: 1, en: "The vinegar pipe! Pull the vinegar pipe!", hi: "सिरके की पाइप! सिरके की पाइप खींचो!", kind: "shout" }
+          { who: 0, en: "Think, Auggie! The bubbles need BOTH soda and vinegar. Take one away...", hi: "सोच, ऑगी, सोच! बुलबुलों को सोडा और सिरका दोनों चाहिए। एक हटा दो, तो..." },
+          { who: 1, en: "...and the fizzing stops! The red pipe is vinegar! Pull it, Auggie!", hi: "...तो झाग बंद! लाल पाइप सिरके की है! खींचो, ऑगी!", kind: "shout" }
         ],
-        fx: { en: "YANK!", hi: "खिंच!" },
+        fx: { en: "YANK!", hi: "खींच!" },
         action: true
       },
       {
         bg: "school",
-        chars: [ { id: "gadbad", pose: "cheer", mood: "laugh", x: 0.25 }, { id: "auggie", pose: "sit", mood: "happy", x: 0.7, flip: true } ],
+        chars: [ { id: "gadbad", pose: "cheer", mood: "laugh", x: 0.25 }, { id: "auggie", pose: "sit", mood: "laugh", x: 0.7, flip: true } ],
         props: [ { id: "machine", x: 0.5 } ],
         say: [
-          { who: 0, en: "The foam stopped! Auggie, you are a genius dog!", hi: "झाग रुक गया! ऑगी, तुम तो जीनियस कुत्ते हो!" },
-          { who: 1, en: "When one ingredient runs out, the fizzing stops. Simple science!", hi: "एक चीज़ ख़त्म, तो फ़िज़्ज़ भी ख़त्म। सीधा-सादा विज्ञान!" }
+          { who: 0, en: "It stopped! Auggie, you genius! And I learned something: bigger isn't always better.", hi: "रुक गई! ऑगी, तुम तो जीनियस हो! और मैंने सीखा: बड़ा हमेशा बढ़िया नहीं होता।" },
+          { who: 1, en: "No vinegar, no fizz! Simple science. Now... who's going to mop all this?", hi: "सिरका नहीं, तो झाग नहीं! सीधा-सादा विज्ञान। अब... ये पोछा कौन लगाएगा?" }
         ]
       },
       {
         bg: "school",
-        chars: [ { id: "anaya", pose: "cheer", mood: "laugh", x: 0.2 }, { id: "auggie", pose: "cheer", mood: "laugh", x: 0.5 }, { id: "gadbad", pose: "cheer", mood: "happy", x: 0.8, flip: true } ],
+        chars: [ { id: "anaya", pose: "cheer", mood: "laugh", x: 0.2 }, { id: "auggie", pose: "cheer", mood: "laugh", x: 0.5 }, { id: "gadbad", pose: "cheer", mood: "laugh", x: 0.8, flip: true } ],
         props: [ { id: "trophy", x: 0.35 }, { id: "rock", x: 0.65 } ],
-        cap: { en: "Together, they show a small, careful eruption. The judges give them the Best Teamwork trophy!", hi: "सबने मिलकर एक छोटा, सधा हुआ विस्फोट दिखाया। जजों ने उन्हें बेस्ट टीमवर्क ट्रॉफ़ी दी!" },
+        cap: { en: "Anaya invites Gadbad to share her table. One spoon of soda, one splash of vinegar: a perfect little eruption!", hi: "अनाया ने गड़बड़ को अपनी मेज़ पर बुला लिया। एक चम्मच सोडा, थोड़ा-सा सिरका: एकदम सधा हुआ छोटा विस्फोट!" },
         say: [
-          { who: 0, en: "One spoon of soda, a splash of vinegar... eruption!", hi: "एक चम्मच सोडा, थोड़ा-सा सिरका... विस्फोट!" },
-          { who: 2, en: "Measuring carefully is the real magic. Thank you, friends!", hi: "नाप-तौलकर करना ही असली जादू है। थैंक यू, दोस्तों!" }
+          { who: 0, en: "Best Teamwork trophy! Professor, next year let's build one together. A MEDIUM one.", hi: "बेस्ट टीमवर्क ट्रॉफ़ी! प्रोफ़ेसर, अगले साल मिलकर बनाएँगे। पर मीडियम साइज़ का!" },
+          { who: 2, en: "Deal! Measure carefully, work together... and never trust a machine called 'mega'!", hi: "पक्का! नाप-तौलकर करो, मिलकर करो... और 'मेगा' नाम वाली मशीन पर कभी भरोसा मत करो!" }
         ]
       }
     ]
@@ -1852,9 +1855,9 @@ window.AUGGIE_COMICS.push(
     id: 109,
     age: "6-10",
     category: "space",
-    title: { en: "Astronaut Auggie on the Moon", hi: "अंतरिक्ष यात्री ऑगी चाँद पर" },
-    blurb: { en: "After Nanu's bedtime story, Auggie dreams he is an astronaut dog on the Moon, where Zibbo needs a super-high jump.", hi: "नानू की कहानी सुनकर ऑगी सपने में अंतरिक्ष यात्री बनकर चाँद पर पहुँचता है, जहाँ ज़िब्बो को चाहिए एक सुपर-ऊँची छलाँग!" },
-    moral: { en: "The Moon's gravity is weaker, so you would weigh about one-sixth as much there.", hi: "चाँद का गुरुत्वाकर्षण कमज़ोर है, इसलिए वहाँ तुम्हारा वज़न क़रीब छठा हिस्सा रह जाएगा।" },
+    title: { en: "Astronaut Auggie's Big Moon Jump", hi: "अंतरिक्ष यात्री ऑगी की चाँद वाली छलाँग" },
+    blurb: { en: "On the Moon, Auggie's woof vanishes and Zibbo's frisbee is stuck sky-high. Can a sofa-loving dog jump THAT high?", hi: "चाँद पर ऑगी की भौं ग़ायब, और ज़िब्बो की फ़्रिस्बी बहुत ऊपर अटकी! क्या सोफ़े का शौक़ीन ऑगी इतना ऊँचा कूद पाएगा?" },
+    moral: { en: "The Moon pulls more gently than Earth. Try, and you might jump higher than you think!", hi: "चाँद का खिंचाव धरती से बहुत हल्का है। और कोशिश करो, तो तुम सोच से भी ऊँचा कूद सकते हो!" },
     cover: {
       bg: "moon",
       chars: [ { id: "auggie", pose: "cheer", mood: "laugh", x: 0.35 }, { id: "zibbo", pose: "wave", mood: "happy", x: 0.72, flip: true } ],
@@ -1866,45 +1869,45 @@ window.AUGGIE_COMICS.push(
         bg: "bedroom",
         chars: [ { id: "auggie", pose: "lie", mood: "sleepy", x: 0.3 }, { id: "nanu", pose: "sit", mood: "happy", x: 0.72, flip: true } ],
         props: [ { id: "book", x: 0.52 } ],
-        cap: { en: "Bedtime. Nanu tells Auggie about the Moon. That night, Auggie dreamed...", hi: "सोने का वक़्त। नानू ऑगी को चाँद के बारे में बताते हैं। उस रात ऑगी ने सपना देखा..." },
+        cap: { en: "Bedtime story: Nanu's Moon book, a warm blanket, heavy eyelids. That night, Auggie dreamed...", hi: "रात की कहानी: नानू की किताब, चाँद की बातें, और ऑगी की भारी होती पलकें। उस रात ऑगी ने सपना देखा..." },
         say: [
-          { who: 1, en: "On the Moon, you would weigh six times less, Auggie.", hi: "चाँद पर तुम्हारा वज़न छह गुना कम हो जाएगा, ऑगी।" },
-          { who: 0, en: "Six times less... more room for carrots...", hi: "छह गुना कम... मतलब गाजरों के लिए और जगह...", kind: "whisper" }
+          { who: 1, en: "Fact before sleep: on the Moon, you'd weigh only one-sixth of what you weigh here!", hi: "सोने से पहले एक बात: चाँद पर तुम्हारा वज़न यहाँ के मुक़ाबले बस छठा हिस्सा होगा!" },
+          { who: 0, en: "One-sixth... so I could eat six times more carrots... zzz...", hi: "छठा हिस्सा... मतलब छह गुना ज़्यादा गाजरें... ख़र्र...", kind: "whisper" }
         ]
       },
       {
         bg: "moon",
         chars: [ { id: "auggie", pose: "cheer", mood: "determined", x: 0.4 } ],
         props: [ { id: "rocket", x: 0.82 }, { id: "planet", x: 0.15, y: 0.15 } ],
-        cap: { en: "...he was Astronaut Auggie, landing on the Moon in a shiny spacesuit!", hi: "...कि वो अंतरिक्ष यात्री ऑगी है, चमचमाते स्पेससूट में चाँद पर उतरता हुआ!" },
-        say: [ { who: 0, en: "Astronaut Auggie has landed! Now, where are the Moon carrots?", hi: "अंतरिक्ष यात्री ऑगी उतर गया! अब चाँद की गाजरें कहाँ हैं?" } ],
+        cap: { en: "...he was Astronaut Auggie! Moon dust under his paws, and blue planet Earth hanging in the sky.", hi: "...कि रॉकेट से उतरा अंतरिक्ष यात्री ऑगी! पैरों के नीचे चाँद की धूल, और ऊपर आसमान में नीली धरती।" },
+        say: [ { who: 0, en: "One small step for a dog, one giant sniff for dog-kind! Moon carrots, where are you?", hi: "एक कुत्ते का छोटा-सा क़दम, पूरी कुत्ता-जाति की बड़ी-सी सूँघ! चाँद वाली गाजरें कहाँ हो?" } ],
         fx: { en: "BOING!", hi: "धप्प!" },
         action: true
       },
       {
         bg: "moon",
-        chars: [ { id: "auggie", pose: "stand", mood: "surprised", x: 0.3 }, { id: "zibbo", pose: "wave", mood: "happy", x: 0.72, flip: true } ],
+        chars: [ { id: "auggie", pose: "stand", mood: "happy", x: 0.3 }, { id: "zibbo", pose: "wave", mood: "happy", x: 0.72, flip: true } ],
         say: [
-          { who: 1, en: "Zeep! Welcome, Earth dog! I'm Zibbo. Why is your suit so puffy?", hi: "ज़ीप! स्वागत है, धरती के कुत्ते! मैं ज़िब्बो हूँ। तुम्हारा सूट इतना फूला क्यों है?" },
-          { who: 0, en: "The Moon has no air to breathe. My suit carries air for me!", hi: "चाँद पर साँस लेने को हवा नहीं है। मेरा सूट मेरे लिए हवा रखता है!" }
+          { who: 1, en: "Zeep! Hello, Earth dog! I'm Zibbo. Why are you wearing a giant balloon?", hi: "ज़ीप! हैलो, धरती के कुत्ते! मैं ज़िब्बो। तुमने ये बड़ा-सा गुब्बारा क्यों पहना है?" },
+          { who: 0, en: "It's a spacesuit! No air to breathe up here, so my suit carries my air.", hi: "ये स्पेससूट है! यहाँ साँस लेने को हवा ही नहीं, इसलिए मेरी हवा ये सूट लेकर चलता है।" }
         ]
       },
       {
         bg: "moon",
         chars: [ { id: "auggie", pose: "blast", mood: "surprised", x: 0.3 }, { id: "zibbo", pose: "point", mood: "laugh", x: 0.72, flip: true } ],
-        cap: { en: "Auggie tries a big hello bark... but no sound comes out!", hi: "ऑगी ने ज़ोर से 'हैलो' भौंका... पर कोई आवाज़ ही नहीं आई!" },
+        cap: { en: "Auggie tries a big, friendly WOOF... and nothing comes out. Not even a squeak!", hi: "ऑगी ने ज़ोरदार, प्यारी-सी भौं लगाई... और आवाज़ ही नहीं निकली। चूँ तक नहीं!" },
         say: [
-          { who: 0, en: "WOOF? Where did my woof go?", hi: "भौं? मेरी भौं कहाँ गई?", kind: "think" },
-          { who: 1, en: "Sound needs air to travel. No air, no sound! We talk by radio.", hi: "आवाज़ को चलने के लिए हवा चाहिए। हवा नहीं, तो आवाज़ नहीं! हम रेडियो से बात करते हैं।" }
+          { who: 0, en: "My woof! Somebody stole my WOOF! Is this a Moon robbery?", hi: "मेरी भौं! किसी ने मेरी भौं चुरा ली! ये चाँद पर चोरी है क्या?", kind: "think" },
+          { who: 1, en: "Ha! Sound rides on air. No air up here, so no ride! We chat by radio.", hi: "हा-हा! आवाज़ हवा की सवारी करती है। यहाँ हवा नहीं, तो सवारी नहीं! हम रेडियो पर बात करते हैं।" }
         ]
       },
       {
         bg: "moon",
-        chars: [ { id: "zibbo", pose: "stand", mood: "sad", x: 0.25 }, { id: "auggie", pose: "think", mood: "surprised", x: 0.7, flip: true } ],
+        chars: [ { id: "zibbo", pose: "stand", mood: "sad", x: 0.25 }, { id: "auggie", pose: "think", mood: "scared", x: 0.7, flip: true } ],
         props: [ { id: "frisbee", x: 0.5, y: 0.15 }, { id: "rock", x: 0.5 } ],
         say: [
-          { who: 0, en: "My space frisbee is stuck way up on that crater wall!", hi: "मेरी स्पेस-फ़्रिस्बी उस गड्ढे की ऊँची दीवार पर अटक गई!" },
-          { who: 1, en: "It's taller than our house! Even I can't jump that high...", hi: "ये तो हमारे घर से भी ऊँची है! इतना ऊँचा तो मैं भी नहीं कूद सकता..." }
+          { who: 0, en: "Zeep... my space frisbee is stuck way up on that crater's edge. Nobody ever helps me.", hi: "ज़ीप... मेरी स्पेस-फ़्रिस्बी वहाँ ऊपर अटकी है, उस बड़े गड्ढे के किनारे पर। कोई नहीं उतारता।" },
+          { who: 1, en: "Up THERE? I can't even get onto the sofa without a run-up and a snack!", hi: "उतना ऊपर? मैं तो बिना दौड़ और बिना नाश्ते के सोफ़े पर भी नहीं चढ़ पाता!" }
         ]
       },
       {
@@ -1912,26 +1915,26 @@ window.AUGGIE_COMICS.push(
         chars: [ { id: "auggie", pose: "think", mood: "determined", x: 0.3 }, { id: "zibbo", pose: "point", mood: "happy", x: 0.72, flip: true } ],
         props: [ { id: "planet", x: 0.52, y: 0.15 } ],
         say: [
-          { who: 1, en: "On the Moon you can! Moon gravity pulls only one-sixth as hard as Earth's.", hi: "चाँद पर कूद सकते हो! यहाँ का गुरुत्वाकर्षण धरती के मुक़ाबले बस छठा हिस्सा खींचता है।" },
-          { who: 0, en: "Weigh less, jump higher? Let's try!", hi: "वज़न कम, छलाँग ऊँची? चलो कोशिश करते हैं!" }
+          { who: 1, en: "But this is the Moon! Its pull, called gravity, is just one-sixth of Earth's. You're light!", hi: "पर ये चाँद है! यहाँ का खिंचाव, यानी गुरुत्वाकर्षण, धरती का बस छठा हिस्सा है। तुम यहाँ बहुत हल्के हो!" },
+          { who: 0, en: "Light as a feather? Okay, Zibbo. I've never tried a jump this big... but I'll try!", hi: "पंख जितना हल्का? ठीक है, ज़िब्बो। इतनी बड़ी छलाँग कभी नहीं लगाई... पर कोशिश ज़रूर करूँगा!" }
         ]
       },
       {
         bg: "moon",
         chars: [ { id: "auggie", pose: "cheer", mood: "laugh", x: 0.45 } ],
         props: [ { id: "frisbee", x: 0.5, y: 0.2 }, { id: "star", x: 0.85, y: 0.15 } ],
-        cap: { en: "Auggie jumps six times higher than on Earth, then floats down slowly, like a feather!", hi: "ऑगी धरती से छह गुना ऊँचा कूदा, और फिर पंख की तरह धीरे-धीरे नीचे तैरता आया!" },
-        say: [ { who: 0, en: "Got it! I'm flying... well, floating!", hi: "पकड़ ली! मैं उड़ रहा हूँ... मतलब, तैर रहा हूँ!", kind: "shout" } ],
+        cap: { en: "Auggie crouches, springs... and soars about six times higher than on Earth, then drifts down like a feather!", hi: "ऑगी झुका, उछला... और धरती से क़रीब छह गुना ऊँचा! फिर पंख की तरह धीरे-धीरे नीचे आया।" },
+        say: [ { who: 0, en: "GOT IT! I'm flying! Well... floating! Well... whatever this is, it's AMAZING!", hi: "पकड़ ली! मैं उड़ रहा हूँ! मतलब... तैर रहा हूँ! जो भी है, कमाल है!", kind: "shout" } ],
         fx: { en: "WHEEE!", hi: "ऊऊऊ!" },
         action: true
       },
       {
         bg: "bedroom",
         chars: [ { id: "mumma", pose: "sit", mood: "laugh", x: 0.2 }, { id: "auggie", pose: "lie", mood: "happy", x: 0.5 }, { id: "papa", pose: "sit", mood: "laugh", x: 0.8, flip: true } ],
-        cap: { en: "Next morning...", hi: "अगली सुबह..." },
+        cap: { en: "Next morning, in the big bed...", hi: "अगली सुबह, बड़े बिस्तर पर..." },
         say: [
-          { who: 0, en: "Mittsy, Auggie kicked me all night. He was jumping in his sleep!", hi: "मिट्सी, ऑगी रात भर लातें मारता रहा। नींद में कूद रहा था!" },
-          { who: 1, en: "I was on the Moon! My pawprints stay there, because the Moon has no wind!", hi: "मैं चाँद पर था! मेरे पंजों के निशान वहीं रहेंगे, क्योंकि चाँद पर हवा नहीं चलती!" }
+          { who: 0, en: "Mittsy, who invited a kangaroo into our bed? Auggie was hopping ALL night! Ha-ha-ha!", hi: "मिट्सी, हमारे बिस्तर में कंगारू किसने बुलाया? ऑगी पूरी रात उछलता रहा! हा-हा-हा!" },
+          { who: 1, en: "I was on the Moon, rescuing Zibbo's frisbee! My pawprints will stay for ages. No wind!", hi: "मैं चाँद पर था, ज़िब्बो की फ़्रिस्बी उतार रहा था! मेरे पंजों के निशान वहाँ बरसों रहेंगे। हवा ही नहीं!" }
         ]
       }
     ]
@@ -1940,9 +1943,9 @@ window.AUGGIE_COMICS.push(
     id: 110,
     age: "6-10",
     category: "space",
-    title: { en: "Auggie's Grand Planet Tour", hi: "ऑगी की ग्रहों वाली सैर" },
-    blurb: { en: "Mumma is planning the next holiday, so Auggie dreams of a one-night tour of the planets with Zibbo.", hi: "मम्मा अगली छुट्टियों का प्लान बना रही हैं, तो ऑगी सपने में ज़िब्बो के साथ एक रात में सारे ग्रह घूम आता है!" },
-    moral: { en: "Of all the planets we know, only Earth has life. Let's take care of it!", hi: "जितने ग्रह हम जानते हैं, उनमें सिर्फ़ धरती पर जीवन है। चलो इसका ख़याल रखें!" },
+    title: { en: "Auggie's One-Night Planet Tour", hi: "ऑगी की एक रात की ग्रह-यात्रा" },
+    blurb: { en: "Beach or hills? Auggie has a bigger idea: a planet! Zibbo's UFO is waiting. Which planet wins?", hi: "समुद्र या पहाड़? ऑगी का प्लान तो और बड़ा है: कोई दूसरा ग्रह! ज़िब्बो की उड़न-तश्तरी तैयार है। कौन-सा ग्रह जीतेगा?" },
+    moral: { en: "Every planet is amazing, but Earth is our only home. Let's look after it!", hi: "हर ग्रह कमाल है, पर हमारा घर तो बस धरती है। चलो, इसका ख़याल रखें!" },
     cover: {
       bg: "space",
       chars: [ { id: "auggie", pose: "cheer", mood: "laugh", x: 0.3 }, { id: "zibbo", pose: "wave", mood: "happy", x: 0.72, flip: true } ],
@@ -1952,22 +1955,22 @@ window.AUGGIE_COMICS.push(
     panels: [
       {
         bg: "home",
-        chars: [ { id: "mumma", pose: "sit", mood: "happy", x: 0.3 }, { id: "auggie", pose: "sit", mood: "happy", x: 0.72, flip: true } ],
+        chars: [ { id: "mumma", pose: "sit", mood: "laugh", x: 0.3 }, { id: "auggie", pose: "sit", mood: "happy", x: 0.72, flip: true } ],
         props: [ { id: "map", x: 0.5 } ],
-        cap: { en: "Mumma is planning the next family holiday.", hi: "मम्मा अगली फ़ैमिली छुट्टी का प्लान बना रही हैं।" },
+        cap: { en: "Mumma is planning the next family holiday. She has a map, three pens, and a very long list.", hi: "मम्मा अगली फ़ैमिली छुट्टी का प्लान बना रही हैं। हाथ में नक़्शा, तीन पेन, और एक बहुत लंबी लिस्ट।" },
         say: [
-          { who: 0, en: "Beach or hills, Auggie? Mittsy can't decide!", hi: "समुद्र या पहाड़, ऑगी? मिट्सी से तो फ़ैसला ही नहीं होता!" },
-          { who: 1, en: "Why not... another PLANET?", hi: "क्यों न... कोई दूसरा ग्रह?" }
+          { who: 0, en: "Beach or hills, Auggie? Mittsy has changed his mind eleven times today!", hi: "समुद्र या पहाड़, ऑगी? मिट्सी आज ग्यारह बार अपना मन बदल चुके हैं!" },
+          { who: 1, en: "Why not think BIGGER, Mumma? Like... another planet?", hi: "मम्मा, थोड़ा बड़ा सोचो ना! जैसे... कोई दूसरा ग्रह?" }
         ]
       },
       {
         bg: "space",
         chars: [ { id: "auggie", pose: "cheer", mood: "laugh", x: 0.3 }, { id: "zibbo", pose: "wave", mood: "happy", x: 0.72, flip: true } ],
         props: [ { id: "ufo", x: 0.5, y: 0.3 } ],
-        cap: { en: "That night, Auggie dreamed that Zibbo's UFO landed right next to his bed!", hi: "उस रात ऑगी ने सपना देखा कि ज़िब्बो की उड़न-तश्तरी ठीक उसके बिस्तर के पास उतरी!" },
+        cap: { en: "That night, Auggie dreamed a UFO landed right beside the big bed. Out popped Zibbo!", hi: "उस रात ऑगी ने सपना देखा: बड़े बिस्तर के ठीक बगल में उड़न-तश्तरी उतरी, और उसमें से निकला ज़िब्बो!" },
         say: [
-          { who: 1, en: "Zeep! Planet tour, one night, eight planets! Hop in!", hi: "ज़ीप! ग्रहों की सैर, एक रात, आठ ग्रह! बैठ जाओ!" },
-          { who: 0, en: "Wait, let me pack snacks. Carrots only!", hi: "रुको, नाश्ता तो रख लूँ। सिर्फ़ गाजर!" }
+          { who: 1, en: "Zeep! Grand Planet Tour: eight planets, one night, free space snacks! Hop in!", hi: "ज़ीप! ग्रहों की बड़ी सैर: आठ ग्रह, एक रात, मुफ़्त स्पेस-नाश्ता! चढ़ जाओ!" },
+          { who: 0, en: "Wait! Mumma says never travel without a list. List: carrots, carrots, more carrots. Done!", hi: "रुको! मम्मा कहती हैं, बिना लिस्ट के सफ़र नहीं। लिस्ट: गाजर, गाजर, और गाजर। हो गया!" }
         ],
         fx: { en: "ZOOM!", hi: "ज़ूम!" },
         action: true
@@ -1977,8 +1980,8 @@ window.AUGGIE_COMICS.push(
         chars: [ { id: "auggie", pose: "think", mood: "scared", x: 0.3 }, { id: "zibbo", pose: "point", mood: "happy", x: 0.72, flip: true } ],
         props: [ { id: "sun", x: 0.1, y: 0.15 }, { id: "planet", x: 0.5, y: 0.3 } ],
         say: [
-          { who: 1, en: "Mercury is closest to the Sun. Venus is hottest; its thick clouds trap heat!", hi: "बुध सूरज के सबसे पास है। शुक्र सबसे गरम है, उसके घने बादल गर्मी क़ैद कर लेते हैं!" },
-          { who: 0, en: "Too hot! My tongue would pant forever!", hi: "बहुत गरमी! मेरी जीभ तो हमेशा हाँफ़ती रहेगी!" }
+          { who: 1, en: "Mercury hugs the Sun. But Venus is hottest: its thick air traps heat like a blanket!", hi: "बुध सूरज से सटा है। पर सबसे गरम शुक्र है: उसकी घनी हवा गर्मी कंबल की तरह दबाए रखती है!" },
+          { who: 0, en: "A blanket in THAT heat? Snowy would faint! Next planet, please. Fast!", hi: "इतनी गर्मी में कंबल? स्नोवी तो बेहोश हो जाएगा! अगला ग्रह, प्लीज़। जल्दी!" }
         ]
       },
       {
@@ -1986,8 +1989,8 @@ window.AUGGIE_COMICS.push(
         chars: [ { id: "auggie", pose: "think", mood: "laugh", x: 0.3 }, { id: "zibbo", pose: "point", mood: "happy", x: 0.72, flip: true } ],
         props: [ { id: "planet", x: 0.5, y: 0.3 } ],
         say: [
-          { who: 1, en: "Mars looks red because its dust is rusty, like an old iron gate!", hi: "मंगल लाल दिखता है क्योंकि उसकी धूल में जंग है, पुराने लोहे के गेट जैसी!" },
-          { who: 0, en: "Rusty red mud? Mumma would never let me roll in that!", hi: "जंग वाली लाल मिट्टी? मम्मा मुझे उसमें कभी लोटने नहीं देंगी!" }
+          { who: 1, en: "Mars, the red planet! Its dust is full of rust, the same stuff on old bicycles.", hi: "ये है मंगल, लाल ग्रह! इसकी धूल में जंग भरा है, वही जो पुरानी साइकिल पर लगता है।" },
+          { who: 0, en: "A whole planet of red mud to roll in? Dreamy! ...Mumma would never let me home.", hi: "लोटने के लिए पूरा का पूरा लाल मिट्टी वाला ग्रह? वाह! ...पर मम्मा मुझे घर में घुसने नहीं देंगी।" }
         ]
       },
       {
@@ -1995,19 +1998,19 @@ window.AUGGIE_COMICS.push(
         chars: [ { id: "auggie", pose: "stand", mood: "surprised", x: 0.3 }, { id: "zibbo", pose: "point", mood: "happy", x: 0.72, flip: true } ],
         props: [ { id: "planet", x: 0.5, y: 0.3 } ],
         say: [
-          { who: 1, en: "Jupiter is the biggest planet. Its giant storm is bigger than our whole Earth!", hi: "बृहस्पति सबसे बड़ा ग्रह है। उसका एक तूफ़ान हमारी पूरी धरती से भी बड़ा है!" },
-          { who: 0, en: "A storm bigger than Earth? Garaj would be so jealous!", hi: "धरती से बड़ा तूफ़ान? गरज को तो बड़ी जलन होगी!" }
+          { who: 1, en: "Jupiter, the biggest planet! No ground to stand on, and a storm bigger than Earth!", hi: "बृहस्पति, सबसे बड़ा ग्रह! खड़े होने को ज़मीन नहीं, और एक तूफ़ान जो पूरी धरती से भी बड़ा है!" },
+          { who: 0, en: "No ground? Where would I DIG? Where would I NAP? Nope, nope, next!", hi: "ज़मीन ही नहीं? तो खोदूँगा कहाँ? सोऊँगा कहाँ? ना बाबा ना, अगला!" }
         ],
         fx: { en: "RUMBLE!", hi: "गड़गड़!" },
         action: true
       },
       {
         bg: "space",
-        chars: [ { id: "auggie", pose: "cheer", mood: "happy", x: 0.3 }, { id: "zibbo", pose: "point", mood: "happy", x: 0.72, flip: true } ],
+        chars: [ { id: "auggie", pose: "cheer", mood: "laugh", x: 0.3 }, { id: "zibbo", pose: "point", mood: "happy", x: 0.72, flip: true } ],
         props: [ { id: "planet", x: 0.5, y: 0.3 }, { id: "star", x: 0.9, y: 0.12 } ],
         say: [
-          { who: 1, en: "Saturn's beautiful rings are made of chunks of ice and rock.", hi: "शनि के सुंदर छल्ले बर्फ़ और चट्टान के टुकड़ों से बने हैं।" },
-          { who: 0, en: "A frisbee planet! But that ring is too big to fetch.", hi: "फ़्रिस्बी वाला ग्रह! पर वो छल्ला लाने के लिए बहुत बड़ा है।" }
+          { who: 1, en: "Saturn! Its rings are billions of chunks of ice and rock, whirling round and round.", hi: "शनि! इसके छल्ले बर्फ़ और चट्टान के अरबों टुकड़ों से बने हैं, जो गोल-गोल घूमते रहते हैं।" },
+          { who: 0, en: "The biggest frisbee ever! But if I fetch it, who do I bring it back to?", hi: "अब तक की सबसे बड़ी फ़्रिस्बी! पर इसे पकड़कर लौटाऊँगा किसे?" }
         ]
       },
       {
@@ -2015,18 +2018,18 @@ window.AUGGIE_COMICS.push(
         chars: [ { id: "auggie", pose: "lie", mood: "laugh", x: 0.3 }, { id: "zibbo", pose: "point", mood: "laugh", x: 0.72, flip: true } ],
         props: [ { id: "planet", x: 0.5, y: 0.25 }, { id: "planet", x: 0.9, y: 0.6 } ],
         say: [
-          { who: 1, en: "Uranus spins lying on its side. And Neptune has the fastest winds of all!", hi: "अरुण ग्रह करवट लेकर लेटे-लेटे घूमता है। और वरुण पर सबसे तेज़ हवाएँ चलती हैं!" },
-          { who: 0, en: "A lazy, lying-down planet? That's MY kind of planet!", hi: "आलसी, लेटा हुआ ग्रह? ये तो बिल्कुल मेरे जैसा है!" }
+          { who: 1, en: "Uranus rolls along lying on its side. And Neptune has the wildest winds of any planet!", hi: "यूरेनस तो पड़े-पड़े, एक करवट पर घूमता है! और नेपच्यून पर सबसे तूफ़ानी हवाएँ चलती हैं।" },
+          { who: 0, en: "A planet that spins lying down? Finally, a planet that understands me!", hi: "लेटे-लेटे घूमने वाला ग्रह? आख़िरकार कोई तो मुझे समझता है!" }
         ]
       },
       {
         bg: "bedroom",
         chars: [ { id: "auggie", pose: "cheer", mood: "laugh", x: 0.3 }, { id: "mumma", pose: "sit", mood: "laugh", x: 0.72, flip: true } ],
         props: [ { id: "map", x: 0.52 } ],
-        cap: { en: "Morning! Auggie jumps onto the bed with his answer.", hi: "सुबह! ऑगी अपना जवाब लेकर बिस्तर पर कूद पड़ा।" },
+        cap: { en: "Morning. THUMP! Auggie lands on the big bed, with his answer ready.", hi: "सुबह-सुबह, धम्म! ऑगी बड़े बिस्तर पर, और साथ में उसका जवाब।" },
         say: [
-          { who: 0, en: "Best holiday planet? Earth! Air, water, lakes, carrots... and you!", hi: "छुट्टी के लिए सबसे अच्छा ग्रह? धरती! हवा, पानी, झीलें, गाजर... और आप!" },
-          { who: 1, en: "Earth it is! The only planet we know that has life.", hi: "तो धरती ही सही! अकेला ग्रह जिस पर हम जानते हैं कि जीवन है।" }
+          { who: 0, en: "Best holiday planet? EARTH! Air to sniff, lakes to swim, mud to roll in... and you!", hi: "छुट्टी के लिए सबसे अच्छा ग्रह? धरती! सूँघने को हवा, तैरने को झील, लोटने को मिट्टी... और आप!" },
+          { who: 1, en: "Ha-ha-ha! Earth it is! The only planet we know with life, and with you on it.", hi: "हा-हा-हा! तो धरती ही पक्की! हम जितने ग्रह जानते हैं, उनमें अकेली जहाँ जीवन है... और तुम हो!" }
         ],
         fx: { en: "YAY!", hi: "याहू!" },
         action: true

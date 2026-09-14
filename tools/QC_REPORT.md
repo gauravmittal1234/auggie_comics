@@ -86,3 +86,21 @@ Automated layout check across every page of every comic in both languages:
 67. A Hindi PDF showed the English title in the PDF viewer's title bar. PDF title, summary and keywords now use the language the reader chose.
 68. The reader's page dots were 16px tap targets and the topic chips about 28px, too small for children's fingers (phones recommend 44px). Dots keep their look but get a 40px tap area; chips are taller.
 69. Sharing the site on WhatsApp or social media showed a bare link with no picture or description. Added a share preview: title, description and a 1200×630 image of Super Auggie over Chamakpur (`assets/og-image.png`).
+70. Comic 97 teaches that dogs see blue better than red, but the "blue tennis ball" Anaya brings was drawn red, so the picture contradicted the lesson. New `blueball` prop; the ball stays red while Auggie can't find it and turns blue from the moment Anaya brings the new one.
+71. Two science facts made more accurate during the rewrite: the magnet in comic 101 no longer sticks to a steel bowl (many steel bowls are not magnetic), and comic 110 now says Venus is hottest because its thick air traps heat.
+72. Speech bubbles could cover the small story object a panel is about (the blue ball in comic 97 was hidden under two bubbles). Balls, carrots, cameras, books and other small props are now areas bubbles avoid; big scenery can still be covered.
+73. Word-heavy panels (a caption plus two bubbles) were sometimes given half-width slots, so the words buried the characters (comic 97). The page layout now gives the wordiest panels the full width.
+74. Comic 54's campers lie down and look up at the stars, but those panels used the daytime forest. They now use the night sky.
+75. Comic 108: in a tight panel, Auggie's long thought bubble hid Professor Gadbad completely. The thought is now short in both languages ("Uh-oh. Famous last words..." / "उफ़्फ़... अब तो पक्का गड़बड़ होगी!").
+76. In very tight panels a sound-effect burst could still clip a bubble. The burst can now shrink one size further.
+77. Every page using the new haunted-bungalow background (comics 143, 144 and 146, both languages) had a duplicated drawing attribute. Screens ignore it, but the PDF export draws pages as images and failed, so those three ghost comics could not be downloaded. Fixed the dead tree, and the shared drawing helper now drops any default attribute a drawing sets again, so this whole class of error cannot come back. The QC now rejects any page that is not valid for the PDF export.
+78. Comic 144: in a narrow panel Bhootu's excited reply was placed above Auggie's invitation, so it read backwards. The reply is shorter now ("Me? At a party? Eeee!" / "मैं? पार्टी में? ईईई!") and the two lines read in order.
+79. In a few tightly packed panels a sound-effect burst still landed on a face (Mumma in comic 122, Chiku in comic 78). A burst is decoration, so when no clear spot exists it is now left out rather than covering a face or words.
+
+## Final numbers (all 146 comics, English and Hindi)
+- Story data: `node tools/validate.js js/stories/*.js` → 146 comics, 0 errors, 0 warnings.
+- Content: `node tools/content-check.js js/stories/*.js` → 0 findings (family pet names, spellings, house style, pet safety, mixed scripts, duplicate titles).
+- Drawing: all 1,168 pages (584 per language) are valid for the PDF export.
+- Layout: 1,119 problems at the start of this round → 1 left, a bubble grazing Auggie's head in comic 44 (Hindi), accepted because every other spot covers the caption or Mausi's face. The QC also lists 36 "crowded" notes, where characters were shrunk to fit a small panel; these are information, not defects.
+- Sound effects: 8 of 730 bursts are left out because no spot was free of faces and words.
+- Bugs found and fixed this round: 79 (listed above). Each is a real defect or gap; none are padding.

@@ -418,7 +418,7 @@
       [[0.62, 0.32], [0.9, 0.4], [0.72, 0.5]].forEach(([fx, fy]) => { const bx = w * fx, by = h * fy; s += A.path(`M${n(bx - 16)} ${n(by)} q8 -10 16 0 q8 -10 16 0 q-8 6 -16 2 q-8 4 -16 -2 Z`, '#1B1740', 1.5) + A.circ(bx - 3, by - 1, 1.5, C.yel, 0) + A.circ(bx + 3, by - 1, 1.5, C.yel, 0); });
       s += ground(w, h, gy, '#3A4A3A', '#4E6B4A');
       for (let x = 10; x < w; x += 36) s += A.path(`M${n(x)} ${n(gy + 2)} l4 -12 l4 12 M${n(x + 14)} ${n(gy + 2)} l3 -9 l3 9`, 'none', 2, 'stroke="#6C8F5E"');
-      s += A.path(`M${n(w * 0.84)} ${n(gy + 2)} v-40 l-14 -10 M${n(w * 0.84)} ${n(gy - 22)} l16 -12`, 'none', 5, 'stroke="#2A2352" stroke-linecap="round"');
+      s += A.path(`M${n(w * 0.84)} ${n(gy + 2)} v-40 l-14 -10 M${n(w * 0.84)} ${n(gy - 22)} l16 -12`, 'none', 5, 'stroke="#2A2352"'); // the default style already has round caps
       return s;
     },
     action(w, h, gy, rnd) {

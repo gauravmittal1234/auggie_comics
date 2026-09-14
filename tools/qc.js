@@ -6,6 +6,7 @@
   const ov = (a, b, pad = 0) => a && b && a.x < b.x + b.w + pad && a.x + a.w + pad > b.x && a.y < b.y + b.h + pad && a.y + a.h + pad > b.y;
   const area = (a, b) => Math.max(0, Math.min(a.x + a.w, b.x + b.w) - Math.max(a.x, b.x)) * Math.max(0, Math.min(a.y + a.h, b.y + b.h) - Math.max(a.y, b.y));
   const DEV = /[ऀ-ॿ]/;
+  const DP = new DOMParser();
   const norm = s => String(s || '').toLowerCase().replace(/[^a-zऀ-ॿ0-9]+/g, ' ').trim();
 
   function run(opts = {}) {
@@ -41,6 +42,8 @@
           const meta = [];
           let r;
           try { r = K.render(c, i, lang, meta); } catch (e) { add('render-throws', c.id, `page${i}/${lang}`, e.message); continue; }
+          // every page must be valid SVG: the PDF export draws it as an image, and one bad attribute breaks the download
+          { const pe = DP.parseFromString(r.art, 'image/svg+xml').getElementsByTagName('parsererror')[0]; if (pe) add('broken-drawing', c.id, `page${i}/${lang}`, (pe.textContent.match(/error[^\n]*/) || [''])[0].slice(0, 120)); }
           // text runs off the page
           for (const t of r.texts2 || []) {
             const size = t.maxW ? Math.min(t.size, t.size * (t.maxW / Math.max(1, K.measure(t.text, t.size, t.weight, t.family)))) : t.size;
