@@ -75,3 +75,20 @@ Run `python3 tools/serve.py 8765`, open `http://localhost:8765/tools/sheet.html`
 `AuggiQC.run()`. It renders every page of every comic in both languages and reports characters that overlap, bubbles
 on faces or on each other, reading order, text off the page and more. `AuggiQC.snap(id, page, 'en')` saves a page image.
 `tools/QC_REPORT.md` lists the bugs found and fixed so far.
+
+## Visit counting (GoatCounter)
+
+The site counts visits with [GoatCounter](https://www.goatcounter.com): no cookies, no personal data, no consent banner
+needed. It is off until a site code is set in `js/analytics.js` (`const CODE = 'yourcode';`).
+
+What is counted (totals only, never per child, and search text is never sent):
+- page views: Library, Meet the Heroes, and each comic (`/comic/012`)
+- `finished/012`: a comic read to its last page
+- `stopped/013/page-2-of-4`: where a reader left a comic without finishing
+- `language/hi`, `age/4-6`, `topic/space`, `favourite/135`
+- `read-aloud/en-girl`, `read-aloud/no-hindi-voice`, `read-aloud/not-supported`
+- `pdf/020/en` downloads, `pdf-failed/...`
+
+Not counted: localhost, and browsers with Do Not Track or Global Privacy Control on.
+To test, open the site with `?stats=debug` (e.g. `http://localhost:8765/?stats=debug`): events are printed in the
+browser console and nothing is sent.

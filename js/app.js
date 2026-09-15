@@ -1,6 +1,7 @@
 /* Auggie Comics — site UI: library, filters, reader, heroes, language, favourites, read-aloud, PDF. */
 (function () {
   const K = window.AuggiComic, SP = window.AuggiSpeech;
+  const ST = window.AuggiStats || { page() {}, event() {} }; // anonymous counts only (js/analytics.js)
   const COMICS = (window.AUGGIE_COMICS || []).slice().sort((a, b) => a.id - b.id);
   const byId = new Map(COMICS.map(c => [c.id, c]));
   const app = document.getElementById('app');
@@ -30,7 +31,7 @@
       saved: 'PDF saved.', declined: 'Download cancelled.', pdfError: 'Could not make the PDF.',
       prev: 'Previous page', next: 'Next page', pageOf: (p, t) => `Page ${p} of ${t}`, readNext: 'Read next', keys: 'Tip: use the ← → keys or swipe to turn pages.',
       notFound: 'That comic does not exist yet.', heroesTitle: 'Meet the Heroes', heroesLede: 'Auggie, his family and his friends. Tap a name to read their stories.',
-      footer: 'Every story and drawing here is original. Free to read, free to download — no sign-up needed.', cover: 'Cover', end: 'The End',
+      footer: 'Every story and drawing here is original. Free to read, free to download — no sign-up needed. We count visits anonymously: no cookies, no personal data.', cover: 'Cover', end: 'The End',
       noVoice: 'Your browser cannot read aloud.', noHindi: 'No Hindi voice is installed on this device. iPhone/Mac: Settings → Accessibility → Spoken Content → Voices → Hindi. Android: install Google Text-to-speech and add Hindi.',
       catch: 'Woof-woof, let’s go!', voice: 'Voice', girl: 'Girl', boy: 'Boy',
       topics: 'Browse by topic', topicsSub: (c, t) => `${c} comics in ${t} topics — tap one to start`,
@@ -50,7 +51,7 @@
       saved: 'PDF सेव हो गई।', declined: 'डाउनलोड रद्द हुआ।', pdfError: 'PDF नहीं बन पाई।',
       prev: 'पिछला पेज', next: 'अगला पेज', pageOf: (p, t) => `पेज ${p} / ${t}`, readNext: 'आगे पढ़ो', keys: 'सुझाव: पेज पलटने के लिए ← → बटन दबाओ या स्वाइप करो।',
       notFound: 'यह कॉमिक अभी नहीं है।', heroesTitle: 'हीरो से मिलो', heroesLede: 'ऑगी, उसका परिवार और उसके दोस्त। नाम पर टैप करके उनकी कहानियाँ पढ़ो।',
-      footer: 'यहाँ की हर कहानी और हर चित्र नया और मौलिक है। पढ़ना मुफ़्त, डाउनलोड मुफ़्त — कोई साइन-अप नहीं।', cover: 'कवर', end: 'समाप्त',
+      footer: 'यहाँ की हर कहानी और हर चित्र नया और मौलिक है। पढ़ना मुफ़्त, डाउनलोड मुफ़्त — कोई साइन-अप नहीं। हम सिर्फ़ गिनती करते हैं कि कितने लोग आए: न कुकीज़, न कोई निजी जानकारी।', cover: 'कवर', end: 'समाप्त',
       noVoice: 'आपका ब्राउज़र पढ़कर नहीं सुना सकता।', noHindi: 'इस डिवाइस पर हिंदी आवाज़ नहीं है। iPhone/Mac: Settings → Accessibility → Spoken Content → Voices → Hindi। Android: Google Text-to-speech में हिंदी जोड़ो।',
       catch: 'भौं-भौं, चलो चलें!', voice: 'आवाज़', girl: 'लड़की', boy: 'लड़का',
       topics: 'विषय चुनो', topicsSub: (c, t) => `${t} विषयों में ${c} कॉमिक्स — किसी एक पर टैप करो`,
@@ -259,7 +260,7 @@
 
   /* ---------- READER ---------- */
   let speaking = false;
-  const R = { comic: null, page: 0, total: 0 };
+  const R = { comic: null, page: 0, total: 0, maxPage: 0, finished: false };
 
   function stopSpeech() { SP.stop(); speaking = false; updateSpeakBtn(); }
   function updateSpeakBtn() {
@@ -274,15 +275,22 @@
   function speakPage() {
     const lines = K.script(R.comic, R.page, S.lang).filter(l => l.text);
     speaking = true; updateSpeakBtn();
+    ST.event(`read-aloud/${S.lang}-${S.voice}`, `Read aloud · ${S.lang === 'hi' ? 'Hindi' : 'English'} · ${S.voice}`);
     SP.speak(lines, {
       lang: S.lang, style: S.voice, age: R.comic.age,
       onEnd: why => {
         speaking = false; updateSpeakBtn();
-        if (why === 'unsupported') toast(t('noVoice'));
-        else if (why === 'no-hindi-voice') toast(t('noHindi'), true);
+        if (why === 'unsupported') { toast(t('noVoice')); ST.event('read-aloud/not-supported', 'Read aloud not supported on this device'); }
+        else if (why === 'no-hindi-voice') { toast(t('noHindi'), true); ST.event('read-aloud/no-hindi-voice', 'No Hindi voice on this device'); }
       },
     });
   }
+
+  function leaveComic() {
+    if (R.comic && !R.finished && R.total) ST.event(`stopped/${pad(R.comic.id)}/page-${R.maxPage + 1}-of-${R.total}`, `Stopped reading #${pad(R.comic.id)} on page ${R.maxPage + 1} of ${R.total}`);
+    R.finished = true; // report once per visit
+  }
+  window.addEventListener('pagehide', leaveComic);
 
   function showPage(p, focus) {
     const c = R.comic;
@@ -295,6 +303,8 @@
     app.querySelectorAll('.dot').forEach((d, i) => d.setAttribute('aria-current', String(i === R.page)));
     app.querySelectorAll('[data-go="-1"]').forEach(b => { b.disabled = R.page === 0; });
     app.querySelectorAll('[data-go="1"]').forEach(b => { b.disabled = R.page === R.total - 1; });
+    R.maxPage = Math.max(R.maxPage, R.page);
+    if (R.page === R.total - 1 && !R.finished) { R.finished = true; ST.event(`finished/${pad(c.id)}`, `Finished #${pad(c.id)} ${c.title.en}`); }
     if (R.page === R.total - 1 && !S.read.has(c.id)) { S.read.add(c.id); store.set('read', [...S.read]); }
     const h = `#/comic/${c.id}/${R.page + 1}`;
     if (location.hash !== h) history.replaceState(null, '', h);
@@ -307,8 +317,10 @@
     stopSpeech();
     applyChrome('');
     if (!c) { app.innerHTML = `<section class="reader"><p class="empty">${esc(t('notFound'))}</p><p><a class="btn" href="#/">${ICON.left}${esc(t('back'))}</a></p></section>`; return; }
+    if (!R.comic || R.comic.id !== c.id) { leaveComic(); R.maxPage = 0; R.finished = false; }
     R.comic = c; R.total = K.pageCount(c);
     document.title = `${tr(c.title)} · Auggie Comics`;
+    ST.page(`/comic/${pad(c.id)}`, `#${pad(c.id)} ${c.title.en}`);
     const next = COMICS.filter(x => x.category === c.category && x.id !== c.id).concat(COMICS.filter(x => x.age === c.age && x.category !== c.category && x.id > c.id)).slice(0, 4);
     const dots = Array.from({ length: R.total }, (_, i) => `<button class="dot" type="button" data-page="${i}" aria-label="${i === 0 ? esc(t('cover')) : i === R.total - 1 ? esc(t('end')) : esc(t('pageOf', i, R.total - 2))}"></button>`).join('');
     app.innerHTML = `
@@ -361,8 +373,10 @@
       const slug = c.title.en.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
       const res = await window.AuggiPDF.save(blob, `auggie-comic-${pad(c.id)}-${slug}-${S.lang === 'hi' ? 'hindi' : 'english'}.pdf`);
       toast(res === 'saved' ? t('saved') : t('declined'));
+      if (res === 'saved') ST.event(`pdf/${pad(c.id)}/${S.lang}`, `PDF #${pad(c.id)} (${S.lang === 'hi' ? 'Hindi' : 'English'})`);
     } catch (e) {
       toast(`${t('pdfError')} ${e && e.message ? e.message : ''}`);
+      ST.event(`pdf-failed/${pad(c.id)}/${S.lang}`, 'PDF could not be made');
     } finally {
       btn.disabled = false; label.textContent = t('download');
     }
@@ -392,8 +406,10 @@
       if (R.comic && R.comic.id === id && app.querySelector('.reader .page')) { showPage(pg - 1); return; }
       reader(id, pg); return;
     }
+    leaveComic();
     R.comic = null;
-    if (h.startsWith('heroes')) { heroes(); return; }
+    if (h.startsWith('heroes')) { ST.page('/heroes', 'Meet the Heroes'); heroes(); return; }
+    ST.page('/', 'Library');
     home();
   }
   const scrollShelf = () => { const s = document.getElementById('shelf'); if (s) s.scrollIntoView(); };
@@ -405,14 +421,15 @@
     if (el.dataset.lang) {
       if (S.lang !== el.dataset.lang) {
         S.lang = el.dataset.lang; store.set('lang', S.lang); stopSpeech();
+        ST.event(`language/${S.lang}`, S.lang === 'hi' ? 'Switched to Hindi' : 'Switched to English');
         if (R.comic && app.querySelector('.reader .page')) reader(R.comic.id, R.page + 1); else route();
       }
       return;
     }
-    if (el.dataset.fav) { e.preventDefault(); const id = +el.dataset.fav; if (S.favs.has(id)) S.favs.delete(id); else S.favs.add(id); store.set('favs', [...S.favs]); el.setAttribute('aria-pressed', String(S.favs.has(id))); el.setAttribute('aria-label', S.favs.has(id) ? t('removeFav') : t('addFav')); if (S.favOnly && app.querySelector('.shelf')) renderShelf(); return; }
-    if (el.dataset.jump) { S.age = el.dataset.jump; S.cat = 'all'; renderShelf(); scrollShelf(); return; }
-    if (el.classList.contains('age-btn')) { S.age = el.dataset.age; renderShelf(); return; }
-    if (el.dataset.cat) { S.cat = S.cat === el.dataset.cat && el.dataset.jumpcat ? 'all' : el.dataset.cat; renderShelf(); if (el.dataset.jumpcat) scrollShelf(); return; }
+    if (el.dataset.fav) { e.preventDefault(); const id = +el.dataset.fav; if (S.favs.has(id)) S.favs.delete(id); else { S.favs.add(id); ST.event(`favourite/${pad(id)}`, `Favourite #${pad(id)}`); } store.set('favs', [...S.favs]); el.setAttribute('aria-pressed', String(S.favs.has(id))); el.setAttribute('aria-label', S.favs.has(id) ? t('removeFav') : t('addFav')); if (S.favOnly && app.querySelector('.shelf')) renderShelf(); return; }
+    if (el.dataset.jump) { S.age = el.dataset.jump; S.cat = 'all'; ST.event(`age/${S.age}`, `Age ${S.age}`); renderShelf(); scrollShelf(); return; }
+    if (el.classList.contains('age-btn')) { S.age = el.dataset.age; if (S.age !== 'all') ST.event(`age/${S.age}`, `Age ${S.age}`); renderShelf(); return; }
+    if (el.dataset.cat) { S.cat = S.cat === el.dataset.cat && el.dataset.jumpcat ? 'all' : el.dataset.cat; if (S.cat !== 'all') ST.event(`topic/${S.cat}`, `Topic: ${CATS[S.cat] ? CATS[S.cat][0] : S.cat}`); renderShelf(); if (el.dataset.jumpcat) scrollShelf(); return; }
     if (el.classList.contains('fav-toggle')) { S.favOnly = !S.favOnly; renderShelf(); return; }
     if (el.classList.contains('fbtn')) { S.filtersOpen = !S.filtersOpen; renderShelf(); return; }
     if (el.dataset.clear) {
