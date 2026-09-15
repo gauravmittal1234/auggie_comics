@@ -6,7 +6,7 @@
    Set CODE to your GoatCounter site code (the part before .goatcounter.com). Empty = counting is off.
    Add ?stats=debug to the address to see the events in the browser console instead of sending them. */
 (function () {
-  const CODE = '';
+  const CODE = 'auggiecomics';
 
   const S = (window.AuggiStats = { page() {}, event() {}, log: [] });
   const debug = /[?&]stats=debug\b/.test(location.search);

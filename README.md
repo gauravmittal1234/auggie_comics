@@ -79,7 +79,7 @@ on faces or on each other, reading order, text off the page and more. `AuggiQC.s
 ## Visit counting (GoatCounter)
 
 The site counts visits with [GoatCounter](https://www.goatcounter.com): no cookies, no personal data, no consent banner
-needed. It is off until a site code is set in `js/analytics.js` (`const CODE = 'yourcode';`).
+needed. Site code `auggiecomics` (dashboard: https://auggiecomics.goatcounter.com), set in `js/analytics.js` (`const CODE = 'auggiecomics';`).
 
 What is counted (totals only, never per child, and search text is never sent):
 - page views: Library, Meet the Heroes, and each comic (`/comic/012`)
